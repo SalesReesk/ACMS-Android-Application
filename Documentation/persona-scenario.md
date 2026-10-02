@@ -1,3 +1,48 @@
+#### STUDENT / TEACHER
+
+##### Account
+* Registers/Logs in.
+* Logs out.
+* Views their profile.
+* Updates their profile.
+* Changes their password.
+
+##### Asset Discovery
+* Views the campus map.
+* Searches for an asset.
+* Views asset markers.
+* Selects an asset marker.
+* Views asset details.
+* Views the asset's location.
+* Searches assets by name.
+* Searches assets by type.
+* Filters assets.
+* Views nearby assets.
+* Gets their current location.
+* Calculates distance to an asset.
+
+##### Asset Reporting
+* Reports a damaged asset.
+* Reports a malfunctioning asset.
+* Reports a missing asset.
+* Reports an incorrect asset location.
+* Reports incorrect asset information.
+* Adds a description to a report.
+* Uploads a photo as evidence.
+* Submits the report.
+* Views their submitted reports.
+* Checks the status of a report.
+* Views whether a report was resolved.
+
+##### Information
+* Views asset condition.
+* Views asset status.
+* Views asset location.
+* Views available asset information.
+* Views maintenance status when applicable.
+
+
+
 \----------------------------------------------------------------------------------
 
 
@@ -219,4 +264,5 @@
 
 
 \----------------------------------------------------------------------------------
+
 
