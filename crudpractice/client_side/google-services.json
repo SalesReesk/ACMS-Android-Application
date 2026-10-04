@@ -1,0 +1,98 @@
+{
+  "project_info": {
+    "project_number": "525476026785",
+    "firebase_url": "https://aams-map-default-rtdb.firebaseio.com",
+    "project_id": "aams-map",
+    "storage_bucket": "aams-map.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:525476026785:android:9707d78c0680cbb2e353e0",
+        "android_client_info": {
+          "package_name": "com.example.ai_version"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "525476026785-v0v90kv45nfa3omifh0edf51llat9fm0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDQb4QdKZQU2h10znWCzqH5hPGgZUO6F0s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "525476026785-v0v90kv45nfa3omifh0edf51llat9fm0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:525476026785:android:4d48d976eb4219d0e353e0",
+        "android_client_info": {
+          "package_name": "com.example.crudpractice"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "525476026785-v0v90kv45nfa3omifh0edf51llat9fm0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDQb4QdKZQU2h10znWCzqH5hPGgZUO6F0s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "525476026785-v0v90kv45nfa3omifh0edf51llat9fm0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:525476026785:android:2acd9ac6a8806674e353e0",
+        "android_client_info": {
+          "package_name": "com.example.inventorysys"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "525476026785-v0v90kv45nfa3omifh0edf51llat9fm0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDQb4QdKZQU2h10znWCzqH5hPGgZUO6F0s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "525476026785-v0v90kv45nfa3omifh0edf51llat9fm0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
