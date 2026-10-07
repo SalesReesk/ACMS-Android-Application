@@ -3,6 +3,8 @@ package com.example.araspoint_map.backend.repository
 import com.example.araspoint_map.backend.model.User
 import com.example.araspoint_map.backend.model.enums.UserRole
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
+import com.google.firebase.auth.FirebaseAuthInvalidUserException
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.tasks.await
 
@@ -78,6 +80,10 @@ class AuthRepository {
                 Result.success(user)
             }
 
+        } catch (_: FirebaseAuthInvalidCredentialsException) {
+            Result.failure(Exception("Wrong email or password."))
+        } catch (_: FirebaseAuthInvalidUserException) {
+            Result.failure(Exception("Account not found. Please check your email."))
         } catch (e: Exception) {
             Result.failure(e)
         }

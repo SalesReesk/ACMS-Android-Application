@@ -1,4 +1,4 @@
-package com.example.araspoint_map.frontend
+package com.example.araspoint_map.frontend.activity
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
@@ -17,5 +17,7 @@ class LoginActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
+
     }
 }

@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/purple_tertiary"
-    tools:context=".frontend.LoginActivity">
+    tools:context=".frontend.activity.LoginActivity">
 
     <TextView
         android:id="@+id/textView"
@@ -15,6 +15,7 @@
         android:layout_marginTop="132dp"
         android:text="Welcome back"
         android:textSize="28sp"
+        android:textColor="@color/purple_primary"
         android:fontFamily="@font/poppins_bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.097"
@@ -73,12 +74,14 @@
         </LinearLayout>
 
         <EditText
+            android:id="@+id/emailAd"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:background="@drawable/inputs_color"
             android:drawableStart="@drawable/baseline_email_24"
             android:drawablePadding="2dp"
             android:hint="name@example.com"
+            android:inputType="textEmailAddress"
             android:paddingStart="8dp"
             android:textSize="13sp" />
 
@@ -111,13 +114,14 @@
         </LinearLayout>
 
         <EditText
-            android:id="@+id/editText"
+            android:id="@+id/editPass"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:background="@drawable/inputs_color"
             android:drawableStart="@drawable/outline_assignment_ind_24"
             android:drawablePadding="2dp"
             android:hint="********"
+            android:inputType="textPassword"
             android:paddingStart="8dp"
             android:textSize="13sp" />
 

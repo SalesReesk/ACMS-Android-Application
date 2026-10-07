@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Araspointmap">
         <activity
-            android:name=".MainActivity"
+            android:name=".frontend.activity.MainActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.Araspointmap"
@@ -24,7 +24,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".frontend.LoginActivity"
+            android:name=".frontend.activity.LoginActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
     </application>
