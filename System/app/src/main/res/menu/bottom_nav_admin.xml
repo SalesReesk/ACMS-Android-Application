@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/dashboard"
+        android:title="@string/dashboard"
+        android:icon="@drawable/outline_assignment_ind_24"
+        android:iconTint="@color/black"
+        />
+    <item
+        android:id="@+id/inventory"
+        android:title="@string/inventory"
+        android:icon="@drawable/outline_assignment_ind_24"/>
+    <item
+        android:id="@+id/report"
+        android:title="@string/report"
+        android:icon="@drawable/outline_assignment_ind_24"/>
+    <item
+        android:id="@+id/account"
+        android:title="@string/account"
+        android:icon="@drawable/outline_assignment_ind_24"
+        android:iconTint="@color/neutral"/>
+
+</menu>

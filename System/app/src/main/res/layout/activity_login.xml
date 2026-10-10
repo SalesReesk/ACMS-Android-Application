@@ -58,7 +58,7 @@
                 android:layout_marginTop="8dp"
                 android:paddingStart="8dp"
                 android:paddingBottom="8dp"
-                android:text="Email Address"
+                android:text="@string/email_address"
                 android:textStyle="bold" />
 
             <TextView
@@ -98,7 +98,7 @@
                 android:layout_marginTop="8dp"
                 android:paddingStart="8dp"
                 android:paddingBottom="8dp"
-                android:text="Password"
+                android:text="@string/password"
                 android:textStyle="bold" />
 
             <TextView
