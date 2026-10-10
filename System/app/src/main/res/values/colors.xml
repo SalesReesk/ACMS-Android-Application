@@ -4,8 +4,13 @@
     <color name="purple_secondary">#2E1065</color>
     <color name="purple_tertiary">#A78BFA</color>
     <color name="neutral">#F8F7FC</color>
-    <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="grey">#C7BEBE</color>
+
+    <color name="purple_5th">#49225B</color>
+    <color name="purple_4th">#6E3482</color>
+    <color name="purple_3rd">#A56ABD</color>
+    <color name="purple_2nd">#E7DBEF</color>
+    <color name="purple_1st">#F5EBFA</color>
 </resources>
