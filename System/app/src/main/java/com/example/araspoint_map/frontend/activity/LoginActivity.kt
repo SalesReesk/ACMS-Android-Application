@@ -51,5 +51,10 @@ class LoginActivity : AppCompatActivity() {
         binding.textClickable.setOnClickListener {
             Toast.makeText(this, "Forgot Password", Toast.LENGTH_SHORT).show()
         }
+
+        binding.textRegister.setOnClickListener {
+            val intent = Intent(this, RegisterActivity::class.java)
+            startActivity(intent)
+        }
     }
 }

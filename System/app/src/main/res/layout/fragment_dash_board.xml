@@ -4,28 +4,39 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#F8F9FB"
-    android:padding="24dp">
+    android:layout_marginTop="6dp">
 
-    <TextView
-        android:id="@+id/txtGreeting"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Good morning,"
-        android:textColor="@color/purple_3rd"
-        android:textSize="14sp"
-        android:layout_gravity="top|start"
-        android:layout_marginTop="4dp" />
+        android:orientation="vertical"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:paddingStart="16dp"
+        android:background="@color/purple_2nd">
 
-    <TextView
-        android:id="@+id/txtStudent"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Student!"
-        android:textColor="#172B46"
-        android:textSize="26sp"
-        android:textStyle="bold"
-        android:layout_gravity="top|start"
-        android:layout_marginTop="28dp"/>
+        <TextView
+            android:id="@+id/txtGreeting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|start"
+            android:layout_marginTop="4dp"
+            android:fontFamily="@font/poppins_regular"
+            android:text="Good morning,"
+            android:textColor="@color/purple_3rd"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/txtStudent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|start"
+            android:fontFamily="@font/robotomono_bold"
+            android:text="Admin!"
+            android:textColor="#172B46"
+            android:textSize="26sp"
+            android:textStyle="bold" />
+    </LinearLayout>
 
     <TextView
         android:id="@+id/txtProfile"
@@ -33,6 +44,7 @@
         android:layout_height="50dp"
         android:gravity="center"
         android:text="JD"
+        android:clickable="true"
         android:textColor="@color/purple_4th"
         android:textSize="16sp"
         android:textStyle="bold"
@@ -46,10 +58,14 @@
         android:layout_gravity="top"
         android:layout_marginTop="88dp"
         android:backgroundTint="#F0F1F4"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         android:hint="Search building, room, or asset...."
+        android:fontFamily="@font/inter_18pt_regular"
         android:paddingStart="14dp"
         android:paddingEnd="14dp"
         android:textSize="16sp"
+        android:textColor="@color/black"
         android:singleLine="true"
         android:inputType="text" />
 

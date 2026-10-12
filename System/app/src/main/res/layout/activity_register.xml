@@ -3,10 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#E9DDF4"
     android:fillViewport="true">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -15,10 +16,11 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#E7DBEF"
             android:elevation="8dp"
             android:orientation="vertical"
-            tools:ignore="UselessParent">
+            tools:ignore="UselessParent"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="-16dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -31,8 +33,8 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
                     android:fontFamily="@font/poppins_bold"
+                    android:gravity="center"
                     android:text="@string/LoginTitle"
                     android:textColor="#FFFFFF"
                     android:textSize="28sp"
@@ -42,8 +44,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
-                    android:gravity="center"
                     android:fontFamily="@font/poppins_italic"
+                    android:gravity="center"
                     android:text="@string/map_today_a_better_campus_tomorrow"
                     android:textColor="#F3E5F5"
                     android:textSize="14sp" />
@@ -53,34 +55,33 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:layout_margin="16dp">
+                android:layout_margin="16dp"
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="#000000"
-                    android:text="Welcome!"
-                    android:textStyle="italic"
-                    android:textSize="30sp"
                     android:layout_marginBottom="16dp"
-                    android:fontFamily="@font/poppins_bold"/>
+                    android:fontFamily="@font/poppins_bold"
+                    android:text="Register an Account"
+                    android:textColor="#000000"
+                    android:textSize="30sp"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Name:"
-                    android:textSize="16sp"
+                    android:layout_marginBottom="8dp"
                     android:fontFamily="@font/inter_18pt_bold"
-                    android:layout_marginBottom="8dp"/>
+                    android:text="Name:"
+                    android:textSize="16sp" />
 
                 <EditText
                     android:id="@+id/name"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:background="@drawable/inputs_color"
-                    android:hint="Full Name"
                     android:fontFamily="@font/robotomono_regular"
+                    android:hint="Full Name"
                     android:inputType="textEmailAddress"
                     android:paddingStart="20dp"
                     android:paddingEnd="20dp"
@@ -92,12 +93,11 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Email Address:"
-                    android:textSize="16sp"
                     android:layout_marginTop="16dp"
                     android:layout_marginBottom="8dp"
                     android:fontFamily="@font/inter_18pt_bold"
-                    android:layout_marginBottom="8dp"/>
+                    android:text="Email Address:"
+                    android:textSize="16sp" />
 
                 <EditText
                     android:id="@+id/email"
@@ -117,18 +117,18 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/password"
-                    android:textSize="16sp"
-                    android:fontFamily="@font/inter_18pt_bold"
                     android:layout_marginTop="16dp"
-                    android:layout_marginBottom="8dp"/>
+                    android:layout_marginBottom="8dp"
+                    android:fontFamily="@font/inter_18pt_bold"
+                    android:text="@string/password"
+                    android:textSize="16sp" />
 
                 <EditText
                     android:id="@+id/password"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
-                    android:fontFamily="@font/robotomono_regular"
                     android:background="@drawable/inputs_color"
+                    android:fontFamily="@font/robotomono_regular"
                     android:hint="@string/passhint"
                     android:inputType="textPassword"
                     android:paddingStart="20dp"
@@ -139,12 +139,12 @@
                     android:textSize="16sp" />
 
                 <Button
-                    android:id="@+id/loginButton"
+                    android:id="@+id/joinUs"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:layout_marginTop="32dp"
-                    android:fontFamily="@font/poppins_bold"
                     android:backgroundTint="#8E24AA"
+                    android:fontFamily="@font/poppins_bold"
                     android:text="Join Us"
                     android:textAllCaps="false"
                     android:textColor="#FFFFFF"
@@ -155,6 +155,32 @@
 
         </LinearLayout>
 
-    </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="24dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/inter_18pt_italic"
+                android:text="Already have an account?" />
+
+            <TextView
+                android:id="@+id/textLogin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:fontFamily="@font/inter_18pt_italic"
+                android:padding="5dp"
+                android:text="Login"
+                android:textColor="#2196F7"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </ScrollView>

@@ -47,7 +47,6 @@ class AuthRepository {
                     .set(user)
                     .await()
             } catch (_: Exception) {
-                // Ignore Firestore permission errors during registration
             }
 
             Result.success(user)
@@ -97,7 +96,6 @@ class AuthRepository {
         } catch (_: FirebaseAuthInvalidCredentialsException) {
             Result.failure(Exception("Wrong email or password."))
         } catch (_: FirebaseAuthInvalidUserException) {
-            // Auto-register account if it doesn't exist yet for smooth login
             try {
                 val registerResult = register(
                     name = email.substringBefore("@"),
@@ -128,7 +126,6 @@ class AuthRepository {
                 )
             }
         } catch (e: Exception) {
-            // If any other error occurs (such as Firestore PERMISSION_DENIED), check if Firebase Auth succeeded
             val currentUser = auth.currentUser
             if (currentUser != null) {
                 Result.success(
@@ -172,7 +169,6 @@ class AuthRepository {
 
             document.toObject(User::class.java)
         } catch (_: Exception) {
-            // Return null on any Firestore read error (e.g. PERMISSION_DENIED)
             null
         }
     }
