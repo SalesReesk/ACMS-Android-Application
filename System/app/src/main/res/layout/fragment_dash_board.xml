@@ -3,16 +3,56 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#F8F9FB"
     android:padding="24dp">
 
     <TextView
+        android:id="@+id/txtGreeting"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:fontFamily="@font/inter_18pt_bold"
-        android:text="Campus Map"
-        android:textColor="@color/black"
-        android:textSize="24sp"
-        android:textStyle="bold" />
+        android:text="Good morning,"
+        android:textColor="@color/purple_3rd"
+        android:textSize="14sp"
+        android:layout_gravity="top|start"
+        android:layout_marginTop="4dp" />
+
+    <TextView
+        android:id="@+id/txtStudent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Student!"
+        android:textColor="#172B46"
+        android:textSize="26sp"
+        android:textStyle="bold"
+        android:layout_gravity="top|start"
+        android:layout_marginTop="28dp"/>
+
+    <TextView
+        android:id="@+id/txtProfile"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:text="JD"
+        android:textColor="@color/purple_4th"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:background="@drawable/user_icon"
+        android:layout_gravity="top|end"/>
+
+    <EditText
+        android:id="@+id/searchBar"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_gravity="top"
+        android:layout_marginTop="88dp"
+        android:backgroundTint="#F0F1F4"
+        android:hint="Search building, room, or asset...."
+        android:paddingStart="14dp"
+        android:paddingEnd="14dp"
+        android:textSize="16sp"
+        android:singleLine="true"
+        android:inputType="text" />
+
+
 
 </FrameLayout>

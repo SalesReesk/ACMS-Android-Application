@@ -6,7 +6,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    android:background="@color/purple_2nd"
     tools:context=".frontend.activity.MainDashboardAdminActivity">
 
 
@@ -14,10 +13,6 @@
         android:id="@+id/bottom_admin_nav"
         android:layout_width="match_parent"
         android:layout_height="80dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        android:background="@drawable/botnavadmin"
         app:menu="@menu/bottom_nav_admin"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
