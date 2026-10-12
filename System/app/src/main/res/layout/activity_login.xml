@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#E9DDF4"
@@ -7,7 +8,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="vertical">
 
@@ -16,12 +17,13 @@
             android:layout_height="match_parent"
             android:background="#E7DBEF"
             android:elevation="8dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            tools:ignore="UselessParent">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="230dp"
-                android:background="#7B1FA2"
+                android:background="@drawable/bg_sign"
                 android:gravity="center"
                 android:orientation="vertical"
                 android:padding="24dp">
@@ -30,7 +32,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="Campus Asset\nMapping System"
+                    android:fontFamily="@font/poppins_bold"
+                    android:text="@string/LoginTitle"
                     android:textColor="#FFFFFF"
                     android:textSize="28sp"
                     android:textStyle="bold" />
@@ -40,7 +43,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
                     android:gravity="center"
-                    android:text="Map Today. A Better Campus Tomorrow."
+                    android:fontFamily="@font/poppins_italic"
+                    android:text="@string/map_today_a_better_campus_tomorrow"
                     android:textColor="#F3E5F5"
                     android:textSize="14sp" />
 
@@ -50,15 +54,33 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:paddingTop="24dp"
                 android:layout_margin="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#000000"
+                    android:text="@string/welcome_back"
+                    android:textStyle="italic"
+                    android:textSize="32sp"
+                    android:layout_marginBottom="16dp"
+                    android:fontFamily="@font/poppins_bold"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/email_address"
+                    android:textSize="16sp"
+                    android:fontFamily="@font/inter_18pt_bold"
+                    android:layout_marginBottom="8dp"/>
 
                 <EditText
                     android:id="@+id/email"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
-                    android:background="#F5F5F5"
-                    android:hint="Email address"
+                    android:background="@drawable/inputs_color"
+                    android:hint="@string/emailhint"
+                    android:fontFamily="@font/robotomono_regular"
                     android:inputType="textEmailAddress"
                     android:paddingStart="20dp"
                     android:paddingEnd="20dp"
@@ -67,13 +89,22 @@
                     android:textColorHint="#999999"
                     android:textSize="16sp" />
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/password"
+                    android:textSize="16sp"
+                    android:fontFamily="@font/inter_18pt_bold"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="8dp"/>
+
                 <EditText
                     android:id="@+id/password"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
-                    android:layout_marginTop="20dp"
-                    android:background="#F5F5F5"
-                    android:hint="Password"
+                    android:fontFamily="@font/robotomono_regular"
+                    android:background="@drawable/inputs_color"
+                    android:hint="@string/passhint"
                     android:inputType="textPassword"
                     android:paddingStart="20dp"
                     android:paddingEnd="20dp"
@@ -82,13 +113,38 @@
                     android:textColorHint="#999999"
                     android:textSize="16sp" />
 
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_marginTop="8dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/forgot_password"
+                        android:fontFamily="@font/inter_18pt_italic"/>
+
+                    <TextView
+                        android:id="@+id/textClickable"
+                        android:padding="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/inter_18pt_italic"
+                        android:textStyle="bold"
+                        android:textColor="#2196F3"
+                        android:clickable="true"
+                        android:text="@string/click_here" />
+                </LinearLayout>
+
                 <Button
                     android:id="@+id/loginButton"
                     android:layout_width="match_parent"
                     android:layout_height="64dp"
                     android:layout_marginTop="32dp"
+                    android:fontFamily="@font/poppins_bold"
                     android:backgroundTint="#8E24AA"
-                    android:text="Log In"
+                    android:text="@string/log_in"
                     android:textAllCaps="false"
                     android:textColor="#FFFFFF"
                     android:textSize="18sp"

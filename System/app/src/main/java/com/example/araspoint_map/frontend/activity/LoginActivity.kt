@@ -1,5 +1,6 @@
 package com.example.araspoint_map.frontend.activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -20,29 +21,35 @@ class LoginActivity : AppCompatActivity() {
         authViewModel = AuthViewModel(AuthRepository())
         setContentView(binding.root)
 
-        binding.signinBtn.setOnClickListener {
+        binding.loginButton.setOnClickListener {
 
-            val email = binding.emailAd.text.toString().trim()
-            val password = binding.editPass.text.toString().trim()
+            val email = binding.email.text.toString().trim()
+            val password = binding.password.text.toString().trim()
 
             if (email.isEmpty()) {
-                binding.emailAd.error = "Email is required"
+                binding.email.error = "Email is required"
                 return@setOnClickListener
             }
             if (password.isEmpty()) {
-                binding.editPass.error = "Password is required"
+                binding.password.error = "Password is required"
                 return@setOnClickListener
             }
 
             authViewModel.login(email, password) { success, message ->
                 Toast.makeText(this, message ?: "", Toast.LENGTH_LONG).show()
                 if (success) {
-                    // TODO: Navigate to map/dashboard screen on successful login
+                    val intent = Intent(this, MainDashboardAdminActivity::class.java)
+                    startActivity(intent)
+                    finish()
                 } else {
-                    binding.emailAd.text.clear()
-                    binding.editPass.text.clear()
+                    binding.email.text.clear()
+                    binding.password.text.clear()
                 }
             }
+        }
+
+        binding.textClickable.setOnClickListener {
+            Toast.makeText(this, "Forgot Password", Toast.LENGTH_SHORT).show()
         }
     }
 }
