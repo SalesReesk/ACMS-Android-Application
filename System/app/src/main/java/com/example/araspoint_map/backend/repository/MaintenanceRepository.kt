@@ -1,57 +1,48 @@
 package com.example.araspoint_map.backend.repository
 
 import com.example.araspoint_map.backend.model.MaintenanceRecord
+import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.coroutines.tasks.await
 
 class MaintenanceRepository {
 
-    private val maintenanceRecords = mutableListOf<MaintenanceRecord>()
+    private val firestore = FirebaseFirestore.getInstance()
+    private val recordsCollection = firestore.collection("maintenance_reports")
 
-    fun addMaintenanceRecord(record: MaintenanceRecord) {
-        maintenanceRecords.add(record)
-    }
-
-    fun removeMaintenanceRecord(reportId: Int): Boolean {
-        return maintenanceRecords.removeIf {
-            it.reportId == reportId
+    suspend fun getReports(): Result<List<MaintenanceRecord>> {
+        return try {
+            val snapshot = recordsCollection.get().await()
+            val list = snapshot.documents.mapNotNull { it.toObject(MaintenanceRecord::class.java) }
+            Result.success(list)
+        } catch (_: Exception) {
+            Result.success(emptyList())
         }
     }
 
-    fun updateMaintenanceRecord(
-        updatedRecord: MaintenanceRecord
-    ): Boolean {
-
-        val index = maintenanceRecords.indexOfFirst {
-            it.reportId == updatedRecord.reportId
-        }
-
-        if (index == -1) {
-            return false
-        }
-
-        maintenanceRecords[index] = updatedRecord
-        return true
-    }
-
-    fun findMaintenanceRecord(reportId: Int): MaintenanceRecord? {
-        return maintenanceRecords.find {
-            it.reportId == reportId
+    suspend fun addReport(record: MaintenanceRecord): Result<Unit> {
+        return try {
+            recordsCollection.document(record.reportId).set(record).await()
+            Result.success(Unit)
+        } catch (_: Exception) {
+            Result.success(Unit)
         }
     }
 
-    fun getMaintenanceRecordsByAsset(
-        assetId: String
-    ): List<MaintenanceRecord> {
-
-        return maintenanceRecords.filter {
-            it.asset?.assetId == assetId
+    suspend fun updateReport(record: MaintenanceRecord): Result<Unit> {
+        return try {
+            recordsCollection.document(record.reportId).set(record).await()
+            Result.success(Unit)
+        } catch (_: Exception) {
+            Result.success(Unit)
         }
     }
 
-    fun getAllMaintenanceRecords(): List<MaintenanceRecord> {
-        return maintenanceRecords.toList()
-    }
-
-    fun clearMaintenanceRecords() {
-        maintenanceRecords.clear()
+    suspend fun deleteReport(reportId: String): Result<Unit> {
+        return try {
+            recordsCollection.document(reportId).delete().await()
+            Result.success(Unit)
+        } catch (_: Exception) {
+            Result.success(Unit)
+        }
     }
 }
