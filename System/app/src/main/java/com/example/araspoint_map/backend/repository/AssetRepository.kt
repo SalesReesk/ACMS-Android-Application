@@ -1,43 +1,58 @@
 package com.example.araspoint_map.backend.repository
 
 import com.example.araspoint_map.backend.model.Asset
+import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.coroutines.tasks.await
 
 class AssetRepository {
 
-    private val assets = mutableListOf<Asset>()
+    private val firestore = FirebaseFirestore.getInstance()
+    private val assetsCollection = firestore.collection("assets")
 
-    fun addAsset(asset: Asset) {
-        assets.add(asset)
-    }
-
-    fun removeAsset(assetId: String): Boolean {
-        return assets.removeIf { it.assetId == assetId }
-    }
-
-    fun updateAsset(updatedAsset: Asset): Boolean {
-        val index = assets.indexOfFirst {
-            it.assetId == updatedAsset.assetId
-        }
-
-        if (index == -1) {
-            return false
-        }
-
-        assets[index] = updatedAsset
-        return true
-    }
-
-    fun findAsset(assetId: String): Asset? {
-        return assets.find {
-            it.assetId == assetId
+    suspend fun getAssets(): Result<List<Asset>> {
+        return try {
+            val snapshot = assetsCollection.get().await()
+            val assetsList = snapshot.documents.mapNotNull { it.toObject(Asset::class.java) }
+            Result.success(assetsList)
+        } catch (e: Exception) {
+            Result.failure(e)
         }
     }
 
-    fun getAllAssets(): List<Asset> {
-        return assets.toList()
+    suspend fun findAsset(assetId: String): Result<Asset?> {
+        return try {
+            val document = assetsCollection.document(assetId).get().await()
+            val asset = document.toObject(Asset::class.java)
+            Result.success(asset)
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
     }
 
-    fun clearAssets() {
-        assets.clear()
+    suspend fun addAsset(asset: Asset): Result<Unit> {
+        return try {
+            assetsCollection.document(asset.assetId).set(asset).await()
+            Result.success(Unit)
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+
+    suspend fun updateAsset(asset: Asset): Result<Unit> {
+        return try {
+            assetsCollection.document(asset.assetId).set(asset).await()
+            Result.success(Unit)
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+
+    suspend fun removeAsset(assetId: String): Result<Unit> {
+        return try {
+            assetsCollection.document(assetId).delete().await()
+            Result.success(Unit)
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
     }
 }
