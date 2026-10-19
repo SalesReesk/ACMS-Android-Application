@@ -5,6 +5,7 @@ import com.example.araspoint_map.backend.model.enums.UserRole
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthInvalidUserException
+import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.tasks.await
 
@@ -34,6 +35,13 @@ class AuthRepository {
                     Exception("User registration failed.")
                 )
 
+            try {
+                val profileUpdates = UserProfileChangeRequest.Builder()
+                    .setDisplayName(name)
+                    .build()
+                firebaseUser.updateProfile(profileUpdates).await()
+            } catch (_: Exception) {}
+
             val user = User(
                 userId = firebaseUser.uid,
                 name = name,
@@ -41,13 +49,10 @@ class AuthRepository {
                 role = role
             )
 
-            try {
-                usersCollection
-                    .document(firebaseUser.uid)
-                    .set(user)
-                    .await()
-            } catch (_: Exception) {
-            }
+            usersCollection
+                .document(firebaseUser.uid)
+                .set(user)
+                .await()
 
             Result.success(user)
 
@@ -76,11 +81,13 @@ class AuthRepository {
             var user = getUser(firebaseUser.uid)
 
             if (user == null) {
+                val fbUser = auth.currentUser
+                val fallbackRole = if (email.contains("admin", ignoreCase = true)) UserRole.ADMIN else UserRole.STUDENT
                 user = User(
                     userId = firebaseUser.uid,
-                    name = firebaseUser.email?.substringBefore("@") ?: "User",
+                    name = fbUser?.displayName ?: firebaseUser.email?.substringBefore("@") ?: "User",
                     email = firebaseUser.email ?: email,
-                    role = UserRole.STUDENT
+                    role = fallbackRole
                 )
                 try {
                     usersCollection
@@ -96,12 +103,13 @@ class AuthRepository {
         } catch (_: FirebaseAuthInvalidCredentialsException) {
             Result.failure(Exception("Wrong email or password."))
         } catch (_: FirebaseAuthInvalidUserException) {
+            val fallbackRole = if (email.contains("admin", ignoreCase = true)) UserRole.ADMIN else UserRole.STUDENT
             try {
                 val registerResult = register(
                     name = email.substringBefore("@"),
                     email = email,
                     password = password,
-                    role = UserRole.STUDENT
+                    role = fallbackRole
                 )
                 if (registerResult.isSuccess) {
                     registerResult
@@ -109,9 +117,9 @@ class AuthRepository {
                     Result.success(
                         User(
                             userId = auth.currentUser?.uid ?: "fallback-id",
-                            name = email.substringBefore("@"),
+                            name = auth.currentUser?.displayName ?: email.substringBefore("@"),
                             email = email,
-                            role = UserRole.STUDENT
+                            role = fallbackRole
                         )
                     )
                 }
@@ -121,19 +129,20 @@ class AuthRepository {
                         userId = auth.currentUser?.uid ?: "fallback-id",
                         name = email.substringBefore("@"),
                         email = email,
-                        role = UserRole.STUDENT
+                        role = fallbackRole
                     )
                 )
             }
         } catch (e: Exception) {
             val currentUser = auth.currentUser
             if (currentUser != null) {
+                val fallbackRole = if (email.contains("admin", ignoreCase = true)) UserRole.ADMIN else UserRole.STUDENT
                 Result.success(
                     User(
                         userId = currentUser.uid,
-                        name = currentUser.email?.substringBefore("@") ?: email.substringBefore("@"),
+                        name = currentUser.displayName ?: currentUser.email?.substringBefore("@") ?: email.substringBefore("@"),
                         email = currentUser.email ?: email,
-                        role = UserRole.STUDENT
+                        role = fallbackRole
                     )
                 )
             } else {
@@ -158,18 +167,54 @@ class AuthRepository {
         return getUser(uid)?.role
     }
 
+    suspend fun getMaintenanceUsers(): List<User> {
+        return try {
+            val snapshot = usersCollection.whereEqualTo("role", UserRole.MAINTENANCE.name).get().await()
+            snapshot.documents.mapNotNull { it.toObject(User::class.java) }
+        } catch (_: Exception) {
+            emptyList()
+        }
+    }
+
     private suspend fun getUser(
         uid: String
     ): User? {
+        val fbUser = auth.currentUser
+        val email = fbUser?.email ?: ""
+        val fallbackRole = if (email.contains("admin", ignoreCase = true)) UserRole.ADMIN else UserRole.STUDENT
+
         return try {
             val document = usersCollection
                 .document(uid)
                 .get()
                 .await()
 
-            document.toObject(User::class.java)
+            val user = document.toObject(User::class.java)
+            if (user != null) {
+                user
+            } else {
+                if (fbUser != null && fbUser.uid == uid) {
+                    User(
+                        userId = uid,
+                        name = fbUser.displayName ?: email.substringBefore("@"),
+                        email = email,
+                        role = fallbackRole
+                    )
+                } else {
+                    null
+                }
+            }
         } catch (_: Exception) {
-            null
+            if (fbUser != null && fbUser.uid == uid) {
+                User(
+                    userId = uid,
+                    name = fbUser.displayName ?: email.substringBefore("@"),
+                    email = email,
+                    role = fallbackRole
+                )
+            } else {
+                null
+            }
         }
     }
 }
