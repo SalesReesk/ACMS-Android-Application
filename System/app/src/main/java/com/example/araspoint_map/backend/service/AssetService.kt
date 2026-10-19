@@ -1,43 +1,19 @@
 package com.example.araspoint_map.backend.service
 
 import com.example.araspoint_map.backend.model.Asset
-import com.example.araspoint_map.backend.model.enums.AssetCondition
-import com.example.araspoint_map.backend.model.enums.AssetStatus
 import com.example.araspoint_map.backend.repository.AssetRepository
 
 class AssetService(
-    private val assetRepository: AssetRepository
+    private val assetRepository: AssetRepository = AssetRepository()
 ) {
 
-    fun addAsset(asset: Asset) {
-        assetRepository.addAsset(asset)
-    }
+    suspend fun createAsset(asset: Asset) = assetRepository.addAsset(asset)
 
-    fun removeAsset(assetId: String): Boolean {
-        return assetRepository.removeAsset(assetId)
-    }
+    suspend fun readAllAssets() = assetRepository.getAssets()
 
-    fun updateAsset(asset: Asset): Boolean {
-        return assetRepository.updateAsset(asset)
-    }
+    suspend fun readAssetById(assetId: String) = assetRepository.findAsset(assetId)
 
-    fun findAsset(assetId: String): Asset? {
-        return assetRepository.findAsset(assetId)
-    }
+    suspend fun updateAsset(asset: Asset) = assetRepository.updateAsset(asset)
 
-    fun getAllAssets(): List<Asset> {
-        return assetRepository.getAllAssets()
-    }
-
-    fun getAssetsByStatus(status: AssetStatus): List<Asset> {
-        return assetRepository.getAllAssets().filter {
-            it.status == status
-        }
-    }
-
-    fun getAssetsByCondition(condition: AssetCondition): List<Asset> {
-        return assetRepository.getAllAssets().filter {
-            it.condition == condition
-        }
-    }
+    suspend fun deleteAsset(assetId: String) = assetRepository.removeAsset(assetId)
 }

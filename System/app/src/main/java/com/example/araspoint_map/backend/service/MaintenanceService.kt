@@ -6,48 +6,14 @@ import com.example.araspoint_map.backend.model.enums.ReportStatus
 import com.example.araspoint_map.backend.repository.MaintenanceRepository
 
 class MaintenanceService(
-    private val maintenanceRepository: MaintenanceRepository
+    private val maintenanceRepository: MaintenanceRepository = MaintenanceRepository()
 ) {
 
-    fun addMaintenanceRecord(record: MaintenanceRecord) {
-        maintenanceRepository.addMaintenanceRecord(record)
-    }
+    suspend fun addReport(record: MaintenanceRecord) = maintenanceRepository.addReport(record)
 
-    fun removeMaintenanceRecord(reportId: Int): Boolean {
-        return maintenanceRepository.removeMaintenanceRecord(reportId)
-    }
+    suspend fun updateReport(record: MaintenanceRecord) = maintenanceRepository.updateReport(record)
 
-    fun updateMaintenanceRecord(record: MaintenanceRecord): Boolean {
-        return maintenanceRepository.updateMaintenanceRecord(record)
-    }
+    suspend fun deleteReport(reportId: String) = maintenanceRepository.deleteReport(reportId)
 
-    fun findMaintenanceRecord(reportId: Int): MaintenanceRecord? {
-        return maintenanceRepository.findMaintenanceRecord(reportId)
-    }
-
-    fun getAllMaintenanceRecords(): List<MaintenanceRecord> {
-        return maintenanceRepository.getAllMaintenanceRecords()
-    }
-
-    fun getMaintenanceRecordsByAsset(
-        assetId: String
-    ): List<MaintenanceRecord> {
-        return maintenanceRepository.getMaintenanceRecordsByAsset(assetId)
-    }
-
-    fun getRecordsByStatus(
-        status: ReportStatus
-    ): List<MaintenanceRecord> {
-        return maintenanceRepository.getAllMaintenanceRecords().filter {
-            it.status == status
-        }
-    }
-
-    fun getRecordsByPriority(
-        priority: PriorityStatus
-    ): List<MaintenanceRecord> {
-        return maintenanceRepository.getAllMaintenanceRecords().filter {
-            it.priority == priority
-        }
-    }
+    suspend fun getAllReports() = maintenanceRepository.getReports()
 }
