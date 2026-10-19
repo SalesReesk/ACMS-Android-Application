@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#FFFFFF"
+    android:orientation="vertical"
+    android:padding="24dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:fontFamily="@font/poppins_bold"
+        android:text="Assign Maintenance Staff"
+        android:textColor="#333333"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="6dp"
+        android:fontFamily="@font/inter_18pt_bold"
+        android:text="Select Maintenance Person:"
+        android:textColor="#444444"
+        android:textSize="14sp" />
+
+    <Spinner
+        android:id="@+id/spinnerAssignStaff"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/inputs_color"
+        android:paddingHorizontal="12dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="6dp"
+        android:fontFamily="@font/inter_18pt_bold"
+        android:text="Assign Final Priority Level:"
+        android:textColor="#444444"
+        android:textSize="14sp" />
+
+    <Spinner
+        android:id="@+id/spinnerAssignPriority"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginBottom="24dp"
+        android:background="@drawable/inputs_color"
+        android:paddingHorizontal="12dp" />
+
+    <Button
+        android:id="@+id/btnConfirmAssignment"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:backgroundTint="#8E24AA"
+        android:fontFamily="@font/poppins_bold"
+        android:text="Pass Report to Selected Staff"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp" />
+
+</LinearLayout>
