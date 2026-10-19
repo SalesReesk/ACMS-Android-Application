@@ -117,6 +117,15 @@
                     android:textColorHint="#999999"
                     android:textSize="16sp" />
 
+                <CheckBox
+                    android:id="@+id/checkboxRememberMe"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:fontFamily="@font/inter_18pt_regular"
+                    android:text="Remember Me"
+                    android:textColor="#333333" />
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

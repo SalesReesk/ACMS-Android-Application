@@ -2,11 +2,10 @@ package com.example.araspoint_map.frontend.activity
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.example.araspoint_map.R
 import com.example.araspoint_map.backend.model.enums.UserRole
 import com.example.araspoint_map.backend.repository.AuthRepository
@@ -26,10 +25,16 @@ class RegisterActivity : AppCompatActivity() {
         authViewModel = AuthViewModel(AuthRepository())
         setContentView(binding.root)
 
+        // Setup role spinner
+        val roles = arrayOf("Student", "Teacher")
+        val roleAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, roles)
+        binding.spinnerRole.adapter = roleAdapter
+
         binding.joinUs.setOnClickListener {
             val name = binding.name.text.toString().trim()
             val email = binding.email.text.toString().trim()
             val password = binding.password.text.toString().trim()
+            val roleStr = binding.spinnerRole.selectedItem.toString()
 
             if (name.isEmpty()) {
                 binding.name.error = "Name is required"
@@ -44,7 +49,12 @@ class RegisterActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            authViewModel.register(name, email, password, UserRole.ADMIN) { success, message ->
+            val role = when (roleStr) {
+                "Teacher" -> UserRole.TEACHER
+                else -> UserRole.STUDENT
+            }
+
+            authViewModel.register(name, email, password, role) { success, message ->
                 Toast.makeText(this, message ?: "", Toast.LENGTH_LONG).show()
                 if (success) {
                     val intent = Intent(this, LoginActivity::class.java)
