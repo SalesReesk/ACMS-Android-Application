@@ -3,21 +3,17 @@
     <item
         android:id="@+id/dashboard"
         android:title="@string/dashboard"
-        android:icon="@drawable/outline_assignment_ind_24"
-        android:iconTint="@color/black"
-        />
+        android:icon="@drawable/layout_dashboard" />
+    <item
+        android:id="@+id/map_nav"
+        android:title="Map"
+        android:icon="@drawable/map_pin" />
     <item
         android:id="@+id/inventory"
         android:title="@string/inventory"
-        android:icon="@drawable/outline_assignment_ind_24"/>
+        android:icon="@drawable/shelving_unit" />
     <item
         android:id="@+id/report"
         android:title="@string/report"
-        android:icon="@drawable/outline_assignment_ind_24"/>
-    <item
-        android:id="@+id/account"
-        android:title="@string/account"
-        android:icon="@drawable/outline_assignment_ind_24"
-        android:iconTint="@color/neutral"/>
-
+        android:icon="@drawable/flag" />
 </menu>

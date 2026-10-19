@@ -1,7 +1,6 @@
 package com.example.araspoint_map.frontend.activity
 
 import android.os.Bundle
-import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -25,9 +24,9 @@ class MainDashboardAdminActivity : AppCompatActivity() {
 
             val selectedFragment: Fragment? = when (item.itemId) {
                 R.id.dashboard -> DashBoardFragment()
+                R.id.map_nav -> MapFragment()
                 R.id.inventory -> InventoryFragment()
                 R.id.report -> ReportFragment()
-                R.id.account -> AccontFragment()
                 else -> null
             }
 
@@ -45,5 +44,12 @@ class MainDashboardAdminActivity : AppCompatActivity() {
         if (savedInstanceState == null) {
             bottomNavigation.selectedItemId = R.id.dashboard
         }
+    }
+
+    fun openAccountFragment() {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragmentContainerView, AccontFragment())
+            .addToBackStack(null)
+            .commit()
     }
 }
