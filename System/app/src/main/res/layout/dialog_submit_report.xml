@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#FFFFFF"
+    android:orientation="vertical"
+    android:padding="24dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:fontFamily="@font/poppins_bold"
+        android:text="Submit Maintenance Report"
+        android:textColor="#333333"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/dialogReportTitle"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginBottom="12dp"
+        android:background="@drawable/inputs_color"
+        android:fontFamily="@font/robotomono_regular"
+        android:hint="Issue Title (e.g., Broken Aircon)"
+        android:paddingHorizontal="12dp"
+        android:singleLine="true"
+        android:textSize="14sp" />
+
+    <EditText
+        android:id="@+id/dialogReportLocation"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginBottom="12dp"
+        android:background="@drawable/inputs_color"
+        android:fontFamily="@font/robotomono_regular"
+        android:hint="Location (e.g., HEB 204)"
+        android:paddingHorizontal="12dp"
+        android:singleLine="true"
+        android:textSize="14sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="6dp"
+        android:fontFamily="@font/inter_18pt_bold"
+        android:text="Suggested Priority Level (Optional):"
+        android:textColor="#444444"
+        android:textSize="14sp" />
+
+    <Spinner
+        android:id="@+id/dialogReportPriority"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginBottom="12dp"
+        android:background="@drawable/inputs_color"
+        android:paddingHorizontal="12dp" />
+
+    <EditText
+        android:id="@+id/dialogReportDescription"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/inputs_color"
+        android:fontFamily="@font/robotomono_regular"
+        android:hint="Description of issue..."
+        android:padding="12dp"
+        android:textSize="14sp" />
+
+    <Button
+        android:id="@+id/dialogBtnSubmitReport"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:backgroundTint="#8E24AA"
+        android:fontFamily="@font/poppins_bold"
+        android:text="Submit Report"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp" />
+
+</LinearLayout>

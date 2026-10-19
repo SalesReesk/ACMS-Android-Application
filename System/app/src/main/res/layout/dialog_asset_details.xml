@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#FFFFFF"
+    android:orientation="vertical"
+    android:padding="24dp">
+
+    <TextView
+        android:id="@+id/detailAssetName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_bold"
+        android:text="Asset Name"
+        android:textColor="#333333"
+        android:textSize="22sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/detailAssetId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/robotomono_regular"
+        android:text="ID: AAMS-0001"
+        android:textColor="#777777"
+        android:textSize="14sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginVertical="16dp"
+        android:background="#E0E0E0" />
+
+    <TextView
+        android:id="@+id/detailAssetType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:fontFamily="@font/inter_18pt_regular"
+        android:text="Type: Electronics"
+        android:textColor="#444444"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/detailAssetLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:fontFamily="@font/inter_18pt_regular"
+        android:text="Location: HEB 204"
+        android:textColor="#444444"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/detailAssetStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:fontFamily="@font/inter_18pt_bold"
+        android:text="Status: AVAILABLE"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/detailAssetCondition"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:fontFamily="@font/inter_18pt_bold"
+        android:text="Condition: GOOD"
+        android:textSize="16sp" />
+
+    <Button
+        android:id="@+id/btnReportThisAsset"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:layout_marginBottom="12dp"
+        android:backgroundTint="#C62828"
+        android:fontFamily="@font/poppins_bold"
+        android:text="Report Issue for this Asset"
+        android:textColor="#FFFFFF"
+        android:textSize="15sp"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnEditAsset"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:layout_marginEnd="6dp"
+            android:backgroundTint="#8E24AA"
+            android:fontFamily="@font/poppins_bold"
+            android:text="Edit Asset"
+            android:textColor="#FFFFFF"
+            android:textSize="14sp"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/btnDeleteAsset"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:layout_marginStart="6dp"
+            android:backgroundTint="#D32F2F"
+            android:fontFamily="@font/poppins_bold"
+            android:text="Delete Asset"
+            android:textColor="#FFFFFF"
+            android:textSize="14sp"
+            android:visibility="gone" />
+    </LinearLayout>
+
+</LinearLayout>
