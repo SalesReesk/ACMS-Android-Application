@@ -20,7 +20,9 @@ class AuthRepository {
         name: String,
         email: String,
         password: String,
-        role: UserRole
+        role: UserRole,
+        deparment: String = "",
+        idNumber: String = ""
     ): Result<User> {
 
         return try {
@@ -46,13 +48,19 @@ class AuthRepository {
                 userId = firebaseUser.uid,
                 name = name,
                 email = email,
-                role = role
+                role = role,
+                department = deparment,
+                idNumber = idNumber.ifBlank { email.substringBefore("@") }
             )
 
             usersCollection
                 .document(firebaseUser.uid)
                 .set(user)
                 .await()
+
+            try {
+                firebaseUser.sendEmailVerification().await()
+            } catch ( _: Exception) {}
 
             Result.success(user)
 
@@ -155,6 +163,29 @@ class AuthRepository {
         auth.signOut()
     }
 
+    fun isEmailVerified(): Boolean {
+        return auth.currentUser?.isEmailVerified == true
+    }
+
+    suspend fun sendEmailVerification(): Result<Unit>  {
+        return try {
+            auth.currentUser?.sendEmailVerification()?.await()
+                ?: return Result.failure(Exception("User not logged in."))
+            Result.success(Unit)
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+
+    suspend fun reloadUser(): Boolean {
+        return try {
+            auth.currentUser?.reload()?.await()
+            auth.currentUser?.isEmailVerified == true
+        } catch (_: Exception) {
+            false
+        }
+    }
+
     fun getCurrentUser(): String? {
         return auth.currentUser?.uid
     }
@@ -165,6 +196,23 @@ class AuthRepository {
             ?: return null
 
         return getUser(uid)?.role
+    }
+
+    suspend fun getFullUser(): User? {
+        val uid = auth.currentUser?.uid?: return null
+        return getUser(uid)
+    }
+
+    suspend fun updateUserProfile(department: String, idNumber: String): Result<Unit> {
+        return try {
+            val uid = auth.currentUser?.uid?: return Result.failure(Exception("User not logged in."))
+            usersCollection.document(uid)
+                .update(mapOf("department" to department, "idNumber" to idNumber))
+                .await()
+            Result.success(Unit)
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
     }
 
     suspend fun getMaintenanceUsers(): List<User> {

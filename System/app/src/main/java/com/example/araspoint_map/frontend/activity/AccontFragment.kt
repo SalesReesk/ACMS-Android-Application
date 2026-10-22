@@ -1,13 +1,9 @@
 package com.example.araspoint_map.frontend.activity
 
-import android.content.Context
+import android.app.AlertDialog
 import android.content.Intent
-import android.content.SharedPreferences
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,33 +11,30 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.app.AlertDialog
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import com.bumptech.glide.Glide
+import com.cloudinary.android.MediaManager
+import com.cloudinary.android.callback.ErrorInfo
+import com.cloudinary.android.callback.UploadCallback
 import com.example.araspoint_map.R
 import com.example.araspoint_map.backend.model.enums.UserRole
 import com.example.araspoint_map.backend.repository.AuthRepository
 import com.example.araspoint_map.databinding.FragmentAccontBinding
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.launch
-import java.io.File
-import java.io.FileOutputStream
 
 class AccontFragment : Fragment() {
 
     private var _binding: FragmentAccontBinding? = null
     private val binding get() = _binding!!
-
-    private lateinit var sharedPreferences: SharedPreferences
     private val authRepository = AuthRepository()
 
-    companion object {
-        private const val PREFS_NAME = "ArasPointProfilePrefs"
-        private const val KEY_PHOTO_PATH = "key_photo_path"
-    }
-
-    private val pickImageLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
-        uri?.let { saveImageLocally(it) }
-    }
+    private val pickImageLauncher =
+        registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
+            uri?.let { uploadProfileToCloudinary(it) }
+        }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -54,31 +47,93 @@ class AccontFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        sharedPreferences = requireContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+        try {
+            val config = HashMap<String, String>()
+            config["cloud_name"] = "djyggmhmk"
+            MediaManager.init(requireContext(), config)
+        } catch (_: Exception) {}
 
         val currentUser = FirebaseAuth.getInstance().currentUser
-        val name = currentUser?.displayName ?: currentUser?.email?.substringBefore("@") ?: "User"
-        val email = currentUser?.email ?: "No email"
+        val displayName =
+            currentUser?.displayName?.takeIf { it.isNotBlank() }
+                ?: currentUser?.email?.substringBefore("@")?.replace(".", " ")
+                    ?.split(" ")?.joinToString(" ") { it.replaceFirstChar { c -> c.uppercase() } }
+                ?: "User"
+        val email = currentUser?.email ?: "—"
+        val uid = currentUser?.uid?.takeLast(8)?.uppercase() ?: "—"
 
-        binding.profileName.text = name
+        binding.profileName.text = displayName
         binding.profileEmail.text = email
+        binding.profileUid.text = "UID: $uid"
         binding.profileRole.text = "Loading..."
+        binding.profileAccessLevel.text = "Loading..."
+
+        loadCloudinaryProfileImage()
+        binding.profileImage.setOnClickListener { pickImageLauncher.launch("image/*") }
+        binding.btnEditProfile.setOnClickListener { showEditProfileDialog() }
 
         // Fetch dynamic user role & show admin features
         viewLifecycleOwner.lifecycleScope.launch {
             try {
-                val role = authRepository.getUserRole()
-                val currentEmail = FirebaseAuth.getInstance().currentUser?.email ?: ""
-                val isAdmin = (role == UserRole.ADMIN) || currentEmail.contains("admin", ignoreCase = true)
+                val user = authRepository.getFullUser()
+                if (user != null && _binding != null) {
+                    if (user.photo.isNotEmpty()) {
+                        Glide.with(requireContext())
+                            .load(user.photo)
+                            .placeholder(R.drawable.user_icon)
+                            .into(binding.profileImage)
+                    }
+                    if (user.department.isNotEmpty()) {
+                        binding.profileDepartment.text = user.department
+                    }
+                    if (user.idNumber.isNotEmpty()) {
+                        binding.profileIdNumber.text = user.idNumber
+                    }
+                }
 
-                val roleName = if (isAdmin) "Admin" else (role?.name?.lowercase()?.replaceFirstChar { it.uppercase() } ?: "Student")
-                if (_binding != null) {
-                    binding.profileRole.text = roleName
-                    binding.btnCreateMaintenanceAccount.visibility = if (isAdmin) View.VISIBLE else View.GONE
+                val roleFromAuth = user?.role
+                val emailStr = currentUser?.email ?: ""
+                val isAdmin = (roleFromAuth == UserRole.ADMIN ||
+                        emailStr.contains("admin", ignoreCase = true))
+                val isMaintenance = (roleFromAuth == UserRole.MAINTENANCE ||
+                        emailStr.contains("maint", ignoreCase = true))
+
+                val roleName = when {
+                    isAdmin -> "Admin"
+                    isMaintenance -> "Maintenance"
+                    roleFromAuth == UserRole.TEACHER -> "Teacher"
+                    else -> "Student"
+                }
+
+                val accessLevel = when {
+                    isAdmin -> "Full Access (Admin)"
+                    isMaintenance -> "Maintenance Access"
+                    roleFromAuth == UserRole.TEACHER -> "Faculty Read/Write"
+                    else -> "Read Only"
+                }
+
+                if (_binding == null) return@launch
+
+                binding.profileRole.text = roleName
+                binding.profileAccessLevel.text = accessLevel
+
+                if (isAdmin || isMaintenance) {
+                    binding.labelAdminActions.visibility = View.VISIBLE
+                    if (isAdmin) {
+                        binding.btnCreateMaintenanceAccount.visibility = View.VISIBLE
+                        binding.labelAdminActions.text = "Administration"
+                    } else {
+                        binding.btnCreateMaintenanceAccount.visibility = View.GONE
+                        binding.labelAdminActions.text = "Maintenance"
+                    }
+                } else {
+                    binding.labelAdminActions.visibility = View.GONE
+                    binding.btnCreateMaintenanceAccount.visibility = View.GONE
                 }
             } catch (_: Exception) {
                 if (_binding != null) {
                     binding.profileRole.text = "Student"
+                    binding.profileAccessLevel.text = "Read Only"
                 }
             }
         }
@@ -87,23 +142,112 @@ class AccontFragment : Fragment() {
             showCreateMaintenanceDialog()
         }
 
-        // Load saved local profile image
-        loadSavedProfileImage()
-
-        binding.profileImage.setOnClickListener {
-            pickImageLauncher.launch("image/*")
-        }
-        binding.changePhotoText.setOnClickListener {
-            pickImageLauncher.launch("image/*")
-        }
-
         binding.btnLogout.setOnClickListener {
-            FirebaseAuth.getInstance().signOut()
+            authRepository.logout()
             val intent = Intent(requireContext(), LoginActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)
-            requireActivity().finish()
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        loadCloudinaryProfileImage()
+    }
+
+    private fun loadCloudinaryProfileImage() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            try {
+                val user = authRepository.getFullUser()
+                if (user != null && user.photo.isNotEmpty() && _binding != null) {
+                    Glide.with(requireContext())
+                        .load(user.photo)
+                        .placeholder(R.drawable.user_icon)
+                        .into(binding.profileImage)
+                }
+            } catch (_: Exception) {}
+        }
+    }
+
+    private fun uploadProfileToCloudinary(imageUri: Uri) {
+        Toast.makeText(requireContext(), "Uploading profile photo to Cloudinary...", Toast.LENGTH_SHORT).show()
+        try {
+            MediaManager.get().upload(imageUri)
+                .unsigned("CampusAssets")
+                .callback(object : UploadCallback {
+                    override fun onStart(requestId: String) {}
+                    override fun onProgress(requestId: String, bytes: Long, totalBytes: Long) {}
+                    override fun onSuccess(requestId: String, resultData: Map<*, *>) {
+                        val secureUrl = resultData["secure_url"] as? String ?: ""
+                        val uid = FirebaseAuth.getInstance().currentUser?.uid
+                        if (uid != null && secureUrl.isNotEmpty()) {
+                            FirebaseFirestore.getInstance()
+                                .collection("users")
+                                .document(uid)
+                                .update("photo", secureUrl)
+                        }
+                        activity?.runOnUiThread {
+                            if (_binding != null && secureUrl.isNotEmpty()) {
+                                Glide.with(requireContext())
+                                    .load(secureUrl)
+                                    .placeholder(R.drawable.user_icon)
+                                    .into(binding.profileImage)
+                            }
+                            Toast.makeText(requireContext(), "Profile photo updated successfully!", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                    override fun onError(requestId: String, error: ErrorInfo) {
+                        activity?.runOnUiThread {
+                            Toast.makeText(requireContext(), "Upload failed: ${error.description}", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                    override fun onReschedule(requestId: String, error: ErrorInfo) {}
+                })
+                .dispatch()
+        } catch (e: Exception) {
+            Toast.makeText(requireContext(), "Error initiating upload: ${e.message}", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun showEditProfileDialog() {
+        val dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_edit_profile, null)
+        val dialog = AlertDialog.Builder(requireContext())
+            .setView(dialogView)
+            .create()
+
+        val inputDept = dialogView.findViewById<EditText>(R.id.inputDepartment)
+        val inputId = dialogView.findViewById<EditText>(R.id.inputIdNumber)
+        val btnSubmit = dialogView.findViewById<Button>(R.id.btnSaveProfile)
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            val user = authRepository.getFullUser()
+            if (user != null) {
+                inputDept.setText(user.department)
+                inputId.setText(user.idNumber)
+            }
+        }
+
+        btnSubmit.setOnClickListener {
+            val dept = inputDept.text.toString().trim()
+            val idNum = inputId.text.toString().trim()
+
+            viewLifecycleOwner.lifecycleScope.launch {
+                val result = authRepository.updateUserProfile(dept, idNum)
+                if (result.isSuccess) {
+                    Toast.makeText(requireContext(), "Profile updated successfully", Toast.LENGTH_SHORT).show()
+                    if (_binding != null) {
+                        binding.profileDepartment.text = dept.ifBlank { "—" }
+                        binding.profileIdNumber.text = idNum.ifBlank { "—" }
+                    }
+                    dialog.dismiss()
+                } else {
+                    Toast.makeText(requireContext(), "Failed to update profile", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+
+        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+        dialog.show()
     }
 
     private fun showCreateMaintenanceDialog() {
@@ -140,57 +284,6 @@ class AccontFragment : Fragment() {
 
         dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
         dialog.show()
-    }
-
-    private fun saveImageLocally(uri: Uri) {
-        try {
-            val inputStream = requireContext().contentResolver.openInputStream(uri)
-            val originalBitmap = BitmapFactory.decodeStream(inputStream)
-            inputStream?.close()
-
-            if (originalBitmap != null) {
-                val maxSize = 512
-                val width = originalBitmap.width
-                val height = originalBitmap.height
-                val bitmapToCompress = if (width > maxSize || height > maxSize) {
-                    val ratio = width.toFloat() / height.toFloat()
-                    val newWidth: Int
-                    val newHeight: Int
-                    if (ratio > 1) {
-                        newWidth = maxSize
-                        newHeight = (maxSize / ratio).toInt()
-                    } else {
-                        newHeight = maxSize
-                        newWidth = (maxSize * ratio).toInt()
-                    }
-                    Bitmap.createScaledBitmap(originalBitmap, newWidth, newHeight, true)
-                } else {
-                    originalBitmap
-                }
-
-                val file = File(requireContext().filesDir, "profile_photo.jpg")
-                val outputStream = FileOutputStream(file)
-                bitmapToCompress.compress(Bitmap.CompressFormat.JPEG, 75, outputStream)
-                outputStream.flush()
-                outputStream.close()
-
-                sharedPreferences.edit().putString(KEY_PHOTO_PATH, file.absolutePath).apply()
-                loadSavedProfileImage()
-            }
-        } catch (_: Exception) {}
-    }
-
-    private fun loadSavedProfileImage() {
-        val path = sharedPreferences.getString(KEY_PHOTO_PATH, null)
-        if (path != null) {
-            val file = File(path)
-            if (file.exists() && _binding != null) {
-                val bitmap = BitmapFactory.decodeFile(file.absolutePath)
-                if (bitmap != null) {
-                    binding.profileImage.setImageBitmap(bitmap)
-                }
-            }
-        }
     }
 
     override fun onDestroyView() {

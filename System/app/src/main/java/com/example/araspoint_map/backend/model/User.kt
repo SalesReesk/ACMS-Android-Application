@@ -6,7 +6,11 @@ data class User(
     var userId: String = generateUserId(),
     var name: String = "",
     var email: String = "",
-    var role: UserRole = UserRole.STUDENT
+    var role: UserRole = UserRole.STUDENT,
+    var department: String = "",
+    var idNumber: String = "",
+    var campus: String = "BatStateU ARASOF-Nasugbu",
+    var photo: String = ""
 ) {
 
     companion object {

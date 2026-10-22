@@ -58,6 +58,8 @@ dependencies {
     implementation(libs.firebase.firestore)
     implementation(libs.kotlinx.coroutines.play.services)
     implementation(libs.material)
+    implementation("com.cloudinary:cloudinary-android:2.5.0")
+    implementation("com.github.bumptech.glide:glide:4.16.0")
     testImplementation(libs.junit)
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)

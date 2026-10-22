@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#FFFFFF"
+    android:orientation="vertical"
+    android:padding="24dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:fontFamily="@font/poppins_bold"
+        android:text="Edit Profile Details"
+        android:textColor="#333333"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="6dp"
+        android:fontFamily="@font/inter_18pt_bold"
+        android:text="Department / College:"
+        android:textColor="#444444"
+        android:textSize="14sp" />
+
+    <EditText
+        android:id="@+id/inputDepartment"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/inputs_color"
+        android:fontFamily="@font/robotomono_regular"
+        android:hint="e.g. CICS / College of Engineering"
+        android:paddingHorizontal="12dp"
+        android:singleLine="true"
+        android:textSize="14sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="6dp"
+        android:fontFamily="@font/inter_18pt_bold"
+        android:text="Student / Employee ID:"
+        android:textColor="#444444"
+        android:textSize="14sp" />
+
+    <EditText
+        android:id="@+id/inputIdNumber"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginBottom="24dp"
+        android:background="@drawable/inputs_color"
+        android:fontFamily="@font/robotomono_regular"
+        android:hint="e.g. 21-12345"
+        android:paddingHorizontal="12dp"
+        android:singleLine="true"
+        android:textSize="14sp" />
+
+    <Button
+        android:id="@+id/btnSaveProfile"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:backgroundTint="#7C3AED"
+        android:fontFamily="@font/poppins_bold"
+        android:text="Save Profile"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp" />
+
+</LinearLayout>
