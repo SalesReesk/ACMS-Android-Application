@@ -13,7 +13,7 @@ data class MaintenanceRecord(
     var dateReported: String = "",
     var dateUpdated: String = "",
     var status: ReportStatus = ReportStatus.PENDING,
-    var priority: PriorityStatus = PriorityStatus.MEDIUM,
+    var priority: PriorityStatus = PriorityStatus.LOW,
     var reporterEmail: String = "",
     var assignedTo: String = ""
 )
