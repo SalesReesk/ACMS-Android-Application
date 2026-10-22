@@ -6,7 +6,6 @@
     <string name="inventory">Inventory</string>
     <string name="dashboard">Dashboard</string>
     <string name="account">Account</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="log_in">Log In</string>
     <string name="click_here">Click Here</string>

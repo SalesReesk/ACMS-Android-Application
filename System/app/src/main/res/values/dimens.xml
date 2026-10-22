@@ -1,5 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Default screen margins, per the Android Design guidelines. -->
-    <dimen name="fragment_horizontal_margin">16dp</dimen>
-    <dimen name="fragment_vertical_margin">16dp</dimen>
+    <dimen name="screen_padding_horizontal">16dp</dimen>
+    <dimen name="screen_padding_top">20dp</dimen>
+    <dimen name="screen_padding_bottom">20dp</dimen>
+
+    <dimen name="card_padding">14dp</dimen>
+    <dimen name="section_gap">14dp</dimen>
+    <dimen name="item_gap">10dp</dimen>
+
+    <dimen name="input_height">48dp</dimen>
+    <dimen name="input_padding_horizontal">12dp</dimen>
+    <dimen name="input_icon_size">18dp</dimen>
+    <dimen name="input_icon_toggle_size">20dp</dimen>
+
+    <dimen name="btn_height">48dp</dimen>
+    <dimen name="btn_corner_radius">12dp</dimen>
+
+    <dimen name="logo_size">56dp</dimen>
+    <dimen name="logo_icon_size">30dp</dimen>
+    <dimen name="logo_corner_radius">16dp</dimen>
+
+    <dimen name="avatar_size">44dp</dimen>
+    <dimen name="avatar_edit_size">28dp</dimen>
+    <dimen name="profile_avatar_large">88dp</dimen>
+    <dimen name="profile_avatar_edit_badge">28dp</dimen>
+
+    <dimen name="text_display">20sp</dimen>
+    <dimen name="text_title_large">18sp</dimen>
+    <dimen name="text_title">16sp</dimen>
+    <dimen name="text_body">13sp</dimen>
+    <dimen name="text_label">12sp</dimen>
+    <dimen name="text_caption">11sp</dimen>
+
+    <dimen name="kpi_card_height">72dp</dimen>
+    <dimen name="kpi_number_text">18sp</dimen>
+    <dimen name="kpi_label_text">10sp</dimen>
+
+    <dimen name="quick_action_height">52dp</dimen>
+    <dimen name="quick_action_icon_size">22dp</dimen>
+
+    <dimen name="map_search_height">44dp</dimen>
+
+    <dimen name="item_card_padding">12dp</dimen>
+    <dimen name="item_card_corner">12dp</dimen>
+
+    <dimen name="pill_padding_h">8dp</dimen>
+    <dimen name="pill_padding_v">3dp</dimen>
+
+    <dimen name="bottom_nav_height">60dp</dimen>
 </resources>

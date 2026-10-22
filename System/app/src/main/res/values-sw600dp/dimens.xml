@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- sw600dp: Tablets (600dp+) -->
+    <dimen name="screen_padding_horizontal">32dp</dimen>
+    <dimen name="screen_padding_top">36dp</dimen>
+    <dimen name="screen_padding_bottom">36dp</dimen>
+    <dimen name="card_padding">24dp</dimen>
+    <dimen name="section_gap">24dp</dimen>
+    <dimen name="item_gap">16dp</dimen>
+    <dimen name="input_height">60dp</dimen>
+    <dimen name="input_padding_horizontal">18dp</dimen>
+    <dimen name="input_icon_size">24dp</dimen>
+    <dimen name="input_icon_toggle_size">26dp</dimen>
+    <dimen name="btn_height">60dp</dimen>
+    <dimen name="btn_corner_radius">18dp</dimen>
+    <dimen name="logo_size">80dp</dimen>
+    <dimen name="logo_icon_size">42dp</dimen>
+    <dimen name="logo_corner_radius">22dp</dimen>
+    <dimen name="avatar_size">56dp</dimen>
+    <dimen name="avatar_edit_size">36dp</dimen>
+    <dimen name="profile_avatar_large">120dp</dimen>
+    <dimen name="profile_avatar_edit_badge">38dp</dimen>
+    <dimen name="text_display">28sp</dimen>
+    <dimen name="text_title_large">24sp</dimen>
+    <dimen name="text_title">20sp</dimen>
+    <dimen name="text_body">16sp</dimen>
+    <dimen name="text_label">15sp</dimen>
+    <dimen name="text_caption">13sp</dimen>
+    <dimen name="kpi_card_height">96dp</dimen>
+    <dimen name="kpi_number_text">24sp</dimen>
+    <dimen name="kpi_label_text">13sp</dimen>
+    <dimen name="quick_action_height">72dp</dimen>
+    <dimen name="quick_action_icon_size">30dp</dimen>
+    <dimen name="map_search_height">56dp</dimen>
+    <dimen name="item_card_padding">20dp</dimen>
+    <dimen name="item_card_corner">18dp</dimen>
+    <dimen name="pill_padding_h">14dp</dimen>
+    <dimen name="pill_padding_v">6dp</dimen>
+    <dimen name="bottom_nav_height">72dp</dimen>
+</resources>
