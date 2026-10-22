@@ -13,4 +13,23 @@
     <color name="purple_3rd">#A56ABD</color>
     <color name="purple_2nd">#E7DBEF</color>
     <color name="purple_1st">#F5EBFA</color>
+
+    <!-- Material 3 Palette for Account Profile -->
+    <color name="primary">#7C3AED</color>
+    <color name="primary_fixed">#E9D5FF</color>
+    <color name="surface">#F8F7FC</color>
+    <color name="surface_container_lowest">#FFFFFF</color>
+    <color name="surface_container_low">#F3F4F6</color>
+    <color name="surface_container_high">#E5E7EB</color>
+    <color name="surface_container_highest">#D1D5DB</color>
+    <color name="on_surface">#1F2937</color>
+    <color name="on_surface_variant">#6B7280</color>
+    <color name="outline">#9CA3AF</color>
+    <color name="outline_variant">#E5E7EB</color>
+    <color name="error">#DC2626</color>
+
+    <!-- Status Pill Colors -->
+    <color name="status_available_bg">#DCFCE7</color>
+    <color name="status_damaged_bg">#FEE2E2</color>
+    <color name="status_maintenance_bg">#F3E8FF</color>
 </resources>

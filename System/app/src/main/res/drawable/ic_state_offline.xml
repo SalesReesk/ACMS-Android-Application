@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="80dp"
+    android:height="80dp"
+    android:viewportWidth="80"
+    android:viewportHeight="80">
+    <!-- Outer wifi circle -->
+    <path
+        android:fillColor="#EADDFF"
+        android:pathData="M40,40 m-36,0 a36,36 0 1 0 72,0 a36,36 0 1 0 -72,0" />
+    <!-- Wifi icon arcs (faded) -->
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="#B088FE"
+        android:strokeWidth="3.5"
+        android:strokeLineCap="round"
+        android:pathData="M16,36 Q40,14 64,36" />
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="#B088FE"
+        android:strokeWidth="3.5"
+        android:strokeLineCap="round"
+        android:pathData="M22,42 Q40,24 58,42" />
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="#7C3AED"
+        android:strokeWidth="3.5"
+        android:strokeLineCap="round"
+        android:pathData="M28,48 Q40,36 52,48" />
+    <!-- Center dot -->
+    <path
+        android:fillColor="#7C3AED"
+        android:pathData="M37,54 a3,3 0 1 0 6,0 a3,3 0 1 0 -6,0" />
+    <!-- Offline slash -->
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="#DC2626"
+        android:strokeWidth="3.5"
+        android:strokeLineCap="round"
+        android:pathData="M20,20 L60,60" />
+</vector>

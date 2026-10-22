@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="96dp"
+    android:height="96dp"
+    android:viewportWidth="96"
+    android:viewportHeight="96">
+    <!-- Outer hexagon glow fill -->
+    <path
+        android:fillColor="#33FFFFFF"
+        android:pathData="M48,4 L84,24 L84,72 L48,92 L12,72 L12,24 Z" />
+    <!-- Main hexagon body -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:fillAlpha="0.18"
+        android:pathData="M48,12 L80,30 L80,66 L48,84 L16,66 L16,30 Z" />
+    <!-- Hexagon stroke ring -->
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="2.5"
+        android:pathData="M48,18 L76,34 L76,62 L48,78 L20,62 L20,34 Z" />
+    <!-- Shield shape -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M48,26 L64,35 L64,50 Q64,64 48,70 Q32,64 32,50 L32,35 Z" />
+    <!-- Shield inner tint -->
+    <path
+        android:fillColor="#7C3AED"
+        android:pathData="M48,32 L60,40 L60,50 Q60,60 48,65 Q36,60 36,50 L36,40 Z" />
+    <!-- Plus/cross icon -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M45,42 L51,42 L51,47 L56,47 L56,53 L51,53 L51,58 L45,58 L45,53 L40,53 L40,47 L45,47 Z" />
+</vector>
