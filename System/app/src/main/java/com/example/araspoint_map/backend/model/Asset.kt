@@ -4,7 +4,7 @@ import com.example.araspoint_map.backend.model.enums.AssetCondition
 import com.example.araspoint_map.backend.model.enums.AssetStatus
 
 data class Asset(
-    var assetId: String = generateAssetId(),
+    val assetId: String = generateAssetId(),
     var assetName: String = "",
     var assetType: String = "",
 

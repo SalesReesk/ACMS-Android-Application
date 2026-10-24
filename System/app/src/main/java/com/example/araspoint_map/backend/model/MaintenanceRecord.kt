@@ -5,7 +5,7 @@ import com.example.araspoint_map.backend.model.enums.ReportStatus
 import java.util.UUID
 
 data class MaintenanceRecord(
-    var reportId: String = UUID.randomUUID().toString(),
+    val reportId: String = UUID.randomUUID().toString(),
     var assetId: String = "",
     var title: String = "",
     var description: String = "",
@@ -15,5 +15,6 @@ data class MaintenanceRecord(
     var status: ReportStatus = ReportStatus.PENDING,
     var priority: PriorityStatus = PriorityStatus.LOW,
     var reporterEmail: String = "",
-    var assignedTo: String = ""
+    var assignedTo: String = "",
+    var photo: String = ""
 )

@@ -3,13 +3,13 @@ package com.example.araspoint_map.backend.model
 import com.example.araspoint_map.backend.model.enums.UserRole
 
 data class User(
-    var userId: String = generateUserId(),
+    val userId: String = generateUserId(),
     var name: String = "",
     var email: String = "",
     var role: UserRole = UserRole.STUDENT,
     var department: String = "",
     var idNumber: String = "",
-    var campus: String = "BatStateU ARASOF-Nasugbu",
+    val campus: String = "BatStateU ARASOF-Nasugbu",
     var photo: String = ""
 ) {
 
