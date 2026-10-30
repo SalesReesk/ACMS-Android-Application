@@ -1,7 +1,6 @@
 package com.example.araspoint_map.frontend.activity
 
 import android.app.AlertDialog
-import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -72,7 +71,6 @@ class AccontFragment : Fragment() {
         binding.profileImage.setOnClickListener { pickImageLauncher.launch("image/*") }
         binding.btnEditProfile.setOnClickListener { showEditProfileDialog() }
 
-        // Fetch dynamic user role & show admin features
         viewLifecycleOwner.lifecycleScope.launch {
             try {
                 val user = authRepository.getFullUser()
@@ -117,15 +115,10 @@ class AccontFragment : Fragment() {
                 binding.profileRole.text = roleName
                 binding.profileAccessLevel.text = accessLevel
 
-                if (isAdmin || isMaintenance) {
+                if (isAdmin) {
                     binding.labelAdminActions.visibility = View.VISIBLE
-                    if (isAdmin) {
-                        binding.btnCreateMaintenanceAccount.visibility = View.VISIBLE
-                        binding.labelAdminActions.text = "Administration"
-                    } else {
-                        binding.btnCreateMaintenanceAccount.visibility = View.GONE
-                        binding.labelAdminActions.text = "Maintenance"
-                    }
+                    binding.labelAdminActions.text = "Administration"
+                    binding.btnCreateMaintenanceAccount.visibility = View.VISIBLE
                 } else {
                     binding.labelAdminActions.visibility = View.GONE
                     binding.btnCreateMaintenanceAccount.visibility = View.GONE
@@ -140,13 +133,6 @@ class AccontFragment : Fragment() {
 
         binding.btnCreateMaintenanceAccount.setOnClickListener {
             showCreateMaintenanceDialog()
-        }
-
-        binding.btnLogout.setOnClickListener {
-            authRepository.logout()
-            val intent = Intent(requireContext(), LoginActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-            startActivity(intent)
         }
     }
 
@@ -274,7 +260,7 @@ class AccontFragment : Fragment() {
             viewLifecycleOwner.lifecycleScope.launch {
                 val result = authRepository.register(name, email, password, UserRole.MAINTENANCE)
                 if (result.isSuccess) {
-                    Toast.makeText(requireContext(), "Maintenance Account created successfully", Toast.LENGTH_LONG).show()
+                    Toast.makeText(requireContext(), "Maintenance Account created successfully for $name", Toast.LENGTH_LONG).show()
                     dialog.dismiss()
                 } else {
                     Toast.makeText(requireContext(), "Failed: ${result.exceptionOrNull()?.message}", Toast.LENGTH_LONG).show()

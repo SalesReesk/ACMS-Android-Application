@@ -365,7 +365,7 @@
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
-        <!-- ── Admin Actions Section ── -->
+        <!-- ── Administration Section (Visible to Admins Only) ── -->
         <TextView
             android:id="@+id/labelAdminActions"
             android:layout_width="wrap_content"
@@ -381,77 +381,24 @@
             android:letterSpacing="0.08"
             android:visibility="gone" />
 
+        <!-- Admin Button: Create Maintenance Account -->
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnCreateMaintenanceAccount"
+            style="@style/Widget.Material3.Button.OutlinedButton"
             android:layout_width="match_parent"
             android:layout_height="52dp"
             android:layout_marginHorizontal="16dp"
             android:layout_marginBottom="10dp"
+            android:fontFamily="sans-serif-medium"
             android:text="Create Maintenance Account"
-            android:textSize="14sp"
             android:textAllCaps="false"
-            android:fontFamily="sans-serif-medium"
-            style="@style/Widget.Material3.Button.OutlinedButton"
-            app:strokeColor="@color/outline_variant"
-            app:icon="@drawable/ic_person_m3"
-            app:iconTint="@color/on_surface_variant"
-            app:iconSize="18dp"
             android:textColor="@color/on_surface"
-            android:visibility="gone" />
-
-        <!-- ── Sign Out Section ── -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="28dp"
-            android:layout_marginBottom="10dp"
-            android:text="Session"
-            android:textSize="13sp"
-            android:textStyle="bold"
-            android:textColor="@color/on_surface_variant"
-            android:fontFamily="sans-serif-medium"
-            android:letterSpacing="0.08" />
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="1dp"
-            app:cardBackgroundColor="@color/surface_container_lowest">
-
-            <LinearLayout
-                android:id="@+id/btnLogout"
-                android:layout_width="match_parent"
-                android:layout_height="56dp"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:paddingHorizontal="16dp"
-                android:clickable="true"
-                android:focusable="true"
-                android:background="?attr/selectableItemBackground">
-                <ImageView
-                    android:layout_width="18dp"
-                    android:layout_height="18dp"
-                    android:src="@drawable/ic_arrow_forward"
-                    app:tint="@color/error"
-                    android:rotation="180" />
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="14dp"
-                    android:text="Sign Out"
-                    android:textSize="14sp"
-                    android:textColor="@color/error"
-                    android:fontFamily="sans-serif-medium" />
-                <ImageView
-                    android:layout_width="16dp"
-                    android:layout_height="16dp"
-                    android:src="@drawable/ic_arrow_forward"
-                    app:tint="@color/error" />
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
+            android:textSize="14sp"
+            android:visibility="gone"
+            app:icon="@drawable/ic_person_m3"
+            app:iconSize="18dp"
+            app:iconTint="@color/on_surface_variant"
+            app:strokeColor="@color/outline_variant" />
 
         <!-- Version footer -->
         <TextView
