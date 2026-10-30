@@ -21,7 +21,7 @@ class AuthRepository {
         email: String,
         password: String,
         role: UserRole,
-        deparment: String = "",
+        department: String = "",
         idNumber: String = ""
     ): Result<User> {
 
@@ -49,7 +49,7 @@ class AuthRepository {
                 name = name,
                 email = email,
                 role = role,
-                department = deparment,
+                department = department,
                 idNumber = idNumber.ifBlank { email.substringBefore("@") }
             )
 
@@ -223,6 +223,8 @@ class AuthRepository {
             emptyList()
         }
     }
+
+
 
     private suspend fun getUser(
         uid: String
