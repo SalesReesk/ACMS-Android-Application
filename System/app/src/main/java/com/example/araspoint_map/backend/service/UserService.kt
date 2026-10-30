@@ -4,30 +4,18 @@ import com.example.araspoint_map.backend.model.User
 import com.example.araspoint_map.backend.repository.UserRepository
 
 class UserService(
-    private val userRepository: UserRepository
+    private val userRepository: UserRepository = UserRepository()
 ) {
 
-    fun addUser(user: User) {
-        userRepository.addUser(user)
-    }
+    suspend fun addUser(user: User) = userRepository.addUser(user)
 
-    fun removeUser(userId: String): Boolean {
-        return userRepository.removeUser(userId)
-    }
+    suspend fun removeUser(userId: String) = userRepository.removeUser(userId)
 
-    fun updateUser(user: User): Boolean {
-        return userRepository.updateUser(user)
-    }
+    suspend fun updateUser(user: User) = userRepository.updateUser(user)
 
-    fun findUser(userId: String): User? {
-        return userRepository.findUser(userId)
-    }
+    suspend fun findUser(userId: String) = userRepository.findUser(userId)
 
-    fun findUserByEmail(email: String): User? {
-        return userRepository.findUserByEmail(email)
-    }
+    suspend fun findUserByEmail(email: String) = userRepository.findUserByEmail(email)
 
-    fun getAllUsers(): List<User> {
-        return userRepository.getAllUsers()
-    }
+    suspend fun getAllUsers() = userRepository.getAllUsers()
 }

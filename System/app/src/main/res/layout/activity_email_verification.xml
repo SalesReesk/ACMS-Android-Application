@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/emailVerifRoot"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/surface"
+    android:fitsSystemWindows="false">
+
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:paddingHorizontal="24dp"
+            android:paddingTop="72dp"
+            android:paddingBottom="48dp">
+
+            <FrameLayout
+                android:layout_width="110dp"
+                android:layout_height="110dp"
+                android:layout_marginBottom="28dp">
+                <View
+                    android:layout_width="110dp"
+                    android:layout_height="110dp"
+                    android:background="@drawable/bg_state_icon_purple" />
+                <View
+                    android:layout_width="90dp"
+                    android:layout_height="90dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/bg_chip_purple_light" />
+                <ImageView
+                    android:layout_width="52dp"
+                    android:layout_height="52dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_lock_m3"
+                    app:tint="@color/primary"
+                    android:scaleType="fitCenter" />
+            </FrameLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Verify Your Email"
+                android:textSize="26sp"
+                android:textStyle="bold"
+                android:textColor="@color/on_surface"
+                android:fontFamily="sans-serif-medium"
+                android:gravity="center" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Check your BatStateU inbox"
+                android:textSize="14sp"
+                android:textColor="@color/on_surface_variant"
+                android:fontFamily="sans-serif"
+                android:gravity="center" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="38dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="24dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingHorizontal="16dp"
+                android:background="@drawable/bg_badge_outline">
+                <ImageView
+                    android:layout_width="14dp"
+                    android:layout_height="14dp"
+                    android:src="@drawable/ic_school_cap"
+                    app:tint="@color/primary" />
+                <TextView
+                    android:id="@+id/labelEmail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="user@g.batstate-u.edu.ph"
+                    android:textSize="13sp"
+                    android:textColor="@color/primary"
+                    android:fontFamily="sans-serif-medium" />
+            </LinearLayout>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="28dp"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="1dp"
+                app:cardBackgroundColor="@color/surface_container_lowest">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="20dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_marginBottom="16dp">
+                        <TextView
+                            android:layout_width="28dp"
+                            android:layout_height="28dp"
+                            android:text="1"
+                            android:textSize="13sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/primary"
+                            android:fontFamily="sans-serif-medium"
+                            android:gravity="center"
+                            android:background="@drawable/bg_chip_purple_light" />
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_marginStart="12dp"
+                            android:text="Open your @g.batstate-u.edu.ph inbox"
+                            android:textSize="13sp"
+                            android:textColor="@color/on_surface"
+                            android:fontFamily="sans-serif" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_marginBottom="16dp">
+                        <TextView
+                            android:layout_width="28dp"
+                            android:layout_height="28dp"
+                            android:text="2"
+                            android:textSize="13sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/primary"
+                            android:fontFamily="sans-serif-medium"
+                            android:gravity="center"
+                            android:background="@drawable/bg_chip_purple_light" />
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_marginStart="12dp"
+                            android:text="Find the email from ArasPoint / Firebase"
+                            android:textSize="13sp"
+                            android:textColor="@color/on_surface"
+                            android:fontFamily="sans-serif" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
+                        <TextView
+                            android:layout_width="28dp"
+                            android:layout_height="28dp"
+                            android:text="3"
+                            android:textSize="13sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/primary"
+                            android:fontFamily="sans-serif-medium"
+                            android:gravity="center"
+                            android:background="@drawable/bg_chip_purple_light" />
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_marginStart="12dp"
+                            android:text="Tap the verification link, then return here"
+                            android:textSize="13sp"
+                            android:textColor="@color/on_surface"
+                            android:fontFamily="sans-serif" />
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnIveVerified"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:text="I've Verified My Email"
+                android:textSize="15sp"
+                android:textAllCaps="false"
+                android:fontFamily="sans-serif-medium"
+                style="@style/Widget.Material3.Button"
+                app:icon="@drawable/ic_check_circle_m3"
+                app:iconSize="18dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnResendEmail"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:layout_marginTop="10dp"
+                android:text="Resend Verification Email"
+                android:textSize="14sp"
+                android:textAllCaps="false"
+                android:fontFamily="sans-serif-medium"
+                style="@style/Widget.Material3.Button.OutlinedButton"
+                app:strokeColor="@color/outline_variant"
+                app:icon="@drawable/ic_arrow_forward"
+                app:iconSize="18dp"
+                android:textColor="@color/on_surface" />
+
+            <TextView
+                android:id="@+id/labelCooldown"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text=""
+                android:textSize="12sp"
+                android:textColor="@color/outline"
+                android:fontFamily="sans-serif"
+                android:gravity="center"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/btnBackToLogin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="Back to Login"
+                android:textSize="13sp"
+                android:textColor="@color/primary"
+                android:fontFamily="sans-serif-medium"
+                android:clickable="true"
+                android:focusable="true" />
+
+        </LinearLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

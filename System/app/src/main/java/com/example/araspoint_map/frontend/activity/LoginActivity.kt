@@ -3,10 +3,15 @@ package com.example.araspoint_map.frontend.activity
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.text.InputType
+import android.widget.ScrollView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import com.example.araspoint_map.R
 import com.example.araspoint_map.backend.repository.AuthRepository
 import com.example.araspoint_map.databinding.ActivityLoginBinding
 import com.example.araspoint_map.frontend.viewModel.AuthViewModel
@@ -16,6 +21,7 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
     private lateinit var authViewModel: AuthViewModel
     private lateinit var sharedPreferences: SharedPreferences
+    private var isPasswordVisible = false
 
     companion object {
         private const val PREFS_NAME = "ArasPointLoginPrefs"
@@ -24,30 +30,88 @@ class LoginActivity : AppCompatActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
-        // Auto login if already authenticated
-        if (FirebaseAuth.getInstance().currentUser != null) {
-            val intent = Intent(this, MainDashboardAdminActivity::class.java)
-            startActivity(intent)
-            finish()
-            return
+        val existingUser = FirebaseAuth.getInstance().currentUser
+        if (existingUser != null) {
+            if (existingUser.isEmailVerified) {
+                val intent = Intent(this, MainDashboardAdminActivity::class.java)
+                startActivity(intent)
+                finish()
+                return
+            } else {
+                val intent = Intent(this, EmailVerificationActivity::class.java)
+                intent.putExtra("email", existingUser.email ?: "")
+                startActivity(intent)
+                finish()
+                return
+            }
         }
 
         binding = ActivityLoginBinding.inflate(layoutInflater)
         authViewModel = AuthViewModel(AuthRepository())
         setContentView(binding.root)
 
+        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, insets ->
+            val bars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            val ime = insets.getInsets(WindowInsetsCompat.Type.ime())
+            v.setPadding(bars.left, bars.top, bars.right, maxOf(bars.bottom, ime.bottom))
+
+            if (insets.isVisible(WindowInsetsCompat.Type.ime())) {
+                (v as ScrollView).post {
+                    val focused = v.findFocus()
+                    if (focused != null) {
+                        v.smoothScrollTo(0, focused.bottom)
+                    } else {
+                        v.smoothScrollTo(0, v.getChildAt(0).bottom)
+                    }
+                }
+            }
+            insets
+        }
+
         sharedPreferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE)
 
-        // Load Remember Me data
         val rememberMe = sharedPreferences.getBoolean(KEY_REMEMBER, false)
         if (rememberMe) {
             val savedEmail = sharedPreferences.getString(KEY_EMAIL, "")
             binding.email.setText(savedEmail)
             binding.checkboxRememberMe.isChecked = true
+        }
+
+        binding.btnClearEmail.setOnClickListener {
+            binding.email.text?.clear()
+        }
+
+        binding.btnTogglePassword.setOnClickListener {
+            isPasswordVisible = !isPasswordVisible
+            if (isPasswordVisible) {
+                binding.password.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+                binding.btnTogglePassword.setImageResource(R.drawable.ic_visibility_off)
+            } else {
+                binding.password.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
+                binding.btnTogglePassword.setImageResource(R.drawable.ic_visibility)
+            }
+            binding.password.setSelection(binding.password.text?.length ?: 0)
+        }
+
+        binding.btnDemoFaculty.setOnClickListener {
+            binding.email.setText("faculty.arasof@g.batstate-u.edu.ph")
+            binding.password.setText("TeacherPortal2024!")
+            Toast.makeText(this, "Pre-filled Faculty / Staff credentials", Toast.LENGTH_SHORT).show()
+        }
+
+        binding.btnDemoMaintenance.setOnClickListener {
+            binding.email.setText("maint.auditor@g.batstate-u.edu.ph")
+            binding.password.setText("FieldOpsNasugbu!")
+            Toast.makeText(this, "Pre-filled Maintenance credentials", Toast.LENGTH_SHORT).show()
+        }
+
+        binding.btnDemoAdmin.setOnClickListener {
+            binding.email.setText("ict.admin@g.batstate-u.edu.ph")
+            binding.password.setText("RootAdminNasugbu99!")
+            Toast.makeText(this, "Pre-filled Admin credentials", Toast.LENGTH_SHORT).show()
         }
 
         binding.loginButton.setOnClickListener {
@@ -64,7 +128,6 @@ class LoginActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            // Save or clear Remember Me preferences
             val editor = sharedPreferences.edit()
             if (binding.checkboxRememberMe.isChecked) {
                 editor.putBoolean(KEY_REMEMBER, true)
@@ -76,19 +139,27 @@ class LoginActivity : AppCompatActivity() {
             editor.apply()
 
             authViewModel.login(email, password) { success, message ->
-                Toast.makeText(this, message ?: "", Toast.LENGTH_LONG).show()
                 if (success) {
-                    val intent = Intent(this, MainDashboardAdminActivity::class.java)
-                    startActivity(intent)
-                    finish()
+                    val firebaseUser = FirebaseAuth.getInstance().currentUser
+                    if (firebaseUser != null && firebaseUser.isEmailVerified) {
+                        val intent = Intent(this, MainDashboardAdminActivity::class.java)
+                        startActivity(intent)
+                        finish()
+                    } else {
+                        FirebaseAuth.getInstance().signOut()
+                        val intent = Intent(this, EmailVerificationActivity::class.java)
+                        intent.putExtra("email", email)
+                        startActivity(intent)
+                    }
                 } else {
-                    binding.password.text.clear()
+                    Toast.makeText(this, message ?: "Login failed", Toast.LENGTH_LONG).show()
+                    binding.password.text?.clear()
                 }
             }
         }
 
         binding.textClickable.setOnClickListener {
-            Toast.makeText(this, "Forgot Password", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Forgot Password - Please contact ICT Facilities office", Toast.LENGTH_SHORT).show()
         }
 
         binding.textRegister.setOnClickListener {
