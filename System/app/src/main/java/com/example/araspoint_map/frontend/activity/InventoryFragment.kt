@@ -399,7 +399,7 @@ class InventoryFragment : Fragment() {
         val priorities = arrayOf("LOW", "MEDIUM", "HIGH", "CRITICAL")
         val priorityAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item, priorities)
         dialogBinding.dialogReportPriority.adapter = priorityAdapter
-        dialogBinding.dialogReportPriority.setSelection(1) // Default to MEDIUM
+        dialogBinding.dialogReportPriority.setSelection(1)
 
         dialogBinding.dialogBtnCapturePhoto.setOnClickListener {
             showPhotoSourceDialog()
