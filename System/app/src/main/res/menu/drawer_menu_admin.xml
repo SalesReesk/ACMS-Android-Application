@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/drawer_reports"
+            android:icon="@drawable/ic_nav_tasks"
+            android:title="Reports &amp; Tickets" />
+        <item
+            android:id="@+id/drawer_profile"
+            android:icon="@drawable/ic_nav_profile"
+            android:title="Profile &amp; Account" />
+        <item
+            android:id="@+id/drawer_user_mgmt"
+            android:icon="@drawable/ic_group_24"
+            android:title="User Management" />
+        <item
+            android:id="@+id/drawer_settings"
+            android:icon="@drawable/ic_settings_24"
+            android:title="Settings" />
+    </group>
+    <item android:title="System">
+        <menu>
+            <item
+                android:id="@+id/drawer_logout"
+                android:icon="@drawable/ic_logout_24"
+                android:title="Logout" />
+        </menu>
+    </item>
+</menu>

@@ -3,7 +3,7 @@
     <item
         android:id="@+id/dashboard"
         android:title="Home"
-        android:icon="@drawable/ic_nav_map" />
+        android:icon="@drawable/ic_home_24" />
     <item
         android:id="@+id/map_nav"
         android:title="Map"
@@ -12,12 +12,4 @@
         android:id="@+id/inventory"
         android:title="Assets"
         android:icon="@drawable/ic_nav_assets" />
-    <item
-        android:id="@+id/report"
-        android:title="Reports"
-        android:icon="@drawable/ic_nav_tasks" />
-    <item
-        android:id="@+id/account"
-        android:title="Profile"
-        android:icon="@drawable/ic_nav_profile" />
 </menu>
