@@ -1,117 +1,170 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#FFFFFF"
-    android:orientation="vertical"
-    android:padding="24dp">
-
-    <TextView
-        android:id="@+id/detailAssetName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/poppins_bold"
-        android:text="Asset Name"
-        android:textColor="#333333"
-        android:textSize="22sp"
-        android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/detailAssetId"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:fontFamily="@font/robotomono_regular"
-        android:text="ID: AAMS-0001"
-        android:textColor="#777777"
-        android:textSize="14sp" />
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginVertical="16dp"
-        android:background="#E0E0E0" />
-
-    <TextView
-        android:id="@+id/detailAssetType"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:fontFamily="@font/inter_18pt_regular"
-        android:text="Type: Electronics"
-        android:textColor="#444444"
-        android:textSize="16sp" />
-
-    <TextView
-        android:id="@+id/detailAssetLocation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:fontFamily="@font/inter_18pt_regular"
-        android:text="Location: HEB 204"
-        android:textColor="#444444"
-        android:textSize="16sp" />
-
-    <TextView
-        android:id="@+id/detailAssetStatus"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:fontFamily="@font/inter_18pt_bold"
-        android:text="Status: AVAILABLE"
-        android:textSize="16sp" />
-
-    <TextView
-        android:id="@+id/detailAssetCondition"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
-        android:fontFamily="@font/inter_18pt_bold"
-        android:text="Condition: GOOD"
-        android:textSize="16sp" />
-
-    <Button
-        android:id="@+id/btnReportThisAsset"
-        android:layout_width="match_parent"
-        android:layout_height="52dp"
-        android:layout_marginBottom="12dp"
-        android:backgroundTint="#C62828"
-        android:fontFamily="@font/poppins_bold"
-        android:text="Report Issue for this Asset"
-        android:textColor="#FFFFFF"
-        android:textSize="15sp"
-        android:textStyle="bold" />
+    app:cardCornerRadius="24dp"
+    app:cardElevation="6dp"
+    app:cardBackgroundColor="@color/surface_container_lowest">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="vertical"
+        android:padding="24dp">
 
-        <Button
-            android:id="@+id/btnEditAsset"
-            android:layout_width="0dp"
-            android:layout_height="50dp"
-            android:layout_weight="1"
-            android:layout_marginEnd="6dp"
-            android:backgroundTint="#8E24AA"
-            android:fontFamily="@font/poppins_bold"
-            android:text="Edit Asset"
-            android:textColor="#FFFFFF"
-            android:textSize="14sp"
-            android:visibility="gone" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_badge_institution"
+            android:fontFamily="@font/inter_18pt_bold"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="4dp"
+            android:text="ASSET SPECIFICATION"
+            android:textColor="@color/primary"
+            android:textSize="10sp"
+            android:letterSpacing="0.05"
+            android:layout_marginBottom="8dp" />
 
-        <Button
-            android:id="@+id/btnDeleteAsset"
-            android:layout_width="0dp"
-            android:layout_height="50dp"
-            android:layout_weight="1"
-            android:layout_marginStart="6dp"
-            android:backgroundTint="#D32F2F"
+        <ImageView
+            android:id="@+id/detailAssetImage"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:scaleType="centerCrop"
+            android:background="@drawable/bg_input_field"
+            android:visibility="gone"
+            android:layout_marginBottom="12dp"
+            android:contentDescription="Asset Photo" />
+
+        <TextView
+            android:id="@+id/detailAssetName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_bold"
-            android:text="Delete Asset"
-            android:textColor="#FFFFFF"
+            android:text="Asset Name"
+            android:textColor="@color/on_surface"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/detailAssetId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:fontFamily="@font/inter_18pt_regular"
+            android:text="ID: AAMS-0001"
+            android:textColor="@color/on_surface_variant"
+            android:textSize="@dimen/text_body" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginVertical="16dp"
+            android:background="@color/surface_container_highest" />
+
+        <TextView
+            android:id="@+id/detailAssetType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:fontFamily="@font/inter_18pt_regular"
+            android:text="Type: Electronics"
+            android:textColor="@color/on_surface"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/detailAssetLocation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:fontFamily="@font/inter_18pt_regular"
+            android:text="Location: HEB Floor 2 Room 204"
+            android:textColor="@color/on_surface"
+            android:textSize="14sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="24dp">
+
+            <TextView
+                android:id="@+id/detailAssetStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_badge_institution"
+                android:fontFamily="@font/inter_18pt_bold"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="5dp"
+                android:text="Status: AVAILABLE"
+                android:textColor="@color/status_available"
+                android:textSize="11sp" />
+
+            <TextView
+                android:id="@+id/detailAssetCondition"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:background="@drawable/bg_badge_institution"
+                android:fontFamily="@font/inter_18pt_bold"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="5dp"
+                android:text="Condition: GOOD"
+                android:textColor="@color/on_surface_variant"
+                android:textSize="11sp" />
+        </LinearLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnReportThisAsset"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/input_height"
+            android:layout_marginBottom="10dp"
+            android:backgroundTint="@color/error_container"
+            android:fontFamily="@font/poppins_bold"
+            android:text="Report Issue for this Asset"
+            android:textAllCaps="false"
+            android:textColor="@color/error"
             android:textSize="14sp"
-            android:visibility="gone" />
+            app:cornerRadius="12dp"
+            app:elevation="0dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnEditAsset"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/input_height"
+                android:layout_weight="1"
+                android:layout_marginEnd="6dp"
+                android:backgroundTint="@color/primary"
+                android:fontFamily="@font/poppins_bold"
+                android:text="Edit Asset"
+                android:textAllCaps="false"
+                android:textColor="@color/on_primary"
+                android:textSize="13sp"
+                app:cornerRadius="12dp"
+                app:elevation="0dp"
+                android:visibility="gone" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnDeleteAsset"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/input_height"
+                android:layout_weight="1"
+                android:layout_marginStart="6dp"
+                android:backgroundTint="@color/error"
+                android:fontFamily="@font/poppins_bold"
+                android:text="Delete Asset"
+                android:textAllCaps="false"
+                android:textColor="@color/on_error"
+                android:textSize="13sp"
+                app:cornerRadius="12dp"
+                app:elevation="0dp"
+                android:visibility="gone" />
+        </LinearLayout>
+
     </LinearLayout>
-
-</LinearLayout>
+</androidx.cardview.widget.CardView>

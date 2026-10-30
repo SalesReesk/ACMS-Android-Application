@@ -1,46 +1,175 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#E9DDF4">
+    android:background="@color/surface">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:paddingHorizontal="@dimen/screen_padding_horizontal"
+        android:paddingTop="20dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
             android:fontFamily="@font/poppins_bold"
             android:text="Campus Asset Inventory"
-            android:textColor="#333333"
-            android:textSize="22sp"
+            android:textColor="@color/on_surface"
+            android:textSize="@dimen/text_display"
             android:textStyle="bold" />
 
-        <EditText
-            android:id="@+id/searchInventory"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginBottom="8dp"
-            android:background="@drawable/inputs_color"
-            android:fontFamily="@font/robotomono_regular"
-            android:hint="Search asset name or type..."
-            android:paddingHorizontal="16dp"
-            android:singleLine="true"
-            android:textSize="15sp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="14dp"
+            android:fontFamily="@font/inter_18pt_regular"
+            android:text="Track equipment, rooms &amp; physical infrastructure"
+            android:textColor="@color/on_surface_variant"
+            android:textSize="@dimen/text_body" />
 
-        <Spinner
-            android:id="@+id/filterBuilding"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_marginBottom="12dp"
-            android:background="@drawable/inputs_color"
-            android:paddingHorizontal="12dp" />
+            android:layout_height="@dimen/input_height"
+            android:background="@drawable/bg_input_field"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingHorizontal="@dimen/input_padding_horizontal"
+            android:layout_marginBottom="10dp">
+
+            <ImageView
+                android:layout_width="@dimen/input_icon_size"
+                android:layout_height="@dimen/input_icon_size"
+                android:src="@drawable/ic_search_m3"
+                app:tint="@color/outline"
+                android:contentDescription="Search Icon" />
+
+            <EditText
+                android:id="@+id/searchInventory"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_marginStart="10dp"
+                android:background="@android:color/transparent"
+                android:fontFamily="@font/inter_18pt_regular"
+                android:hint="Search by ID, name, building, room..."
+                android:inputType="text"
+                android:singleLine="true"
+                android:textColor="@color/on_surface"
+                android:textColorHint="@color/outline"
+                android:textSize="13sp" />
+
+            <ImageView
+                android:id="@+id/btnClearSearch"
+                android:layout_width="@dimen/input_icon_size"
+                android:layout_height="@dimen/input_icon_size"
+                android:src="@drawable/ic_cancel_circle"
+                app:tint="@color/outline"
+                android:clickable="true"
+                android:focusable="true"
+                android:visibility="gone"
+                android:contentDescription="Clear search" />
+
+            <ImageView
+                android:id="@+id/btnScanBarcode"
+                android:layout_width="@dimen/input_icon_toggle_size"
+                android:layout_height="@dimen/input_icon_toggle_size"
+                android:layout_marginStart="8dp"
+                android:src="@drawable/ic_explore"
+                app:tint="@color/primary"
+                android:clickable="true"
+                android:focusable="true"
+                android:contentDescription="Scan Barcode" />
+        </LinearLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/input_height"
+            android:background="@drawable/bg_input_field"
+            android:layout_marginBottom="10dp">
+
+            <Spinner
+                android:id="@+id/filterBuilding"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingHorizontal="12dp"
+                android:background="@android:color/transparent" />
+        </FrameLayout>
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="none"
+            android:layout_marginBottom="12dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/chipFilterAll"
+                    android:layout_width="wrap_content"
+                    android:layout_height="32dp"
+                    android:background="@drawable/bg_button_primary"
+                    android:gravity="center"
+                    android:fontFamily="@font/inter_18pt_bold"
+                    android:paddingHorizontal="@dimen/input_padding_horizontal"
+                    android:text="All"
+                    android:textColor="@color/on_primary"
+                    android:textSize="12sp"
+                    android:clickable="true"
+                    android:focusable="true" />
+
+                <TextView
+                    android:id="@+id/chipFilterAvailable"
+                    android:layout_width="wrap_content"
+                    android:layout_height="32dp"
+                    android:layout_marginStart="6dp"
+                    android:background="@drawable/bg_badge_institution"
+                    android:gravity="center"
+                    android:fontFamily="@font/inter_18pt_bold"
+                    android:paddingHorizontal="@dimen/input_padding_horizontal"
+                    android:text="Available"
+                    android:textColor="@color/on_surface_variant"
+                    android:textSize="12sp"
+                    android:clickable="true"
+                    android:focusable="true" />
+
+                <TextView
+                    android:id="@+id/chipFilterMaintenance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="32dp"
+                    android:layout_marginStart="6dp"
+                    android:background="@drawable/bg_badge_institution"
+                    android:gravity="center"
+                    android:fontFamily="@font/inter_18pt_bold"
+                    android:paddingHorizontal="@dimen/input_padding_horizontal"
+                    android:text="Needs Repair"
+                    android:textColor="@color/on_surface_variant"
+                    android:textSize="12sp"
+                    android:clickable="true"
+                    android:focusable="true" />
+
+                <TextView
+                    android:id="@+id/chipFilterDamaged"
+                    android:layout_width="wrap_content"
+                    android:layout_height="32dp"
+                    android:layout_marginStart="6dp"
+                    android:background="@drawable/bg_badge_institution"
+                    android:gravity="center"
+                    android:fontFamily="@font/inter_18pt_bold"
+                    android:paddingHorizontal="@dimen/input_padding_horizontal"
+                    android:text="Damaged"
+                    android:textColor="@color/on_surface_variant"
+                    android:textSize="12sp"
+                    android:clickable="true"
+                    android:focusable="true" />
+            </LinearLayout>
+        </HorizontalScrollView>
 
         <FrameLayout
             android:layout_width="match_parent"
@@ -51,6 +180,8 @@
                 android:id="@+id/recyclerViewInventory"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:clipToPadding="false"
+                android:paddingBottom="80dp"
                 android:scrollbars="vertical" />
 
             <ProgressBar
@@ -58,19 +189,27 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:indeterminateTint="#8E24AA"
+                android:indeterminateTint="@color/primary"
                 android:visibility="gone" />
 
-            <TextView
-                android:id="@+id/emptyStateText"
+            <LinearLayout
+                android:id="@+id/emptyStateTextContainer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:fontFamily="@font/poppins_italic"
-                android:text="No assets found or offline."
-                android:textColor="#666666"
-                android:textSize="16sp"
-                android:visibility="gone" />
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/emptyStateText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/inter_18pt_regular"
+                    android:text="No assets found in selected building."
+                    android:textColor="@color/on_surface_variant"
+                    android:textSize="15sp"
+                    android:visibility="gone" />
+            </LinearLayout>
         </FrameLayout>
 
     </LinearLayout>
@@ -81,9 +220,10 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="24dp"
-        android:backgroundTint="#8E24AA"
+        android:backgroundTint="@color/primary"
         android:contentDescription="Add Asset"
         android:src="@android:drawable/ic_input_add"
-        app:tint="#FFFFFF" />
+        app:tint="@color/on_primary"
+        app:elevation="4dp" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
