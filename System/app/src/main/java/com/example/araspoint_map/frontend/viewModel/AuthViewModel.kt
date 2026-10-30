@@ -15,6 +15,8 @@ class AuthViewModel(
         email: String,
         password: String,
         role: UserRole,
+        department: String = "",
+        idNumber: String = "",
         onResult: (Boolean, String?) -> Unit
     ) {
         viewModelScope.launch {
@@ -23,7 +25,9 @@ class AuthViewModel(
                 name = name,
                 email = email,
                 password = password,
-                role = role
+                role = role,
+                department = department,
+                idNumber = idNumber
             )
 
             if (result.isSuccess) {
