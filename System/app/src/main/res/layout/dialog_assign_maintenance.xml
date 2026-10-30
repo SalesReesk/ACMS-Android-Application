@@ -1,63 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#FFFFFF"
-    android:orientation="vertical"
-    android:padding="24dp">
+    app:cardCornerRadius="24dp"
+    app:cardElevation="6dp"
+    app:cardBackgroundColor="@color/surface_container_lowest">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:fontFamily="@font/poppins_bold"
-        android:text="Assign Maintenance Staff"
-        android:textColor="#333333"
-        android:textSize="20sp"
-        android:textStyle="bold" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="6dp"
-        android:fontFamily="@font/inter_18pt_bold"
-        android:text="Select Maintenance Person:"
-        android:textColor="#444444"
-        android:textSize="14sp" />
-
-    <Spinner
-        android:id="@+id/spinnerAssignStaff"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginBottom="16dp"
-        android:background="@drawable/inputs_color"
-        android:paddingHorizontal="12dp" />
-
-    <TextView
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="6dp"
-        android:fontFamily="@font/inter_18pt_bold"
-        android:text="Assign Final Priority Level:"
-        android:textColor="#444444"
-        android:textSize="14sp" />
+        android:orientation="vertical"
+        android:padding="24dp">
 
-    <Spinner
-        android:id="@+id/spinnerAssignPriority"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginBottom="24dp"
-        android:background="@drawable/inputs_color"
-        android:paddingHorizontal="12dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_bold"
+            android:text="Assign Maintenance Staff"
+            android:textColor="@color/on_surface"
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
-    <Button
-        android:id="@+id/btnConfirmAssignment"
-        android:layout_width="match_parent"
-        android:layout_height="52dp"
-        android:backgroundTint="#8E24AA"
-        android:fontFamily="@font/poppins_bold"
-        android:text="Pass Report to Selected Staff"
-        android:textColor="#FFFFFF"
-        android:textSize="16sp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="16dp"
+            android:fontFamily="@font/inter_18pt_regular"
+            android:text="Dispatch incident ticket to facilities technician"
+            android:textColor="@color/on_surface_variant"
+            android:textSize="@dimen/text_body" />
 
-</LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:fontFamily="@font/inter_18pt_bold"
+            android:text="Select Maintenance Technician"
+            android:textColor="@color/on_surface"
+            android:textSize="12sp" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/input_height"
+            android:background="@drawable/bg_input_field"
+            android:layout_marginBottom="14dp">
+
+            <Spinner
+                android:id="@+id/spinnerAssignStaff"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingHorizontal="12dp"
+                android:background="@android:color/transparent" />
+        </FrameLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:fontFamily="@font/inter_18pt_bold"
+            android:text="Assign Final Priority Level"
+            android:textColor="@color/on_surface"
+            android:textSize="12sp" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/input_height"
+            android:background="@drawable/bg_input_field"
+            android:layout_marginBottom="24dp">
+
+            <Spinner
+                android:id="@+id/spinnerAssignPriority"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingHorizontal="12dp"
+                android:background="@android:color/transparent" />
+        </FrameLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnConfirmAssignment"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/btn_height"
+            android:backgroundTint="@color/primary"
+            android:fontFamily="@font/poppins_bold"
+            android:text="Pass Report to Selected Staff"
+            android:textAllCaps="false"
+            android:textColor="@color/on_primary"
+            android:textSize="15sp"
+            app:cornerRadius="@dimen/btn_corner_radius"
+            app:elevation="2dp" />
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

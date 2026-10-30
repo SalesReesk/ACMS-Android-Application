@@ -3,93 +3,242 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginHorizontal="2dp"
     android:layout_marginVertical="6dp"
-    app:cardCornerRadius="12dp"
-    app:cardElevation="3dp"
-    app:cardBackgroundColor="#FFFFFF">
+    app:cardCornerRadius="16dp"
+    app:cardElevation="1dp"
+    app:cardBackgroundColor="@color/surface_container_lowest"
+    android:foreground="?android:attr/selectableItemBackground">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:padding="@dimen/card_padding">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="6dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/reportCode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/inter_18pt_bold"
+                    android:text="#REP-2024-001"
+                    android:textColor="@color/primary"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/reportPriority"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:background="@drawable/bg_status_pill_damaged"
+                    android:fontFamily="@font/inter_18pt_bold"
+                    android:paddingHorizontal="8dp"
+                    android:paddingVertical="3dp"
+                    android:text="● High Priority"
+                    android:textColor="@color/status_damaged"
+                    android:textSize="10sp" />
+            </LinearLayout>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="0dp"
+                app:cardBackgroundColor="@color/primary_fixed">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_inventory_box"
+                    app:tint="@color/primary"
+                    android:contentDescription="Type" />
+            </androidx.cardview.widget.CardView>
+        </RelativeLayout>
 
         <TextView
             android:id="@+id/reportTitle"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_bold"
-            android:text="Report Title"
-            android:textColor="#333333"
-            android:textSize="16sp"
-            android:textStyle="bold" />
+            android:text="Dell OptiPlex 7090 Workstation - Lab 3"
+            android:textColor="@color/on_surface"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="4dp" />
 
-        <TextView
-            android:id="@+id/reportLocation"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
-            android:fontFamily="@font/robotomono_regular"
-            android:text="Location: HEB 204"
-            android:textColor="#666666"
-            android:textSize="13sp" />
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="8dp">
 
-        <TextView
-            android:id="@+id/reportAssignedTo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
-            android:fontFamily="@font/robotomono_regular"
-            android:text="Assigned: Pending Admin"
-            android:textColor="#8E24AA"
-            android:textSize="12sp" />
+            <TextView
+                android:id="@+id/reportAssetTag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_badge_institution"
+                android:fontFamily="@font/inter_18pt_bold"
+                android:paddingHorizontal="6dp"
+                android:paddingVertical="2dp"
+                android:text="Tag: AAMS-0001"
+                android:textColor="@color/on_surface_variant"
+                android:textSize="10sp" />
 
-        <TextView
-            android:id="@+id/reportDescription"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:fontFamily="@font/robotomono_regular"
-            android:text="Description..."
-            android:textColor="#444444"
-            android:textSize="13sp" />
+            <TextView
+                android:id="@+id/reportDateText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:fontFamily="@font/inter_18pt_regular"
+                android:text="• Oct 24, 2024"
+                android:textColor="@color/outline"
+                android:textSize="11sp" />
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/bg_badge_institution"
             android:orientation="horizontal"
-            android:layout_marginTop="8dp"
-            android:gravity="center_vertical">
+            android:padding="10dp"
+            android:layout_marginBottom="10dp">
+
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:src="@drawable/ic_search_m3"
+                app:tint="@color/primary"
+                android:layout_marginTop="2dp"
+                android:contentDescription="Diagnostic Note" />
 
             <TextView
-                android:id="@+id/reportStatus"
+                android:id="@+id/reportDescription"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:fontFamily="@font/inter_18pt_bold"
-                android:text="Status: PENDING"
-                android:textSize="13sp" />
+                android:layout_marginStart="8dp"
+                android:fontFamily="@font/inter_18pt_regular"
+                android:text="Diagnostic: Power LED blinking amber. Motherboard power rail check required."
+                android:textColor="@color/on_surface"
+                android:textSize="12sp"
+                android:maxLines="2"
+                android:ellipsize="end" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="8dp">
+
+            <ImageView
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:src="@drawable/map_pin"
+                app:tint="@color/on_surface_variant"
+                android:contentDescription="Pin" />
 
             <TextView
-                android:id="@+id/reportPriority"
+                android:id="@+id/reportLocation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:fontFamily="@font/inter_18pt_bold"
-                android:text="Priority: MEDIUM"
-                android:textSize="12sp" />
-
-            <Button
-                android:id="@+id/btnActionManage"
-                android:layout_width="wrap_content"
-                android:layout_height="36dp"
-                android:backgroundTint="#8E24AA"
-                android:fontFamily="@font/poppins_bold"
-                android:text="Mark Resolved"
-                android:textColor="#FFFFFF"
-                android:textSize="12sp"
-                android:visibility="gone" />
+                android:layout_marginStart="4dp"
+                android:fontFamily="@font/inter_18pt_regular"
+                android:text="Location: CICS Computer Lab 3"
+                android:textColor="@color/on_surface_variant"
+                android:textSize="11sp" />
         </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:id="@+id/layoutAssignedStaff"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/txtAvatarStaff"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:gravity="center"
+                    android:background="@drawable/circle_user"
+                    android:backgroundTint="@color/primary"
+                    android:fontFamily="@font/inter_18pt_bold"
+                    android:text="DM"
+                    android:textColor="@color/on_primary"
+                    android:textSize="9sp" />
+
+                <TextView
+                    android:id="@+id/reportAssignedTo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="6dp"
+                    android:fontFamily="@font/inter_18pt_bold"
+                    android:text="Assigned: Engr. D. Mendoza"
+                    android:textColor="@color/on_surface"
+                    android:textSize="11sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/reportStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_badge_institution"
+                    android:fontFamily="@font/inter_18pt_bold"
+                    android:paddingHorizontal="8dp"
+                    android:paddingVertical="3dp"
+                    android:text="In Progress"
+                    android:textColor="@color/primary"
+                    android:textSize="11sp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnActionManage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="36dp"
+                    android:layout_marginStart="6dp"
+                    android:backgroundTint="@color/primary"
+                    android:fontFamily="@font/poppins_bold"
+                    android:text="View Ticket →"
+                    android:textAllCaps="false"
+                    android:textColor="@color/on_primary"
+                    android:textSize="11sp"
+                    app:cornerRadius="8dp"
+                    app:elevation="0dp"
+                    android:visibility="gone" />
+            </LinearLayout>
+        </RelativeLayout>
 
     </LinearLayout>
 </androidx.cardview.widget.CardView>
