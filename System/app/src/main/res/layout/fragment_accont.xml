@@ -12,7 +12,6 @@
         android:orientation="vertical"
         android:paddingBottom="36dp">
 
-        <!-- ── Header Banner ── -->
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -29,7 +28,6 @@
                 android:paddingBottom="72dp"
                 android:gravity="center_horizontal">
 
-                <!-- Header label row -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -45,7 +43,7 @@
                         android:textStyle="bold"
                         android:textColor="#FFFFFF"
                         android:fontFamily="sans-serif-medium" />
-                    <!-- Edit button -->
+
                     <ImageView
                         android:id="@+id/btnEditProfile"
                         android:layout_width="36dp"
@@ -59,7 +57,6 @@
                         android:contentDescription="Edit Profile" />
                 </LinearLayout>
 
-                <!-- Avatar + photo change -->
                 <FrameLayout
                     android:layout_width="96dp"
                     android:layout_height="96dp">
@@ -80,7 +77,6 @@
                             android:contentDescription="Profile Photo" />
                     </androidx.cardview.widget.CardView>
 
-                    <!-- Camera badge -->
                     <androidx.cardview.widget.CardView
                         android:layout_width="28dp"
                         android:layout_height="28dp"
@@ -101,7 +97,6 @@
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
-        <!-- ── Floating Identity Card (overlaps banner) ── -->
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -118,7 +113,6 @@
                 android:padding="20dp"
                 android:gravity="center_horizontal">
 
-                <!-- Name -->
                 <TextView
                     android:id="@+id/profileName"
                     android:layout_width="wrap_content"
@@ -130,7 +124,6 @@
                     android:fontFamily="sans-serif-medium"
                     android:layout_marginTop="4dp" />
 
-                <!-- Email -->
                 <TextView
                     android:id="@+id/profileEmail"
                     android:layout_width="wrap_content"
@@ -142,7 +135,6 @@
                     android:layout_marginTop="2dp"
                     android:layout_marginBottom="12dp" />
 
-                <!-- Role pill + UID pill row -->
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -179,7 +171,6 @@
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
-        <!-- ── Account Details Section ── -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -207,7 +198,6 @@
                 android:orientation="vertical"
                 android:paddingVertical="4dp">
 
-                <!-- Institution -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="56dp"
@@ -247,7 +237,6 @@
                     android:background="@color/surface_container_high"
                     android:layout_marginHorizontal="16dp" />
 
-                <!-- Department -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="56dp"
@@ -287,7 +276,6 @@
                     android:background="@color/surface_container_high"
                     android:layout_marginHorizontal="16dp" />
 
-                <!-- ID Number -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="56dp"
@@ -327,7 +315,6 @@
                     android:background="@color/surface_container_high"
                     android:layout_marginHorizontal="16dp" />
 
-                <!-- System Access Level -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="56dp"
@@ -365,7 +352,6 @@
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
-        <!-- ── Administration Section (Visible to Admins Only) ── -->
         <TextView
             android:id="@+id/labelAdminActions"
             android:layout_width="wrap_content"
@@ -381,7 +367,6 @@
             android:letterSpacing="0.08"
             android:visibility="gone" />
 
-        <!-- Admin Button: Create Maintenance Account -->
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnCreateMaintenanceAccount"
             style="@style/Widget.Material3.Button.OutlinedButton"
@@ -400,14 +385,13 @@
             app:iconTint="@color/on_surface_variant"
             app:strokeColor="@color/outline_variant" />
 
-        <!-- Version footer -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="24dp"
             android:gravity="center"
-            android:text="ArasPoint v1.0.4 Enterprise\nBatStateU Property Management Office"
+            android:text="ArasPoint v1.0.4 Testing\nSemestral Project for OOP"
             android:textSize="11sp"
             android:textColor="@color/outline"
             android:fontFamily="sans-serif"
