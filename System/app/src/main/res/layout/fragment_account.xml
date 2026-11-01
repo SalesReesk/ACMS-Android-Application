@@ -38,7 +38,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="My Profile"
+                        android:text="@string/my_profile"
                         android:textSize="22sp"
                         android:textStyle="bold"
                         android:textColor="#FFFFFF"
@@ -54,7 +54,7 @@
                         app:tint="#FFFFFF"
                         android:clickable="true"
                         android:focusable="true"
-                        android:contentDescription="Edit Profile" />
+                        android:contentDescription="@string/edit_profile" />
                 </LinearLayout>
 
                 <FrameLayout
@@ -74,7 +74,7 @@
                             android:scaleType="centerCrop"
                             android:clickable="true"
                             android:focusable="true"
-                            android:contentDescription="Profile Photo" />
+                            android:contentDescription="@string/profile_photo" />
                     </androidx.cardview.widget.CardView>
 
                     <androidx.cardview.widget.CardView
@@ -90,7 +90,7 @@
                             android:layout_gravity="center"
                             android:src="@drawable/ic_person_m3"
                             app:tint="#7C3AED"
-                            android:contentDescription="Change photo" />
+                            android:contentDescription="@string/change_photo" />
                     </androidx.cardview.widget.CardView>
                 </FrameLayout>
 
@@ -117,7 +117,7 @@
                     android:id="@+id/profileName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Loading..."
+                    android:text="@string/loading"
                     android:textSize="20sp"
                     android:textStyle="bold"
                     android:textColor="@color/on_surface"
@@ -128,7 +128,7 @@
                     android:id="@+id/profileEmail"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Loading..."
+                    android:text="@string/loading"
                     android:textSize="13sp"
                     android:textColor="@color/on_surface_variant"
                     android:fontFamily="sans-serif"
@@ -145,7 +145,7 @@
                         android:id="@+id/profileRole"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Student"
+                        android:text="@string/student"
                         android:textSize="11sp"
                         android:textStyle="bold"
                         android:textColor="@color/primary"
@@ -159,7 +159,7 @@
                         android:id="@+id/profileUid"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="UID: —"
+                        android:text="@string/uid_placeholder"
                         android:textSize="11sp"
                         android:textColor="@color/on_surface_variant"
                         android:fontFamily="sans-serif"
@@ -177,7 +177,7 @@
             android:layout_marginHorizontal="20dp"
             android:layout_marginTop="28dp"
             android:layout_marginBottom="10dp"
-            android:text="Account Details"
+            android:text="@string/account_details"
             android:textSize="13sp"
             android:textStyle="bold"
             android:textColor="@color/on_surface_variant"
@@ -208,6 +208,7 @@
                         android:layout_width="18dp"
                         android:layout_height="18dp"
                         android:src="@drawable/ic_institution"
+                        android:contentDescription="@string/institution"
                         app:tint="@color/on_surface_variant" />
                     <LinearLayout
                         android:layout_width="0dp"
@@ -218,7 +219,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Institution"
+                            android:text="@string/institution"
                             android:textSize="11sp"
                             android:textColor="@color/on_surface_variant"
                             android:fontFamily="sans-serif" />
@@ -226,7 +227,7 @@
                             android:id="@+id/profileCampus"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="BatStateU ARASOF-Nasugbu"
+                            android:text="@string/campus_name"
                             android:textSize="14sp"
                             android:textColor="@color/on_surface"
                             android:fontFamily="sans-serif-medium" />
@@ -247,6 +248,7 @@
                         android:layout_width="18dp"
                         android:layout_height="18dp"
                         android:src="@drawable/ic_corporate_fare"
+                        android:contentDescription="@string/department_college"
                         app:tint="@color/on_surface_variant" />
                     <LinearLayout
                         android:layout_width="0dp"
@@ -257,7 +259,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Department / College"
+                            android:text="@string/department_college"
                             android:textSize="11sp"
                             android:textColor="@color/on_surface_variant"
                             android:fontFamily="sans-serif" />
@@ -286,6 +288,7 @@
                         android:layout_width="18dp"
                         android:layout_height="18dp"
                         android:src="@drawable/ic_school_cap"
+                        android:contentDescription="@string/student_employee_id"
                         app:tint="@color/on_surface_variant" />
                     <LinearLayout
                         android:layout_width="0dp"
@@ -296,7 +299,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Student / Employee ID"
+                            android:text="@string/student_employee_id"
                             android:textSize="11sp"
                             android:textColor="@color/on_surface_variant"
                             android:fontFamily="sans-serif" />
@@ -325,6 +328,7 @@
                         android:layout_width="18dp"
                         android:layout_height="18dp"
                         android:src="@drawable/ic_warning_shield"
+                        android:contentDescription="@string/system_access_level"
                         app:tint="@color/on_surface_variant" />
                     <LinearLayout
                         android:layout_width="0dp"
@@ -335,7 +339,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="System Access Level"
+                            android:text="@string/system_access_level"
                             android:textSize="11sp"
                             android:textColor="@color/on_surface_variant"
                             android:fontFamily="sans-serif" />
@@ -343,7 +347,7 @@
                             android:id="@+id/profileAccessLevel"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Read Only"
+                            android:text="@string/read_only"
                             android:textSize="14sp"
                             android:textColor="@color/on_surface"
                             android:fontFamily="sans-serif-medium" />
@@ -359,7 +363,7 @@
             android:layout_marginHorizontal="20dp"
             android:layout_marginTop="28dp"
             android:layout_marginBottom="10dp"
-            android:text="Administration"
+            android:text="@string/administration"
             android:textSize="13sp"
             android:textStyle="bold"
             android:textColor="@color/on_surface_variant"
@@ -375,7 +379,7 @@
             android:layout_marginHorizontal="16dp"
             android:layout_marginBottom="10dp"
             android:fontFamily="sans-serif-medium"
-            android:text="Create Maintenance Account"
+            android:text="@string/create_maintenance_account"
             android:textAllCaps="false"
             android:textColor="@color/on_surface"
             android:textSize="14sp"
@@ -391,7 +395,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="24dp"
             android:gravity="center"
-            android:text="ArasPoint v1.0.4 Testing\nSemestral Project for OOP"
+            android:text="@string/app_version_info"
             android:textSize="11sp"
             android:textColor="@color/outline"
             android:fontFamily="sans-serif"
