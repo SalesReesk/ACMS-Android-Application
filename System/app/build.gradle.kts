@@ -18,6 +18,9 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField("String", "CLOUDINARY_CLOUD_NAME", "\"djyggmhmk\"")
+        buildConfigField("String", "CLOUDINARY_UPLOAD_PRESET", "\"CampusAssets\"")
     }
 
     buildTypes {
@@ -33,6 +36,7 @@ android {
     }
     buildFeatures {
         viewBinding = true
+        buildConfig = true
     }
 }
 
@@ -63,6 +67,9 @@ dependencies {
     implementation("com.github.yalantis:ucrop:2.2.11")
     implementation("org.osmdroid:osmdroid-android:6.1.20")
     testImplementation(libs.junit)
+    testImplementation("io.mockk:mockk:1.13.8")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
+    testImplementation("androidx.arch.core:core-testing:2.2.0")
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
     androidTestImplementation(libs.androidx.espresso.core)
