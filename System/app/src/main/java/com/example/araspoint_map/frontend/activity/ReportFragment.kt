@@ -24,9 +24,11 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import android.util.Log
 import com.cloudinary.android.MediaManager
 import com.cloudinary.android.callback.ErrorInfo
 import com.cloudinary.android.callback.UploadCallback
+import com.example.araspoint_map.BuildConfig
 import com.example.araspoint_map.R
 import com.example.araspoint_map.backend.model.MaintenanceRecord
 import com.example.araspoint_map.backend.model.enums.AssetCondition
@@ -122,7 +124,7 @@ class ReportFragment : Fragment() {
         Toast.makeText(requireContext(), "Uploading evidence to Cloudinary...", Toast.LENGTH_SHORT).show()
 
         MediaManager.get().upload(imageUri)
-            .unsigned("CampusAssets")
+            .unsigned(BuildConfig.CLOUDINARY_UPLOAD_PRESET)
             .callback(object : UploadCallback {
                 override fun onStart(requestId: String) {}
                 override fun onProgress(requestId: String, bytes: Long, totalBytes: Long) {}
@@ -182,12 +184,6 @@ class ReportFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        try {
-            val config = HashMap<String, String>()
-            config["cloud_name"] = "djyggmhmk"
-            MediaManager.init(requireContext(), config)
-        } catch (_: Exception) {}
 
         reportAdapter = ReportAdapter(emptyList(), false,
             onItemClick = { record -> showReportStatusDetailsDialog(record) },

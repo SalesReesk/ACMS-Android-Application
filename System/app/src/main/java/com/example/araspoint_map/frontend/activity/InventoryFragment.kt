@@ -27,6 +27,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.cloudinary.android.MediaManager
 import com.cloudinary.android.callback.ErrorInfo
 import com.cloudinary.android.callback.UploadCallback
+import com.example.araspoint_map.BuildConfig
 import com.example.araspoint_map.R
 import com.example.araspoint_map.backend.model.Asset
 import com.example.araspoint_map.backend.model.Constants
@@ -120,7 +121,7 @@ class InventoryFragment : Fragment() {
         Toast.makeText(requireContext(), "Uploading evidence to Cloudinary...", Toast.LENGTH_SHORT).show()
 
         MediaManager.get().upload(imageUri)
-            .unsigned("CampusAssets")
+            .unsigned(BuildConfig.CLOUDINARY_UPLOAD_PRESET)
             .callback(object : UploadCallback {
                 override fun onStart(requestId: String) {}
                 override fun onProgress(requestId: String, bytes: Long, totalBytes: Long) {}

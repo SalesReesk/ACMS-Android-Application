@@ -72,7 +72,11 @@ class MainDashboardAdminActivity : AppCompatActivity() {
                     true
                 }
                 R.id.drawer_user_mgmt -> {
-                    Toast.makeText(this, "User Management selected", Toast.LENGTH_SHORT).show()
+                    if (currentUserRole == UserRole.ADMIN) {
+                        openFragment(UserManagementFragment())
+                    } else {
+                        Toast.makeText(this, "Access denied. Admin only.", Toast.LENGTH_SHORT).show()
+                    }
                     true
                 }
                 R.id.drawer_settings -> {
@@ -170,6 +174,9 @@ class MainDashboardAdminActivity : AppCompatActivity() {
 
             txtHeaderRole?.text = currentUserRole.name
 
+            val userMgmtItem = binding.navigationView.menu.findItem(R.id.drawer_user_mgmt)
+            userMgmtItem?.isVisible = (currentUserRole == UserRole.ADMIN)
+
             if (currentUserRole == UserRole.ADMIN || currentUserRole == UserRole.MAINTENANCE) {
                 txtTabRight?.text = "Assets"
                 imgTabRight?.setImageResource(R.drawable.ic_nav_assets)
@@ -211,6 +218,6 @@ class MainDashboardAdminActivity : AppCompatActivity() {
     }
 
     fun openAccountFragment() {
-        openFragment(AccontFragment())
+        openFragment(AccountFragment())
     }
 }

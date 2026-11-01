@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.InputType
 import android.text.TextWatcher
+import android.util.Patterns
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.ScrollView
@@ -15,6 +16,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.araspoint_map.R
 import com.example.araspoint_map.backend.model.enums.UserRole
+import com.example.araspoint_map.backend.model.toShortDepartment
 import com.example.araspoint_map.backend.repository.AuthRepository
 import com.example.araspoint_map.databinding.ActivityRegisterBinding
 import com.example.araspoint_map.frontend.viewModel.AuthViewModel
@@ -125,8 +127,13 @@ class RegisterActivity : AppCompatActivity() {
                 binding.email.error = "Email is required"
                 return@setOnClickListener
             }
-            if (!email.endsWith("@g.batstate-u.edu.ph")) {
-                binding.email.error = "Only @g.batstate-u.edu.ph emails are accepted"
+            if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                binding.email.error = "Please enter a valid email address"
+                binding.email.requestFocus()
+                return@setOnClickListener
+            }
+            if (!email.endsWith("@g.batstate-u.edu.ph") && !email.endsWith("@gmail.com", ignoreCase = true)) {
+                binding.email.error = "Only @g.batstate-u.edu.ph and @gmail.com emails are accepted"
                 binding.email.requestFocus()
                 return@setOnClickListener
             }
@@ -152,7 +159,7 @@ class RegisterActivity : AppCompatActivity() {
                 else -> UserRole.STUDENT
             }
 
-            val department = binding.spinnerDepartment.selectedItem?.toString() ?: ""
+            val department = (binding.spinnerDepartment.selectedItem?.toString() ?: "").toShortDepartment()
             val idNumber = email.substringBefore("@")
 
             authViewModel.register(name, email, password, role, department, idNumber) { success, message ->

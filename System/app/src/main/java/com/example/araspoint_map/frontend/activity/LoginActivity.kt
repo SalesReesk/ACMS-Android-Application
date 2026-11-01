@@ -4,6 +4,8 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.InputType
+import android.util.Patterns
+import android.widget.ArrayAdapter
 import android.widget.ScrollView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -73,6 +75,29 @@ class LoginActivity : AppCompatActivity() {
 
         sharedPreferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE)
 
+        val emailDomains = arrayOf(
+            "@g.batstate-u.edu.ph",
+            "@gmail.com"
+        )
+        val emailAdapter =
+            ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, emailDomains)
+        binding.email.setAdapter(emailAdapter)
+        binding.email.threshold = 1
+
+        binding.chipBatstateU.setOnClickListener {
+            val currentText = binding.email.text.toString().trim()
+            val username = currentText.substringBefore("@")
+            binding.email.setText("$username@g.batstate-u.edu.ph")
+            binding.email.setSelection(binding.email.text?.length ?: 0)
+        }
+
+        binding.chipGmail.setOnClickListener {
+            val currentText = binding.email.text.toString().trim()
+            val username = currentText.substringBefore("@")
+            binding.email.setText("$username@gmail.com")
+            binding.email.setSelection(binding.email.text?.length ?: 0)
+        }
+
         val rememberMe = sharedPreferences.getBoolean(KEY_REMEMBER, false)
         if (rememberMe) {
             val savedEmail = sharedPreferences.getString(KEY_EMAIL, "")
@@ -121,6 +146,11 @@ class LoginActivity : AppCompatActivity() {
 
             if (email.isEmpty()) {
                 binding.email.error = "Email is required"
+                return@setOnClickListener
+            }
+            if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                binding.email.error = "Please enter a valid email address"
+                binding.email.requestFocus()
                 return@setOnClickListener
             }
             if (password.isEmpty()) {

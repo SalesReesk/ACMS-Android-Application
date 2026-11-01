@@ -18,10 +18,12 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import android.util.Log
 import androidx.lifecycle.lifecycleScope
 import com.cloudinary.android.MediaManager
 import com.cloudinary.android.callback.ErrorInfo
 import com.cloudinary.android.callback.UploadCallback
+import com.example.araspoint_map.BuildConfig
 import com.example.araspoint_map.backend.model.Asset
 import com.example.araspoint_map.backend.model.Constants
 import com.example.araspoint_map.backend.model.enums.AssetCondition
@@ -136,12 +138,6 @@ class AddEditAssetActivity : AppCompatActivity() {
             insets
         }
 
-        try {
-            val config = HashMap<String, String>()
-            config["cloud_name"] = "djyggmhmk"
-            MediaManager.init(this, config)
-        } catch (_: Exception) { }
-
         binding.btnBack.setOnClickListener {
             finish()
         }
@@ -249,22 +245,11 @@ class AddEditAssetActivity : AppCompatActivity() {
             val status = try { AssetStatus.valueOf(statusStr) } catch (_: Exception) { AssetStatus.AVAILABLE }
             val condition = try { AssetCondition.valueOf(conditionStr) } catch (_: Exception) { AssetCondition.GOOD }
 
-            val (lat, lng) = when {
-                building.contains("Admin", ignoreCase = true) -> Pair(14.067400, 120.625700)
-                building.contains("CICS", ignoreCase = true) -> Pair(14.067200, 120.627200)
-                building.contains("HEB", ignoreCase = true) || building.contains("Library", ignoreCase = true) -> Pair(14.066500, 120.626200)
-                building.contains("CET", ignoreCase = true) || building.contains("CSB", ignoreCase = true) -> Pair(14.066000, 120.626800)
-                building.contains("Gym", ignoreCase = true) -> Pair(14.070000, 120.625600)
-                else -> Pair(14.066730, 120.626382)
-            }
-
             val asset = Asset(
                 assetId = editingAssetId ?: Asset().assetId,
                 assetName = name,
                 assetType = type,
                 location = location,
-                latitude = lat,
-                longitude = lng,
                 status = status,
                 condition = condition,
                 photo = uploadedPhotoUrl
@@ -289,7 +274,7 @@ class AddEditAssetActivity : AppCompatActivity() {
         Toast.makeText(this, "Uploading photo to Cloudinary...", Toast.LENGTH_SHORT).show()
 
         MediaManager.get().upload(imageUri)
-            .unsigned("CampusAssets")
+            .unsigned(BuildConfig.CLOUDINARY_UPLOAD_PRESET)
             .callback(object : UploadCallback {
                 override fun onStart(requestId: String) {}
                 override fun onProgress(requestId: String, bytes: Long, totalBytes: Long) {}
