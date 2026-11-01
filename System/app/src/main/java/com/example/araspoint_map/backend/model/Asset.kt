@@ -8,9 +8,6 @@ data class Asset(
     var assetName: String = "",
     var assetType: String = "",
 
-    var latitude: Double = 0.0,
-    var longitude: Double = 0.0,
-
     var location: String = "",
     var status: AssetStatus = AssetStatus.AVAILABLE,
     var condition: AssetCondition = AssetCondition.GOOD,

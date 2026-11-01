@@ -14,8 +14,8 @@ class MaintenanceRepository {
             val snapshot = recordsCollection.get().await()
             val list = snapshot.documents.mapNotNull { it.toObject(MaintenanceRecord::class.java) }
             Result.success(list)
-        } catch (_: Exception) {
-            Result.success(emptyList())
+        } catch (e: Exception) {
+            Result.failure(e)
         }
     }
 
@@ -23,8 +23,8 @@ class MaintenanceRepository {
         return try {
             recordsCollection.document(record.reportId).set(record).await()
             Result.success(Unit)
-        } catch (_: Exception) {
-            Result.success(Unit)
+        } catch (e: Exception) {
+            Result.failure(e)
         }
     }
 
@@ -32,8 +32,8 @@ class MaintenanceRepository {
         return try {
             recordsCollection.document(record.reportId).set(record).await()
             Result.success(Unit)
-        } catch (_: Exception) {
-            Result.success(Unit)
+        } catch (e: Exception) {
+            Result.failure(e)
         }
     }
 
@@ -41,8 +41,8 @@ class MaintenanceRepository {
         return try {
             recordsCollection.document(reportId).delete().await()
             Result.success(Unit)
-        } catch (_: Exception) {
-            Result.success(Unit)
+        } catch (e: Exception) {
+            Result.failure(e)
         }
     }
 }

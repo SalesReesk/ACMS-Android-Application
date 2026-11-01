@@ -5,6 +5,7 @@ import com.example.araspoint_map.backend.model.enums.UserRole
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthInvalidUserException
+import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.tasks.await
@@ -203,11 +204,17 @@ class AuthRepository {
         return getUser(uid)
     }
 
-    suspend fun updateUserProfile(department: String, idNumber: String): Result<Unit> {
+    suspend fun updateUserProfile(name: String, department: String): Result<Unit> {
         return try {
-            val uid = auth.currentUser?.uid?: return Result.failure(Exception("User not logged in."))
-            usersCollection.document(uid)
-                .update(mapOf("department" to department, "idNumber" to idNumber))
+            val firebaseUser = auth.currentUser ?: return Result.failure(Exception("User not logged in."))
+            if (name.isNotBlank()) {
+                val profileUpdates = UserProfileChangeRequest.Builder()
+                    .setDisplayName(name)
+                    .build()
+                firebaseUser.updateProfile(profileUpdates).await()
+            }
+            usersCollection.document(firebaseUser.uid)
+                .update(mapOf("name" to name, "department" to department))
                 .await()
             Result.success(Unit)
         } catch (e: Exception) {
@@ -221,6 +228,33 @@ class AuthRepository {
             snapshot.documents.mapNotNull { it.toObject(User::class.java) }
         } catch (_: Exception) {
             emptyList()
+        }
+    }
+
+    suspend fun getAllUsers(): List<User> {
+        return try {
+            val snapshot = usersCollection.get().await()
+            snapshot.documents.mapNotNull { it.toObject(User::class.java) }
+        } catch (_: Exception) {
+            emptyList()
+        }
+    }
+
+    suspend fun updateUserRole(userId: String, newRole: UserRole): Result<Unit> {
+        return try {
+            usersCollection.document(userId).update("role", newRole).await()
+            Result.success(Unit)
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+
+    suspend fun deleteUser(userId: String): Result<Unit> {
+        return try {
+            usersCollection.document(userId).delete().await()
+            Result.success(Unit)
+        } catch (e: Exception) {
+            Result.failure(e)
         }
     }
 
