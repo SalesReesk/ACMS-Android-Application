@@ -1,13 +1,16 @@
 package com.example.araspoint_map.frontend.activity
 
+import android.app.Activity
 import android.app.AlertDialog
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Spinner
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
@@ -16,41 +19,77 @@ import com.bumptech.glide.Glide
 import com.cloudinary.android.MediaManager
 import com.cloudinary.android.callback.ErrorInfo
 import com.cloudinary.android.callback.UploadCallback
+import android.util.Log
+import com.example.araspoint_map.BuildConfig
 import com.example.araspoint_map.R
 import com.example.araspoint_map.backend.model.enums.UserRole
+import com.example.araspoint_map.backend.model.shortDepartment
+import com.example.araspoint_map.backend.model.toShortDepartment
 import com.example.araspoint_map.backend.repository.AuthRepository
-import com.example.araspoint_map.databinding.FragmentAccontBinding
+import com.example.araspoint_map.databinding.FragmentAccountBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.yalantis.ucrop.UCrop
 import kotlinx.coroutines.launch
+import java.io.File
 
-class AccontFragment : Fragment() {
+class AccountFragment : Fragment() {
 
-    private var _binding: FragmentAccontBinding? = null
+    private var _binding: FragmentAccountBinding? = null
     private val binding get() = _binding!!
     private val authRepository = AuthRepository()
 
+    private val departmentList = listOf(
+        "CICS - College of Informatics and Computing Sciences",
+        "CEAFA - College of Engineering, Architecture and Fine Arts",
+        "CABEIHM - College of Accountancy, Business, Economics",
+        "CAS - College of Arts and Sciences",
+        "CTE - College of Teacher Education",
+        "CCJE - College of Criminal Justice Education",
+        "CHS - College of Health Sciences",
+        "CIT - College of Industrial Technology",
+        "CONAHS - College of Nursing and Allied Health Sciences",
+        "CAF - College of Agriculture and Forestry",
+        "Admin - Administration / General Staff",
+        "Student / Other"
+    )
+
     private val pickImageLauncher =
         registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
-            uri?.let { uploadProfileToCloudinary(it) }
+            uri?.let { startCrop(it) }
         }
+
+    private val cropActivityResultLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK && result.data != null) {
+                val resultUri = UCrop.getOutput(result.data!!)
+                if (resultUri != null) {
+                    uploadProfileToCloudinary(resultUri)
+                }
+            }
+        }
+
+    private fun startCrop(sourceUri: Uri) {
+        val destinationUri = Uri.fromFile(
+            File(requireContext().cacheDir, "cropped_profile_${System.currentTimeMillis()}.jpg")
+        )
+        val intent = UCrop.of(sourceUri, destinationUri)
+            .withAspectRatio(1f, 1f)
+            .withMaxResultSize(600, 600)
+            .getIntent(requireContext())
+        cropActivityResultLauncher.launch(intent)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentAccontBinding.inflate(inflater, container, false)
+        _binding = FragmentAccountBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        try {
-            val config = HashMap<String, String>()
-            config["cloud_name"] = "djyggmhmk"
-            MediaManager.init(requireContext(), config)
-        } catch (_: Exception) {}
 
         val currentUser = FirebaseAuth.getInstance().currentUser
         val displayName =
@@ -66,6 +105,7 @@ class AccontFragment : Fragment() {
         binding.profileUid.text = "UID: $uid"
         binding.profileRole.text = "Loading..."
         binding.profileAccessLevel.text = "Loading..."
+        binding.profileImage.setImageResource(R.drawable.user_icon)
 
         loadCloudinaryProfileImage()
         binding.profileImage.setOnClickListener { pickImageLauncher.launch("image/*") }
@@ -75,14 +115,20 @@ class AccontFragment : Fragment() {
             try {
                 val user = authRepository.getFullUser()
                 if (user != null && _binding != null) {
+                    if (user.name.isNotBlank()) {
+                        binding.profileName.text = user.name
+                    }
                     if (user.photo.isNotEmpty()) {
                         Glide.with(requireContext())
                             .load(user.photo)
                             .placeholder(R.drawable.user_icon)
+                            .error(R.drawable.user_icon)
                             .into(binding.profileImage)
+                    } else {
+                        binding.profileImage.setImageResource(R.drawable.user_icon)
                     }
                     if (user.department.isNotEmpty()) {
-                        binding.profileDepartment.text = user.department
+                        binding.profileDepartment.text = user.shortDepartment
                     }
                     if (user.idNumber.isNotEmpty()) {
                         binding.profileIdNumber.text = user.idNumber
@@ -145,11 +191,16 @@ class AccontFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             try {
                 val user = authRepository.getFullUser()
-                if (user != null && user.photo.isNotEmpty() && _binding != null) {
-                    Glide.with(requireContext())
-                        .load(user.photo)
-                        .placeholder(R.drawable.user_icon)
-                        .into(binding.profileImage)
+                if (user != null && _binding != null) {
+                    if (user.photo.isNotEmpty()) {
+                        Glide.with(requireContext())
+                            .load(user.photo)
+                            .placeholder(R.drawable.user_icon)
+                            .error(R.drawable.user_icon)
+                            .into(binding.profileImage)
+                    } else {
+                        binding.profileImage.setImageResource(R.drawable.user_icon)
+                    }
                 }
             } catch (_: Exception) {}
         }
@@ -159,7 +210,7 @@ class AccontFragment : Fragment() {
         Toast.makeText(requireContext(), "Uploading profile photo to Cloudinary...", Toast.LENGTH_SHORT).show()
         try {
             MediaManager.get().upload(imageUri)
-                .unsigned("CampusAssets")
+                .unsigned(BuildConfig.CLOUDINARY_UPLOAD_PRESET)
                 .callback(object : UploadCallback {
                     override fun onStart(requestId: String) {}
                     override fun onProgress(requestId: String, bytes: Long, totalBytes: Long) {}
@@ -177,6 +228,7 @@ class AccontFragment : Fragment() {
                                 Glide.with(requireContext())
                                     .load(secureUrl)
                                     .placeholder(R.drawable.user_icon)
+                                    .error(R.drawable.user_icon)
                                     .into(binding.profileImage)
                             }
                             Toast.makeText(requireContext(), "Profile photo updated successfully!", Toast.LENGTH_SHORT).show()
@@ -201,29 +253,45 @@ class AccontFragment : Fragment() {
             .setView(dialogView)
             .create()
 
-        val inputDept = dialogView.findViewById<EditText>(R.id.inputDepartment)
-        val inputId = dialogView.findViewById<EditText>(R.id.inputIdNumber)
+        val inputName = dialogView.findViewById<EditText>(R.id.inputFullName)
+        val spinnerDept = dialogView.findViewById<Spinner>(R.id.spinnerDepartment)
         val btnSubmit = dialogView.findViewById<Button>(R.id.btnSaveProfile)
+
+        val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, departmentList)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spinnerDept.adapter = adapter
 
         viewLifecycleOwner.lifecycleScope.launch {
             val user = authRepository.getFullUser()
+            val firebaseUser = FirebaseAuth.getInstance().currentUser
             if (user != null) {
-                inputDept.setText(user.department)
-                inputId.setText(user.idNumber)
+                inputName.setText(user.name.ifBlank { firebaseUser?.displayName ?: "" })
+                val deptIndex = departmentList.indexOfFirst { it.toShortDepartment() == user.shortDepartment }
+                if (deptIndex >= 0) {
+                    spinnerDept.setSelection(deptIndex)
+                }
+            } else {
+                inputName.setText(firebaseUser?.displayName ?: "")
             }
         }
 
         btnSubmit.setOnClickListener {
-            val dept = inputDept.text.toString().trim()
-            val idNum = inputId.text.toString().trim()
+            val name = inputName.text.toString().trim()
+            val rawDept = departmentList[spinnerDept.selectedItemPosition]
+            val selectedDept = rawDept.toShortDepartment()
+
+            if (name.isEmpty()) {
+                Toast.makeText(requireContext(), "Please enter a valid name", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
 
             viewLifecycleOwner.lifecycleScope.launch {
-                val result = authRepository.updateUserProfile(dept, idNum)
+                val result = authRepository.updateUserProfile(name, selectedDept)
                 if (result.isSuccess) {
                     Toast.makeText(requireContext(), "Profile updated successfully", Toast.LENGTH_SHORT).show()
                     if (_binding != null) {
-                        binding.profileDepartment.text = dept.ifBlank { "—" }
-                        binding.profileIdNumber.text = idNum.ifBlank { "—" }
+                        binding.profileName.text = name
+                        binding.profileDepartment.text = selectedDept
                     }
                     dialog.dismiss()
                 } else {
