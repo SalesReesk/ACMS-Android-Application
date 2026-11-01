@@ -15,4 +15,24 @@
     <string name="welcome_back">Welcome Back!</string>
     <string name="map_today_a_better_campus_tomorrow">Map Today. A Better Campus Tomorrow.</string>
     <string name="LoginTitle">Campus Asset\nMapping System</string>
+
+    <!-- Account & Profile Strings -->
+    <string name="my_profile">My Profile</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="profile_photo">Profile Photo</string>
+    <string name="change_photo">Change photo</string>
+    <string name="loading">Loading…</string>
+    <string name="student">Student</string>
+    <string name="uid_placeholder">UID: —</string>
+    <string name="uid_format">UID: %1$s</string>
+    <string name="account_details">Account Details</string>
+    <string name="institution">Institution</string>
+    <string name="campus_name">BatStateU ARASOF-Nasugbu</string>
+    <string name="department_college">Department / College</string>
+    <string name="student_employee_id">Student / Employee ID</string>
+    <string name="system_access_level">System Access Level</string>
+    <string name="read_only">Read Only</string>
+    <string name="administration">Administration</string>
+    <string name="create_maintenance_account">Create Maintenance Account</string>
+    <string name="app_version_info">ArasPoint v1.0.4 Testing\nSemestral Project for OOP</string>
 </resources>

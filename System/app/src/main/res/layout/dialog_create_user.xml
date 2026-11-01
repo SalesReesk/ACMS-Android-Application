@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="24dp"
+    app:cardElevation="6dp"
+    app:cardBackgroundColor="@color/surface_container_lowest">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp">
+
+        <TextView
+            android:id="@+id/dialogTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_bold"
+            android:text="Create New User Account"
+            android:textColor="@color/on_surface"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="16dp"
+            android:fontFamily="@font/inter_18pt_regular"
+            android:text="Add new user account details"
+            android:textColor="@color/on_surface_variant"
+            android:textSize="@dimen/text_body" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:fontFamily="@font/inter_18pt_bold"
+            android:text="Full Name"
+            android:textColor="@color/on_surface"
+            android:textSize="12sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/input_height"
+            android:background="@drawable/bg_input_field"
+            android:gravity="center_vertical"
+            android:paddingHorizontal="@dimen/input_padding_horizontal"
+            android:layout_marginBottom="12dp">
+
+            <EditText
+                android:id="@+id/inputUserName"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/transparent"
+                android:fontFamily="@font/inter_18pt_regular"
+                android:hint="Full Name"
+                android:singleLine="true"
+                android:textColor="@color/on_surface"
+                android:textColorHint="@color/outline"
+                android:textSize="13sp" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:fontFamily="@font/inter_18pt_bold"
+            android:text="Email"
+            android:textColor="@color/on_surface"
+            android:textSize="12sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/input_height"
+            android:background="@drawable/bg_input_field"
+            android:gravity="center_vertical"
+            android:paddingHorizontal="@dimen/input_padding_horizontal"
+            android:layout_marginBottom="12dp">
+
+            <EditText
+                android:id="@+id/inputUserEmail"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/transparent"
+                android:fontFamily="@font/inter_18pt_regular"
+                android:hint="name@g.batstate-u.edu.ph"
+                android:inputType="textEmailAddress"
+                android:singleLine="true"
+                android:textColor="@color/on_surface"
+                android:textColorHint="@color/outline"
+                android:textSize="13sp" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:fontFamily="@font/inter_18pt_bold"
+            android:text="Password"
+            android:textColor="@color/on_surface"
+            android:textSize="12sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/input_height"
+            android:background="@drawable/bg_input_field"
+            android:gravity="center_vertical"
+            android:paddingHorizontal="@dimen/input_padding_horizontal"
+            android:layout_marginBottom="12dp">
+
+            <EditText
+                android:id="@+id/inputUserPassword"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/transparent"
+                android:fontFamily="@font/inter_18pt_regular"
+                android:hint="••••••••"
+                android:inputType="textPassword"
+                android:singleLine="true"
+                android:textColor="@color/on_surface"
+                android:textColorHint="@color/outline"
+                android:textSize="13sp" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:fontFamily="@font/inter_18pt_bold"
+            android:text="Role"
+            android:textColor="@color/on_surface"
+            android:textSize="12sp" />
+
+        <Spinner
+            android:id="@+id/spinnerUserRole"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/input_height"
+            android:background="@drawable/bg_input_field"
+            android:layout_marginBottom="24dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnSubmitCreateUser"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/btn_height"
+            android:backgroundTint="@color/primary"
+            android:fontFamily="@font/poppins_bold"
+            android:text="Create Account"
+            android:textAllCaps="false"
+            android:textColor="@color/on_primary"
+            android:textSize="15sp"
+            app:cornerRadius="@dimen/btn_corner_radius"
+            app:elevation="2dp" />
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

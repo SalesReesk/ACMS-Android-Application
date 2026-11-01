@@ -34,39 +34,43 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Update your department and institutional ID"
+                android:text="Update your display name and department"
                 android:textSize="13sp"
                 android:textColor="@color/on_surface_variant"
                 android:fontFamily="sans-serif"
                 android:layout_marginBottom="20dp" />
 
+            <!-- Full Name / Display Name -->
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Department / College"
+                android:hint="Full Name"
                 style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
-                android:layout_marginBottom="14dp">
+                android:layout_marginBottom="16dp">
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/inputDepartment"
+                    android:id="@+id/inputFullName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textCapWords"
+                    android:inputType="textPersonName|textCapWords"
                     android:fontFamily="sans-serif" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
+            <!-- Department Selection Dropdown / Spinner -->
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="Student / Employee ID Number"
-                style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
-                android:layout_marginBottom="24dp">
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/inputIdNumber"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="text"
-                    android:fontFamily="sans-serif" />
-            </com.google.android.material.textfield.TextInputLayout>
+                android:text="Department / College"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:textColor="@color/on_surface"
+                android:layout_marginBottom="6dp" />
+
+            <Spinner
+                android:id="@+id/spinnerDepartment"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/input_height"
+                android:background="@drawable/bg_input_field"
+                android:layout_marginBottom="24dp" />
 
             <Button
                 android:id="@+id/btnSaveProfile"
