@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>BatStateU ARASOF Campus Map</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <style>
+        html, body, #map {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            background-color: #0f172a;
+        }
+        .user-location-marker {
+            width: 20px;
+            height: 20px;
+            background-color: #38BDF8;
+            border: 3px solid #FFFFFF;
+            border-radius: 50%;
+            box-shadow: 0 0 12px rgba(56,189,248,0.9);
+        }
+        .building-pin-marker {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .building-pin-inner {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            border: 2px solid #FFFFFF;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.6);
+            cursor: pointer;
+        }
+        .building-pin-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #FFFFFF;
+            border-radius: 50%;
+        }
+        .building-permanent-label {
+            background-color: rgba(15, 23, 42, 0.9) !important;
+            border: 1px solid rgba(255, 255, 255, 0.25) !important;
+            color: #FFFFFF !important;
+            font-weight: bold !important;
+            font-size: 10px !important;
+            font-family: sans-serif !important;
+            border-radius: 6px !important;
+            padding: 2px 6px !important;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.5) !important;
+        }
+    </style>
+</head>
+<body>
+    <div id="map"></div>
+    <script>
+        // Strict campus panning/sliding limits (Southwest to Northeast)
+        var campusBounds = L.latLngBounds(
+            [14.065000, 120.624500],
+            [14.068500, 120.628500]
+        );
+
+        var map = L.map('map', {
+            zoomControl: false,
+            attributionControl: false,
+            minZoom: 17,
+            maxZoom: 22,
+            maxBounds: campusBounds,
+            maxBoundsViscosity: 1.0
+        }).setView([14.066730, 120.626382], 19);
+
+        // Standard High-Resolution Google Satellite Tile Layer
+        L.tileLayer('https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
+            maxZoom: 22,
+            maxNativeZoom: 20
+        }).addTo(map);
+
+        // --- Campus Perimeter Boundary (Purple) ---
+        L.polygon([
+            [14.066089, 120.625486], [14.066060, 120.625946], [14.065448, 120.625913],
+            [14.065427, 120.626040], [14.065675, 120.626068], [14.065658, 120.626438],
+            [14.065643, 120.626786], [14.066713, 120.627201], [14.066698, 120.627276],
+            [14.067712, 120.627565], [14.067777, 120.625390], [14.066089, 120.625486]
+        ], {
+            color: '#7C3AED',
+            weight: 3.5,
+            fillColor: '#7C3AED',
+            fillOpacity: 0.12
+        }).addTo(map);
+
+        // --- Exact KML Color Scheme Mapping & Coordinates ---
+        var buildingAreas = [
+            { id: "HEB", name: "HEB Building", shortName: "HEB", lat: 14.067322, lng: 120.626777, color: "#FACC15", pinColor: "#FACC15", coords: [[14.067654,120.626759],[14.066907,120.626614],[14.066883,120.626708],[14.066943,120.626752],[14.067289,120.626824],[14.067662,120.626893],[14.067677,120.626803],[14.067654,120.626759]] },
+            { id: "GYM", name: "JOSON GYMNASIUM", shortName: "GYM", lat: 14.067103, lng: 120.626169, color: "#FACC15", pinColor: "#FACC15", coords: [[14.066901,120.626027],[14.066899,120.626286],[14.067241,120.626292],[14.067257,120.626252],[14.067321,120.626254],[14.067329,120.626178],[14.067321,120.626085],[14.067300,120.626072],[14.067261,120.626080],[14.067250,120.626037],[14.066901,120.626027]] },
+            { id: "CTEB", name: "CTEB Building", shortName: "CTEB", lat: 14.066589, lng: 120.626364, color: "#FACC15", pinColor: "#FACC15", coords: [[14.066368,120.626268],[14.066369,120.626172],[14.066329,120.626106],[14.066213,120.626106],[14.066213,120.626176],[14.066246,120.626299],[14.066249,120.626419],[14.066835,120.626440],[14.066834,120.626412],[14.066867,120.626408],[14.066874,120.626326],[14.066820,120.626264],[14.066368,120.626268]] },
+            { id: "CAS", name: "CAS BUILDING", shortName: "CAS", lat: 14.066022, lng: 120.626146, color: "#FACC15", pinColor: "#FACC15", coords: [[14.065946,120.626305],[14.065973,120.626342],[14.066046,120.626352],[14.066062,120.626082],[14.066139,120.626090],[14.066140,120.625987],[14.065961,120.625980],[14.065946,120.626305]] },
+            { id: "IMT", name: "IMT Building", shortName: "IMT", lat: 14.066387, lng: 120.625581, color: "#FACC15", pinColor: "#FACC15", coords: [[14.066308,120.625517],[14.066294,120.625588],[14.066321,120.625630],[14.066368,120.625643],[14.066411,120.625639],[14.066455,120.625621],[14.066521,120.625593],[14.066513,120.625463],[14.066343,120.625479],[14.066308,120.625517]] },
+            { id: "APACIBLE", name: "APACIBLE MUSEUM", shortName: "APACIBLE", lat: 14.067366, lng: 120.626187, color: "#FACC15", pinColor: "#FACC15", coords: [[14.067284,120.626256],[14.067348,120.626310],[14.067405,120.626324],[14.067446,120.626313],[14.067454,120.626058],[14.067319,120.626063],[14.067321,120.626084],[14.067333,120.626177],[14.067324,120.626254],[14.067284,120.626256]] },
+
+            { id: "HOSTEL", name: "NASUGBU HOSTEL", shortName: "HOSTEL", lat: 14.066962, lng: 120.627023, color: "#F97316", pinColor: "#F97316", coords: [[14.066809,120.627155],[14.067060,120.627203],[14.067110,120.626887],[14.066865,120.626841],[14.066809,120.627155]] },
+            { id: "IBAAN", name: "IBAAN Building", shortName: "IBAAN", lat: 14.067655, lng: 120.625926, color: "#F97316", pinColor: "#F97316", coords: [[14.067588,120.625735],[14.067569,120.626058],[14.067599,120.626098],[14.067721,120.626108],[14.067735,120.625761],[14.067702,120.625732],[14.067588,120.625735]] },
+            { id: "TAAL", name: "TAAL Building", shortName: "TAAL", lat: 14.067332, lng: 120.625627, color: "#F97316", pinColor: "#F97316", coords: [[14.067169,120.625513],[14.067169,120.625665],[14.067214,120.625717],[14.067216,120.625738],[14.067249,120.625733],[14.067251,120.625763],[14.067486,120.625764],[14.067486,120.625731],[14.067568,120.625718],[14.067568,120.625627],[14.067550,120.625625],[14.067545,120.625575],[14.067523,120.625572],[14.067522,120.625545],[14.067499,120.625545],[14.067464,120.625499],[14.067169,120.625513]] },
+            { id: "ERMITA", name: "ERMITA BUILDING", shortName: "ERMITA", lat: 14.067032, lng: 120.625615, color: "#F97316", pinColor: "#F97316", coords: [[14.066957,120.625683],[14.067102,120.625672],[14.067089,120.625554],[14.066951,120.625565],[14.066957,120.625683]] },
+
+            { id: "LEMERY", name: "LEMERY Building", shortName: "LEMERY", lat: 14.065859, lng: 120.626151, color: "#FACC15", pinColor: "#2563EB", coords: [[14.065682,120.626052],[14.065679,120.626343],[14.065940,120.626357],[14.065954,120.625954],[14.065462,120.625928],[14.065454,120.626034],[14.065682,120.626052]] },
+            { id: "LIAN", name: "LIAN Cafeteria", shortName: "LIAN", lat: 14.066721, lng: 120.626725, color: "#2563EB", pinColor: "#2563EB", coords: [[14.066802,120.626572],[14.066669,120.626558],[14.066646,120.626850],[14.066776,120.626853],[14.066802,120.626572]] },
+            { id: "ROSARIO", name: "ROSARIO Canteen", shortName: "ROSARIO", lat: 14.067319, lng: 120.625961, color: "#2563EB", pinColor: "#2563EB", coords: [[14.067415,120.626055],[14.067429,120.625826],[14.067246,120.625826],[14.067228,120.626025],[14.067259,120.626027],[14.067264,120.626058],[14.067415,120.626055]] },
+
+            { id: "INFIRMARY", name: "INFIRMARY", shortName: "CLINIC", lat: 14.067080, lng: 120.625864, color: "#EF4444", pinColor: "#EF4444", coords: [[14.066921,120.625989],[14.067193,120.625963],[14.067183,120.625792],[14.066928,120.625812],[14.066921,120.625989]] }
+        ];
+
+        buildingAreas.forEach(function(area) {
+            var poly = L.polygon(area.coords, {
+                color: area.color,
+                weight: 3,
+                fillColor: area.color,
+                fillOpacity: 0.30
+            }).addTo(map);
+
+            poly.on('click', function() {
+                if (window.AndroidBridge && window.AndroidBridge.onBuildingClicked) {
+                    window.AndroidBridge.onBuildingClicked(area.id);
+                }
+            });
+
+            var pinIcon = L.divIcon({
+                className: 'building-svg-pin',
+                html: createSvgPinHtml(area.pinColor),
+                iconSize: [28, 34],
+                iconAnchor: [14, 34]
+            });
+
+            var marker = L.marker([area.lat, area.lng], { icon: pinIcon }).addTo(map);
+            marker.bindTooltip(area.shortName, {
+                permanent: true,
+                direction: 'top',
+                className: 'building-permanent-label',
+                offset: [0, -6]
+            });
+
+            marker.on('click', function() {
+                if (window.AndroidBridge && window.AndroidBridge.onBuildingClicked) {
+                    window.AndroidBridge.onBuildingClicked(area.id);
+                }
+            });
+        });
+
+        var userMarker = null;
+
+        function createSvgPinHtml(fillColor) {
+            return '<svg width="28" height="34" viewBox="0 0 24 28" xmlns="http://www.w3.org/2000/svg" style="filter: drop-shadow(0px 3px 6px rgba(0,0,0,0.6));">' +
+                   '<path d="M20,10c0,4.993 -5.539,10.193 -7.399,11.799a1,1 0,0 1,-1.202 0C9.539,20.193 4,14.993 4,10a8,8 0,0 1,16 0z" fill="' + fillColor + '" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>' +
+                   '<circle cx="12" cy="10" r="3" fill="#FFFFFF"/>' +
+                   '</svg>';
+        }
+
+        function updateUserMarker(lat, lng) {
+            var latLng = [lat, lng];
+            if (!userMarker) {
+                var pulseIcon = L.divIcon({
+                    className: 'user-location-marker',
+                    iconSize: [20, 20],
+                    iconAnchor: [10, 10]
+                });
+                userMarker = L.marker(latLng, { icon: pulseIcon }).addTo(map);
+            } else {
+                userMarker.setLatLng(latLng);
+            }
+        }
+
+        function recenterCampus() {
+            if (userMarker) {
+                map.setView(userMarker.getLatLng(), 19);
+            } else {
+                map.setView([14.066730, 120.626382], 19);
+            }
+        }
+
+        function zoomIn() {
+            map.zoomIn();
+        }
+
+        function zoomOut() {
+            map.zoomOut();
+        }
+    </script>
+</body>
+</html>

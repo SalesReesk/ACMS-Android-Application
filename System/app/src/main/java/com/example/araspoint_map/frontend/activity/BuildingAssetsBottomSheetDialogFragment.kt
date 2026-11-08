@@ -62,6 +62,17 @@ class BuildingAssetsBottomSheetDialogFragment(
                 buildingTitle.contains("HEB", ignoreCase = true) || buildingTitle.contains("LIBRARY", ignoreCase = true) -> listOf("heb", "library", "audio")
                 buildingTitle.contains("CET", ignoreCase = true) || buildingTitle.contains("CSB", ignoreCase = true) -> listOf("csb", "cet", "mechatronics")
                 buildingTitle.contains("GYM", ignoreCase = true) -> listOf("gym", "grandstand", "athletics")
+                buildingTitle.contains("TAAL", ignoreCase = true) -> listOf("taal")
+                buildingTitle.contains("LEMERY", ignoreCase = true) -> listOf("lemery")
+                buildingTitle.contains("IBAAN", ignoreCase = true) -> listOf("ibaan")
+                buildingTitle.contains("HOSTEL", ignoreCase = true) -> listOf("hostel", "nasugbu hostel")
+                buildingTitle.contains("IMT", ignoreCase = true) -> listOf("imt")
+                buildingTitle.contains("LIAN", ignoreCase = true) -> listOf("lian", "cafeteria")
+                buildingTitle.contains("ROSARIO", ignoreCase = true) -> listOf("rosario", "canteen")
+                buildingTitle.contains("INFIRMARY", ignoreCase = true) -> listOf("infirmary", "clinic")
+                buildingTitle.contains("APACIBLE", ignoreCase = true) -> listOf("apacible", "museum")
+                buildingTitle.contains("CAS", ignoreCase = true) -> listOf("cas")
+                buildingTitle.contains("ERMITA", ignoreCase = true) -> listOf("ermita")
                 else -> listOf(buildingTitle.lowercase())
             }
 

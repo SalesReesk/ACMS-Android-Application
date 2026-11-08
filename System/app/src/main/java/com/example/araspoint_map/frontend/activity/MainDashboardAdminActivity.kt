@@ -122,7 +122,8 @@ class MainDashboardAdminActivity : AppCompatActivity() {
                     openFragment(DashBoardFragment())
                 }
                 "map" -> {
-                    openFragment(MapFragment())
+                    val intent = Intent(this, MapActivity::class.java)
+                    startActivity(intent)
                 }
                 "right" -> {
                     imgTabRight?.setColorFilter(primaryColor)
@@ -206,7 +207,8 @@ class MainDashboardAdminActivity : AppCompatActivity() {
     }
 
     fun openMapFragment() {
-        openFragment(MapFragment())
+        val intent = Intent(this, MapActivity::class.java)
+        startActivity(intent)
     }
 
     fun openInventoryFragment() {
