@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.araspoint_map.R
 import com.example.araspoint_map.backend.model.User
-import com.example.araspoint_map.backend.model.shortDepartment
 import com.google.android.material.button.MaterialButton
 
 class UserAdapter(
@@ -38,7 +37,7 @@ class UserAdapter(
         holder.txtName.text = user.name.ifBlank { user.email.substringBefore("@") }
         holder.txtEmail.text = user.email
         holder.txtRole.text = user.role.name
-        holder.txtDept.text = "Dept: ${user.shortDepartment} • ID: ${user.idNumber.ifBlank { "—" }}"
+        holder.txtDept.text = "ID: ${user.idNumber.ifBlank { "—" }}"
 
         if (user.photo.isNotEmpty()) {
             Glide.with(holder.itemView.context)

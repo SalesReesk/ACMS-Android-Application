@@ -23,8 +23,6 @@ import android.util.Log
 import com.example.araspoint_map.BuildConfig
 import com.example.araspoint_map.R
 import com.example.araspoint_map.backend.model.enums.UserRole
-import com.example.araspoint_map.backend.model.shortDepartment
-import com.example.araspoint_map.backend.model.toShortDepartment
 import com.example.araspoint_map.backend.repository.AuthRepository
 import com.example.araspoint_map.databinding.FragmentAccountBinding
 import com.google.firebase.auth.FirebaseAuth
@@ -38,21 +36,6 @@ class AccountFragment : Fragment() {
     private var _binding: FragmentAccountBinding? = null
     private val binding get() = _binding!!
     private val authRepository = AuthRepository()
-
-    private val departmentList = listOf(
-        "CICS - College of Informatics and Computing Sciences",
-        "CEAFA - College of Engineering, Architecture and Fine Arts",
-        "CABEIHM - College of Accountancy, Business, Economics",
-        "CAS - College of Arts and Sciences",
-        "CTE - College of Teacher Education",
-        "CCJE - College of Criminal Justice Education",
-        "CHS - College of Health Sciences",
-        "CIT - College of Industrial Technology",
-        "CONAHS - College of Nursing and Allied Health Sciences",
-        "CAF - College of Agriculture and Forestry",
-        "Admin - Administration / General Staff",
-        "Student / Other"
-    )
 
     private val pickImageLauncher =
         registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
@@ -127,9 +110,6 @@ class AccountFragment : Fragment() {
                     } else {
                         binding.profileImage.setImageResource(R.drawable.user_icon)
                     }
-                    if (user.department.isNotEmpty()) {
-                        binding.profileDepartment.text = user.shortDepartment
-                    }
                     if (user.idNumber.isNotEmpty()) {
                         binding.profileIdNumber.text = user.idNumber
                     }
@@ -161,14 +141,7 @@ class AccountFragment : Fragment() {
                 binding.profileRole.text = roleName
                 binding.profileAccessLevel.text = accessLevel
 
-                if (isAdmin) {
-                    binding.labelAdminActions.visibility = View.VISIBLE
-                    binding.labelAdminActions.text = "Administration"
-                    binding.btnCreateMaintenanceAccount.visibility = View.VISIBLE
-                } else {
-                    binding.labelAdminActions.visibility = View.GONE
-                    binding.btnCreateMaintenanceAccount.visibility = View.GONE
-                }
+
             } catch (_: Exception) {
                 if (_binding != null) {
                     binding.profileRole.text = "Student"
@@ -177,9 +150,7 @@ class AccountFragment : Fragment() {
             }
         }
 
-        binding.btnCreateMaintenanceAccount.setOnClickListener {
-            showCreateMaintenanceDialog()
-        }
+
     }
 
     override fun onResume() {
@@ -254,22 +225,13 @@ class AccountFragment : Fragment() {
             .create()
 
         val inputName = dialogView.findViewById<EditText>(R.id.inputFullName)
-        val spinnerDept = dialogView.findViewById<Spinner>(R.id.spinnerDepartment)
         val btnSubmit = dialogView.findViewById<Button>(R.id.btnSaveProfile)
-
-        val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, departmentList)
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        spinnerDept.adapter = adapter
 
         viewLifecycleOwner.lifecycleScope.launch {
             val user = authRepository.getFullUser()
             val firebaseUser = FirebaseAuth.getInstance().currentUser
             if (user != null) {
                 inputName.setText(user.name.ifBlank { firebaseUser?.displayName ?: "" })
-                val deptIndex = departmentList.indexOfFirst { it.toShortDepartment() == user.shortDepartment }
-                if (deptIndex >= 0) {
-                    spinnerDept.setSelection(deptIndex)
-                }
             } else {
                 inputName.setText(firebaseUser?.displayName ?: "")
             }
@@ -277,8 +239,6 @@ class AccountFragment : Fragment() {
 
         btnSubmit.setOnClickListener {
             val name = inputName.text.toString().trim()
-            val rawDept = departmentList[spinnerDept.selectedItemPosition]
-            val selectedDept = rawDept.toShortDepartment()
 
             if (name.isEmpty()) {
                 Toast.makeText(requireContext(), "Please enter a valid name", Toast.LENGTH_SHORT).show()
@@ -286,12 +246,11 @@ class AccountFragment : Fragment() {
             }
 
             viewLifecycleOwner.lifecycleScope.launch {
-                val result = authRepository.updateUserProfile(name, selectedDept)
+                val result = authRepository.updateUserProfile(name)
                 if (result.isSuccess) {
                     Toast.makeText(requireContext(), "Profile updated successfully", Toast.LENGTH_SHORT).show()
                     if (_binding != null) {
                         binding.profileName.text = name
-                        binding.profileDepartment.text = selectedDept
                     }
                     dialog.dismiss()
                 } else {
@@ -304,41 +263,7 @@ class AccountFragment : Fragment() {
         dialog.show()
     }
 
-    private fun showCreateMaintenanceDialog() {
-        val dialogView = layoutInflater.inflate(R.layout.dialog_create_maintenance, null)
-        val dialog = AlertDialog.Builder(requireContext())
-            .setView(dialogView)
-            .create()
 
-        val inputName = dialogView.findViewById<EditText>(R.id.inputMaintName)
-        val inputEmail = dialogView.findViewById<EditText>(R.id.inputMaintEmail)
-        val inputPassword = dialogView.findViewById<EditText>(R.id.inputMaintPassword)
-        val btnSubmit = dialogView.findViewById<Button>(R.id.btnSubmitCreateMaint)
-
-        btnSubmit.setOnClickListener {
-            val name = inputName.text.toString().trim()
-            val email = inputEmail.text.toString().trim()
-            val password = inputPassword.text.toString().trim()
-
-            if (name.isEmpty() || email.isEmpty() || password.isEmpty()) {
-                Toast.makeText(requireContext(), "Please fill in all fields", Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
-            }
-
-            viewLifecycleOwner.lifecycleScope.launch {
-                val result = authRepository.register(name, email, password, UserRole.MAINTENANCE)
-                if (result.isSuccess) {
-                    Toast.makeText(requireContext(), "Maintenance Account created successfully for $name", Toast.LENGTH_LONG).show()
-                    dialog.dismiss()
-                } else {
-                    Toast.makeText(requireContext(), "Failed: ${result.exceptionOrNull()?.message}", Toast.LENGTH_LONG).show()
-                }
-            }
-        }
-
-        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
-        dialog.show()
-    }
 
     override fun onDestroyView() {
         super.onDestroyView()

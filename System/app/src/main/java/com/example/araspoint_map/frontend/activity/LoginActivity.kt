@@ -10,7 +10,6 @@ import android.widget.ScrollView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.araspoint_map.R
@@ -124,19 +123,16 @@ class LoginActivity : AppCompatActivity() {
         binding.btnDemoFaculty.setOnClickListener {
             binding.email.setText("faculty.arasof@g.batstate-u.edu.ph")
             binding.password.setText("TeacherPortal2024!")
-            Toast.makeText(this, "Pre-filled Faculty / Staff credentials", Toast.LENGTH_SHORT).show()
         }
 
         binding.btnDemoMaintenance.setOnClickListener {
             binding.email.setText("maint.auditor@g.batstate-u.edu.ph")
             binding.password.setText("FieldOpsNasugbu!")
-            Toast.makeText(this, "Pre-filled Maintenance credentials", Toast.LENGTH_SHORT).show()
         }
 
         binding.btnDemoAdmin.setOnClickListener {
             binding.email.setText("ict.admin@g.batstate-u.edu.ph")
             binding.password.setText("RootAdminNasugbu99!")
-            Toast.makeText(this, "Pre-filled Admin credentials", Toast.LENGTH_SHORT).show()
         }
 
         binding.loginButton.setOnClickListener {

@@ -5,18 +5,29 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.araspoint_map.R
 import com.example.araspoint_map.backend.model.Asset
+import com.example.araspoint_map.backend.model.MaintenanceRecord
+import com.example.araspoint_map.backend.model.enums.PriorityStatus
+import com.example.araspoint_map.backend.model.enums.ReportStatus
 import com.example.araspoint_map.backend.repository.AssetRepository
+import com.example.araspoint_map.backend.repository.MaintenanceRepository
 import com.example.araspoint_map.databinding.DialogAssetDetailsBinding
 import com.example.araspoint_map.databinding.DialogBuildingAssetsBinding
+import com.example.araspoint_map.databinding.DialogSubmitReportBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 class BuildingAssetsBottomSheetDialogFragment(
     private val buildingTitle: String,
@@ -26,6 +37,7 @@ class BuildingAssetsBottomSheetDialogFragment(
     private var _binding: DialogBuildingAssetsBinding? = null
     private val binding get() = _binding!!
     private val assetRepository = AssetRepository()
+    private val maintenanceRepository = MaintenanceRepository()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -171,6 +183,87 @@ class BuildingAssetsBottomSheetDialogFragment(
 
         dialogBinding.btnReportThisAsset.setOnClickListener {
             dialog.dismiss()
+            showReportIssueDialog(asset)
+        }
+
+        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+        dialog.show()
+    }
+
+    private fun showReportIssueDialog(asset: Asset) {
+        val dialogBinding = DialogSubmitReportBinding.inflate(layoutInflater)
+        val dialog = AlertDialog.Builder(requireContext())
+            .setView(dialogBinding.root)
+            .create()
+
+        dialogBinding.dialogReportTitle.setText("Issue: ${asset.assetName.ifBlank { asset.assetType }}")
+        dialogBinding.dialogReportLocation.setText(asset.location)
+
+        val priorities = arrayOf("LOW", "MEDIUM", "HIGH", "CRITICAL")
+        val priorityAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item, priorities)
+        dialogBinding.dialogReportPriority.adapter = priorityAdapter
+        dialogBinding.dialogReportPriority.setSelection(1)
+
+        dialogBinding.dialogBtnCapturePhoto.visibility = View.GONE
+
+        dialogBinding.dialogBtnSubmitReport.setOnClickListener {
+            val title = dialogBinding.dialogReportTitle.text.toString().trim()
+            val location = dialogBinding.dialogReportLocation.text.toString().trim()
+            val description = dialogBinding.dialogReportDescription.text.toString().trim()
+            val priorityStr = dialogBinding.dialogReportPriority.selectedItem.toString()
+
+            if (title.isEmpty()) {
+                dialogBinding.dialogReportTitle.error = "Title required"
+                return@setOnClickListener
+            }
+            if (location.isEmpty()) {
+                dialogBinding.dialogReportLocation.error = "Location required"
+                return@setOnClickListener
+            }
+            if (description.isEmpty()) {
+                dialogBinding.dialogReportDescription.error = "Description required"
+                return@setOnClickListener
+            }
+
+            val priority = try {
+                PriorityStatus.valueOf(priorityStr)
+            } catch (_: Exception) {
+                PriorityStatus.MEDIUM
+            }
+
+            val currentUser = FirebaseAuth.getInstance().currentUser
+            val userEmail = currentUser?.email ?: "Anonymous"
+            val nowStr = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault()).format(Date())
+
+            val generatedId = "REP-${System.currentTimeMillis()}-${(1000..9999).random()}"
+            val record = MaintenanceRecord(
+                reportId = generatedId,
+                assetId = asset.assetId,
+                title = title,
+                description = description,
+                location = location,
+                assignedTo = "Unassigned",
+                dateReported = nowStr,
+                dateUpdated = "Pending Admin Review",
+                status = ReportStatus.PENDING,
+                priority = priority,
+                reporterEmail = userEmail
+            )
+
+            val ctx = context
+            CoroutineScope(Dispatchers.IO).launch {
+                val result = maintenanceRepository.addReport(record)
+                withContext(Dispatchers.Main) {
+                    if (ctx != null) {
+                        if (result.isSuccess) {
+                            Toast.makeText(ctx, "Report ticket submitted successfully!", Toast.LENGTH_LONG).show()
+                            dialog.dismiss()
+                        } else {
+                            Toast.makeText(ctx, "Failed to submit report ticket", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                }
+            }
         }
 
         dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)

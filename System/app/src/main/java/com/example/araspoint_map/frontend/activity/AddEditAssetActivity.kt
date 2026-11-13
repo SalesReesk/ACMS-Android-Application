@@ -6,6 +6,8 @@ import android.app.AlertDialog
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
+import android.view.View
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.ScrollView
 import android.widget.Spinner
@@ -18,7 +20,6 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import android.util.Log
 import androidx.lifecycle.lifecycleScope
 import com.cloudinary.android.MediaManager
 import com.cloudinary.android.callback.ErrorInfo
@@ -146,24 +147,28 @@ class AddEditAssetActivity : AppCompatActivity() {
             showImageSourceDialog()
         }
 
-        val assetTypes = arrayOf("Electronics", "Furniture", "Appliance", "IT Equipment", "Scientific", "Facility")
-        val typeAdapter = ArrayAdapter(this, R.layout.simple_spinner_dropdown_item, assetTypes)
+        val typeAdapter = ArrayAdapter(this, R.layout.simple_spinner_dropdown_item, Constants.ASSET_CATEGORIES)
         binding.spinnerAssetType.adapter = typeAdapter
 
         val statuses = AssetStatus.values().map { it.name }
-        val statusAdapter = ArrayAdapter(this, R.layout.simple_spinner_dropdown_item, statuses)
+        val statusAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, statuses)
         binding.spinnerAssetStatus.adapter = statusAdapter
 
         val conditions = AssetCondition.values().map { it.name }
-        val conditionAdapter = ArrayAdapter(this, R.layout.simple_spinner_dropdown_item, conditions)
+        val conditionAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, conditions)
         binding.spinnerAssetCondition.adapter = conditionAdapter
 
-        val buildingAdapter = ArrayAdapter(this, R.layout.simple_spinner_dropdown_item, Constants.BUILDINGS)
+        val buildingAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, Constants.BUILDINGS)
         binding.spinnerBuilding.adapter = buildingAdapter
-
-        val floors = arrayOf("1", "2", "3", "4")
-        val floorAdapter = ArrayAdapter(this, R.layout.simple_spinner_dropdown_item, floors)
-        binding.spinnerFloor.adapter = floorAdapter
+        binding.spinnerBuilding.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                val buildingName = Constants.BUILDINGS.getOrNull(position) ?: "HEB"
+                val floors = Constants.BUILDING_FLOORS_MAP[buildingName] ?: listOf("1")
+                val floorAdapter = ArrayAdapter(this@AddEditAssetActivity, R.layout.simple_spinner_dropdown_item, floors)
+                binding.spinnerFloor.adapter = floorAdapter
+            }
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
+        }
 
         editingAssetId = intent.getStringExtra("EXTRA_ASSET_ID")
         if (editingAssetId != null) {

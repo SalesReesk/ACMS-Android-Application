@@ -44,8 +44,7 @@ class MainDashboardAdminActivity : AppCompatActivity() {
             binding.topToolbar.setPadding(0, systemBars.top, 0, 0)
 
             val params = binding.bottomBarCoordinator.layoutParams as ViewGroup.MarginLayoutParams
-            val defaultBottomMargin = (16 * resources.displayMetrics.density).toInt()
-            params.bottomMargin = defaultBottomMargin + systemBars.bottom
+            params.bottomMargin = (4 * resources.displayMetrics.density).toInt()
             binding.bottomBarCoordinator.layoutParams = params
 
             val spacerParams = statusBarSpacer?.layoutParams
@@ -213,10 +212,6 @@ class MainDashboardAdminActivity : AppCompatActivity() {
 
     fun openInventoryFragment() {
         openFragment(InventoryFragment())
-    }
-
-    fun openHomeFragment() {
-        openFragment(DashBoardFragment())
     }
 
     fun openAccountFragment() {

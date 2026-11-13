@@ -7,7 +7,9 @@ import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
 import android.os.Bundle
+import android.view.View
 import android.webkit.JavascriptInterface
+import android.webkit.WebSettings
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.Toast
@@ -93,7 +95,13 @@ class MapActivity : AppCompatActivity() {
 
     @SuppressLint("SetJavaScriptEnabled")
     private fun setupLeafletWebView() {
-        binding.mapWebView.settings.javaScriptEnabled = true
+        binding.mapWebView.setLayerType(View.LAYER_TYPE_HARDWARE, null)
+        binding.mapWebView.settings.apply {
+            javaScriptEnabled = true
+            domStorageEnabled = true
+            databaseEnabled = true
+            cacheMode = WebSettings.LOAD_DEFAULT
+        }
         binding.mapWebView.addJavascriptInterface(WebAppInterface(), "AndroidBridge")
         binding.mapWebView.webViewClient = object : WebViewClient() {
             override fun onPageFinished(view: WebView?, url: String?) {

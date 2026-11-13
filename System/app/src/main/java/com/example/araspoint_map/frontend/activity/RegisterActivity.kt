@@ -1,5 +1,6 @@
 package com.example.araspoint_map.frontend.activity
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
@@ -16,7 +17,6 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.araspoint_map.R
 import com.example.araspoint_map.backend.model.enums.UserRole
-import com.example.araspoint_map.backend.model.toShortDepartment
 import com.example.araspoint_map.backend.repository.AuthRepository
 import com.example.araspoint_map.databinding.ActivityRegisterBinding
 import com.example.araspoint_map.frontend.viewModel.AuthViewModel
@@ -66,9 +66,6 @@ class RegisterActivity : AppCompatActivity() {
         val deptAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, departments)
         binding.spinnerDepartment.adapter = deptAdapter
 
-        val roles = arrayOf("Student", "Teacher")
-        val roleAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, roles)
-        binding.spinnerRole.adapter = roleAdapter
 
         binding.btnTogglePassword.setOnClickListener {
             isPasswordVisible = !isPasswordVisible
@@ -112,12 +109,16 @@ class RegisterActivity : AppCompatActivity() {
             override fun afterTextChanged(s: Editable?) {}
         })
 
+        binding.checkboxTerms.setOnLongClickListener {
+            showPolicyDialog()
+            true
+        }
+
         binding.joinUs.setOnClickListener {
             val name = binding.name.text.toString().trim()
             val email = binding.email.text.toString().trim()
             val password = binding.password.text.toString().trim()
             val confirmPassword = binding.confirmPassword.text.toString().trim()
-            val roleStr = binding.spinnerRole.selectedItem.toString()
 
             if (name.isEmpty()) {
                 binding.name.error = "Name is required"
@@ -150,19 +151,15 @@ class RegisterActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
             if (!binding.checkboxTerms.isChecked) {
-                Toast.makeText(this, "Please agree to the University ICT Acceptable Use Policy", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, "Please agree to the University ICT Acceptable Use Policy & Data Privacy Notice for this OOP Semestral Project", Toast.LENGTH_LONG).show()
                 return@setOnClickListener
             }
 
-            val role = when (roleStr) {
-                "Teacher" -> UserRole.TEACHER
-                else -> UserRole.STUDENT
-            }
+            val role = UserRole.STUDENT
 
-            val department = (binding.spinnerDepartment.selectedItem?.toString() ?: "").toShortDepartment()
             val idNumber = email.substringBefore("@")
 
-            authViewModel.register(name, email, password, role, department, idNumber) { success, message ->
+            authViewModel.register(name, email, password, role, idNumber) { success, message ->
                 if (success) {
                     val intent = Intent(this, EmailVerificationActivity::class.java)
                     intent.putExtra("email", email)
@@ -179,6 +176,34 @@ class RegisterActivity : AppCompatActivity() {
             startActivity(intent)
             finish()
         }
+    }
+
+    private fun showPolicyDialog() {
+        AlertDialog.Builder(this)
+            .setTitle("ICT Acceptable Use Policy & Data Privacy Notice")
+            .setMessage(
+                """
+                BATANGAS STATE UNIVERSITY - ARASOF NASUGBU
+                OOP SEMESTRAL PROJECT - POLICY & DATA PRIVACY NOTICE
+                
+                1. ACADEMIC PROJECT PURPOSE
+                • ArasPoint is an academic demonstration developed for Object-Oriented Programming (OOP) coursework at BatStateU ARASOF-Nasugbu.
+                
+                2. ACCEPTABLE PLAN OF USE
+                • Access is granted to official BatStateU students, faculty, staff, and Property Officers for academic evaluation.
+                • Users must accurately report damaged, missing, or faulty items with genuine evidence.
+                
+                3. DATA PRIVACY NOTICE (RA 10173)
+                • Collected data (institutional email, display name, real-time GPS location, and photo evidence) is processed strictly within designated academic sandbox environments.
+                • All user profiles and asset audit logs are secured via Firebase Authentication and Firestore Security Rules.
+                """.trimIndent()
+            )
+            .setPositiveButton("I Agree") { dialog, _ ->
+                binding.checkboxTerms.isChecked = true
+                dialog.dismiss()
+            }
+            .setNegativeButton("Cancel", null)
+            .show()
     }
 
     private fun updatePasswordStrength(password: String) {

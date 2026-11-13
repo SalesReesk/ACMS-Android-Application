@@ -24,7 +24,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import android.util.Log
 import com.cloudinary.android.MediaManager
 import com.cloudinary.android.callback.ErrorInfo
 import com.cloudinary.android.callback.UploadCallback
@@ -240,16 +239,6 @@ class ReportFragment : Fragment() {
                     }
                     currentUserRole = effectiveRole
 
-                    if (_binding != null) {
-                        if (effectiveRole == UserRole.ADMIN || effectiveRole == UserRole.MAINTENANCE) {
-                            binding.maintenanceSummaryLayout.visibility = View.VISIBLE
-                            binding.reportTitleText.text = "Campus Reports"
-                        } else {
-                            binding.maintenanceSummaryLayout.visibility = View.GONE
-                            binding.reportTitleText.text = "My Reports"
-                        }
-                    }
-
                     baseReportsList = when (effectiveRole) {
                         UserRole.ADMIN -> reports
                         UserRole.MAINTENANCE -> reports.filter {
@@ -259,7 +248,6 @@ class ReportFragment : Fragment() {
                         else -> reports.filter { it.reporterEmail.equals(currentEmail, ignoreCase = true) }
                     }
 
-                    updateSummaryBoard(baseReportsList)
                     updateChipCounts(baseReportsList)
                     filterAndDisplayReports()
                 }
@@ -307,16 +295,7 @@ class ReportFragment : Fragment() {
         binding.chipFilterResolved.text = "Resolved ($resolvedCount)"
     }
 
-    private fun updateSummaryBoard(list: List<MaintenanceRecord>) {
-        if (_binding == null) return
-        val total = list.size
-        val inProgress = list.count { it.status == ReportStatus.IN_PROGRESS }
-        val criticalOrHigh = list.count { it.priority == PriorityStatus.CRITICAL || it.priority == PriorityStatus.HIGH }
 
-        binding.txtSummaryTotal.text = total.toString()
-        binding.txtSummaryInProgress.text = inProgress.toString()
-        binding.txtSummaryCritical.text = criticalOrHigh.toString()
-    }
 
     private fun filterAndDisplayReports() {
         if (_binding == null) return
@@ -519,7 +498,7 @@ class ReportFragment : Fragment() {
     }
 
     private fun handleManageReportClick(record: MaintenanceRecord) {
-        if (record.status == ReportStatus.PENDING && currentUserRole == UserRole.ADMIN) {
+        if (record.status == ReportStatus.PENDING && (currentUserRole == UserRole.ADMIN || currentUserRole == UserRole.MAINTENANCE)) {
             showAssignMaintenanceDialog(record)
         } else {
             val nextStatus = when (record.status) {

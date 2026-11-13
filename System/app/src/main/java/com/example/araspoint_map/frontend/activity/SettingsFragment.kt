@@ -10,7 +10,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
@@ -75,6 +74,117 @@ class SettingsFragment : Fragment() {
         binding.btnClearCache.setOnClickListener {
             clearImageCache()
         }
+
+        binding.btnPlanOfUsePolicy.setOnClickListener {
+            showPlanOfUsePolicyDialog()
+        }
+
+        binding.btnDataPrivacyNotice.setOnClickListener {
+            showDataPrivacyNoticeDialog()
+        }
+
+        binding.btnAssetAuditChecklist.setOnClickListener {
+            showAssetAuditChecklistDialog()
+        }
+    }
+
+    private fun showPlanOfUsePolicyDialog() {
+        AlertDialog.Builder(requireContext())
+            .setTitle("ICT Acceptable Plan of Use Policy")
+            .setMessage(
+                """
+                BATANGAS STATE UNIVERSITY - ARASOF NASUGBU
+                OOP SEMESTRAL PROJECT - SYSTEM PLAN OF USE POLICY
+                
+                * ACADEMIC PROJECT DISCLAIMER
+                • ArasPoint is an academic demonstration developed for Object-Oriented Programming (OOP) coursework at BatStateU ARASOF-Nasugbu.
+                
+                1. AUTHORIZED ACCESS & USAGE
+                • Access to ArasPoint system is granted to official BatStateU students, faculty, staff, and Property Officers for academic evaluation.
+                • System credentials (email & password) are confidential and non-transferable.
+                
+                2. PROPERTY TRACKING & INTEGRITY
+                • All assets, physical hardware, and infrastructure logged in this system represent campus assets of Batangas State University.
+                • Tampering with physical asset barcodes, geotags, or system records is strictly prohibited.
+                
+                3. INCIDENT REPORTING RESPONSIBILITY
+                • Users must accurately report damaged, missing, or faulty items with genuine evidence.
+                • Falsification of maintenance tickets or submitting misleading information is subject to university academic disciplinary action.
+                
+                4. SYSTEM AUDITABILITY
+                • Every asset addition, update, or deletion is logged with user ID, timestamp, and audit trail records.
+                """.trimIndent()
+            )
+            .setPositiveButton("I Understand", null)
+            .show()
+    }
+
+    private fun showDataPrivacyNoticeDialog() {
+        AlertDialog.Builder(requireContext())
+            .setTitle("Data Privacy Notice & Audit Logs")
+            .setMessage(
+                """
+                DATA PRIVACY NOTICE & AUDIT TRAIL GOVERNANCE
+                Republic Act No. 10173 (Philippine Data Privacy Act of 2012)
+                BatStateU ARASOF-Nasugbu - OOP Semestral Project
+                
+                1. ACADEMIC PROJECT PURPOSE
+                • ArasPoint is developed as an academic demonstration for Object-Oriented Programming (OOP). All information is stored securely in designated Firebase & Cloudinary sandbox environments.
+                
+                2. PERSONAL INFORMATION COLLECTED
+                • User Account Data: Institutional email address, display name, assigned role, and profile picture.
+                • Location & Navigation Data: Real-time GPS coordinates utilized strictly for campus wayfinding and location-based asset positioning.
+                • Ticket Evidence: Photos captured and uploaded during damage reporting.
+                
+                3. PURPOSE OF DATA PROCESSING
+                • Physical property tracking, maintenance ticket routing, equipment verification, and campus navigation within BatStateU ARASOF-Nasugbu.
+                
+                4. DATA PROTECTION & STORAGE
+                • All user profiles and asset audit logs are secured via Firebase Authentication and Firestore Security Rules.
+                • Evidence media uploaded to Cloudinary is restricted to authorized Property Management Officers and academic evaluators.
+                
+                5. USER RIGHTS
+                • You have the right to request information on stored account records, request corrections, or request data deletion upon completion of academic evaluation.
+                """.trimIndent()
+            )
+            .setPositiveButton("Close", null)
+            .show()
+    }
+
+    private fun showAssetAuditChecklistDialog() {
+        AlertDialog.Builder(requireContext())
+            .setTitle("Asset Audit Information Checklist")
+            .setMessage(
+                """
+                CAMPUS PROPERTY AUDIT & ASSET CHECKLIST GUIDELINES
+                BatStateU ARASOF-Nasugbu - OOP Semestral Project
+                
+                When conducting property inventory or auditing equipment, verify all required data points:
+                
+                ✓ 1. ASSET TAG & IDENTIFIER
+                  • Valid AAMS ID code (e.g., AAMS-0001) matching physical barcode label.
+                
+                ✓ 2. CATEGORY & CLASSIFICATION
+                  • Proper categorization (IT Equipment, Electronics & AV, Laboratory, Furniture, Appliances, Safety).
+                
+                ✓ 3. PHYSICAL LOCATION & DESIGNATION
+                  • Specific Campus Building (e.g., HEB, CTEB, CAS, GYM), Floor number, and Room designation.
+                
+                ✓ 4. OPERATIONAL STATUS
+                  • Current status: Available, Under Maintenance, or Missing/Damaged.
+                
+                ✓ 5. PHYSICAL CONDITION
+                  • Rating: Excellent, Good, Fair, or Poor.
+                
+                ✓ 6. TIMESTAMPD PHOTO EVIDENCE
+                  • High-resolution photo verifying physical presence and readable tag.
+                
+                ✓ 7. AUDITOR VERIFICATION LOG
+                  • User ID, date, and timestamp recorded in the audit trail.
+                """.trimIndent()
+            )
+            .setPositiveButton("Got It", null)
+            .show()
     }
 
     private fun showChangePasswordDialog() {

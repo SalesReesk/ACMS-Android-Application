@@ -1,12 +1,16 @@
 package com.example.araspoint_map.frontend.activity
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.webkit.WebView
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.WebSettings
 import androidx.lifecycle.lifecycleScope
 import com.example.araspoint_map.R
 import com.example.araspoint_map.backend.model.enums.AssetStatus
@@ -46,12 +50,9 @@ class DashBoardFragment : Fragment() {
 
         sharedPreferences = requireContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
 
-        val currentUser = FirebaseAuth.getInstance().currentUser
-        val userEmail = currentUser?.email ?: ""
-        val fullName = currentUser?.displayName ?: userEmail.substringBefore("@")
-        val firstName = fullName.split(" ").firstOrNull()?.replaceFirstChar { it.uppercase() } ?: "User"
+        setupMiniMapWebView()
 
-        binding.txtStudent.text = "$firstName!"
+        val userEmail = FirebaseAuth.getInstance().currentUser?.email ?: ""
 
         viewLifecycleOwner.lifecycleScope.launch {
             val role = authRepository.getUserRole()
@@ -66,9 +67,11 @@ class DashBoardFragment : Fragment() {
             loadDashboardStats()
         }
 
-        binding.cardMiniMap.setOnClickListener {
+        val openMapAction = View.OnClickListener {
             (activity as? MainDashboardAdminActivity)?.openMapFragment()
         }
+        binding.cardMiniMap.setOnClickListener(openMapAction)
+        binding.mapTouchOverlay.setOnClickListener(openMapAction)
 
         binding.cardQuickInventory.setOnClickListener {
             when (userRole) {
@@ -94,7 +97,6 @@ class DashBoardFragment : Fragment() {
 
         when (role) {
             UserRole.ADMIN -> {
-                binding.txtRoleBadge.text = "Administrator"
                 binding.txtKpiSectionTitle.text = "Campus System Overview"
                 binding.lblStatTotalAssets.text = "Total Assets"
                 binding.lblStatAvailable.text = "Available"
@@ -108,7 +110,6 @@ class DashBoardFragment : Fragment() {
                 binding.imgQuickOp2Icon.setImageResource(R.drawable.ic_warning_shield)
             }
             UserRole.MAINTENANCE -> {
-                binding.txtRoleBadge.text = "Maintenance Specialist"
                 binding.txtKpiSectionTitle.text = "Work Orders & Repairs Overview"
                 binding.lblStatTotalAssets.text = "Campus Equipment"
                 binding.lblStatAvailable.text = "Operational"
@@ -122,7 +123,6 @@ class DashBoardFragment : Fragment() {
                 binding.imgQuickOp2Icon.setImageResource(R.drawable.ic_explore)
             }
             UserRole.TEACHER -> {
-                binding.txtRoleBadge.text = "Faculty Instructor"
                 binding.txtKpiSectionTitle.text = "Classroom & Lab Equipment Overview"
                 binding.lblStatTotalAssets.text = "Lab Equipment"
                 binding.lblStatAvailable.text = "Classroom Ready"
@@ -136,7 +136,6 @@ class DashBoardFragment : Fragment() {
                 binding.imgQuickOp2Icon.setImageResource(R.drawable.ic_inventory_box)
             }
             UserRole.STUDENT -> {
-                binding.txtRoleBadge.text = "Student"
                 binding.txtKpiSectionTitle.text = "Campus Workstation Availability"
                 binding.lblStatTotalAssets.text = "Total PCs & Laptops"
                 binding.lblStatAvailable.text = "Available For Use"
@@ -158,6 +157,8 @@ class DashBoardFragment : Fragment() {
     }
 
     private fun loadDashboardStats() {
+        val userEmail = FirebaseAuth.getInstance().currentUser?.email ?: ""
+
         viewLifecycleOwner.lifecycleScope.launch {
             val assetsResult = assetRepository.getAssets()
             val reportsResult = maintenanceRepository.getReports()
@@ -177,6 +178,25 @@ class DashBoardFragment : Fragment() {
                 binding.txtStatReports.text = reports.size.toString()
             }
         }
+    }
+
+    @SuppressLint("SetJavaScriptEnabled", "ClickableViewAccessibility")
+    private fun setupMiniMapWebView() {
+        binding.miniMapWebView.setLayerType(View.LAYER_TYPE_HARDWARE, null)
+        binding.miniMapWebView.settings.apply {
+            javaScriptEnabled = true
+            domStorageEnabled = true
+            cacheMode = WebSettings.LOAD_DEFAULT
+        }
+        binding.miniMapWebView.isVerticalScrollBarEnabled = false
+        binding.miniMapWebView.isHorizontalScrollBarEnabled = false
+        binding.miniMapWebView.setOnTouchListener { v, event ->
+            if (event.action == MotionEvent.ACTION_UP) {
+                v.performClick()
+            }
+            true
+        }
+        binding.miniMapWebView.loadUrl("file:///android_asset/campus_map.html")
     }
 
     override fun onDestroyView() {
