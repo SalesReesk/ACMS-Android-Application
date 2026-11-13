@@ -147,30 +147,6 @@ class CampusNavigationEngine(
         return steps
     }
 
-    fun updateLiveLocation(userLat: Double, userLng: Double, onRerouteNeeded: (GeoNode) -> Unit): List<GeoNode> {
-        if (activePath.size < 2) return activePath
-
-        val minDistanceToPath = activePath.zipWithNext().minOf { (a, b) ->
-            distanceToSegment(userLat, userLng, a.lat, a.lng, b.lat, b.lng)
-        }
-
-        if (minDistanceToPath > offRouteThresholdMeters) {
-            val nearestNode = nodes.minByOrNull { distanceBetween(userLat, userLng, it.lat, it.lng) }
-            if (nearestNode != null && destinationNode != null) {
-                onRerouteNeeded(nearestNode)
-                return activePath
-            }
-        }
-
-        val nextTargetNode = activePath[1]
-        val distToNextNode = distanceBetween(userLat, userLng, nextTargetNode.lat, nextTargetNode.lng)
-        if (distToNextNode < 5.0 && activePath.size > 2) {
-            activePath.removeAt(0)
-        }
-
-        return activePath
-    }
-
     private fun distanceToSegment(pLat: Double, pLng: Double, aLat: Double, aLng: Double, bLat: Double, bLng: Double): Double {
         val abDistSq = (bLat - aLat).pow(2) + (bLng - aLng).pow(2)
         if (abDistSq == 0.0) return distanceBetween(pLat, pLng, aLat, aLng)
