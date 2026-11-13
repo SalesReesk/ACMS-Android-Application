@@ -4,8 +4,8 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>BatStateU ARASOF Campus Map</title>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="file:///android_asset/leaflet.css" />
+    <script src="file:///android_asset/leaflet.js"></script>
     <style>
         html, body, #map {
             width: 100%;
@@ -67,6 +67,10 @@
         );
 
         var map = L.map('map', {
+            preferCanvas: true,
+            zoomAnimation: true,
+            fadeAnimation: true,
+            markerZoomAnimation: true,
             zoomControl: false,
             attributionControl: false,
             minZoom: 17,
@@ -96,7 +100,7 @@
 
         // --- Exact KML Color Scheme Mapping & Coordinates ---
         var buildingAreas = [
-            { id: "HEB", name: "HEB Building", shortName: "HEB", lat: 14.067322, lng: 120.626777, color: "#FACC15", pinColor: "#FACC15", coords: [[14.067654,120.626759],[14.066907,120.626614],[14.066883,120.626708],[14.066943,120.626752],[14.067289,120.626824],[14.067662,120.626893],[14.067677,120.626803],[14.067654,120.626759]] },
+            { id: "HEB", name: "HEB Building", shortName: "HEB", lat: 14.067322, lng: 120.626777, color: "#FACC15", pinColor: "#FACC15", coords: [[14.067654,120.626759],[14.066907,120.626614],[14.066883,120.626708],[14.066943,120.626752],[14.067289,120.626824],[14.067662,120.626893],[14.067767,120.626803],[14.067654,120.626759]] },
             { id: "GYM", name: "JOSON GYMNASIUM", shortName: "GYM", lat: 14.067103, lng: 120.626169, color: "#FACC15", pinColor: "#FACC15", coords: [[14.066901,120.626027],[14.066899,120.626286],[14.067241,120.626292],[14.067257,120.626252],[14.067321,120.626254],[14.067329,120.626178],[14.067321,120.626085],[14.067300,120.626072],[14.067261,120.626080],[14.067250,120.626037],[14.066901,120.626027]] },
             { id: "CTEB", name: "CTEB Building", shortName: "CTEB", lat: 14.066589, lng: 120.626364, color: "#FACC15", pinColor: "#FACC15", coords: [[14.066368,120.626268],[14.066369,120.626172],[14.066329,120.626106],[14.066213,120.626106],[14.066213,120.626176],[14.066246,120.626299],[14.066249,120.626419],[14.066835,120.626440],[14.066834,120.626412],[14.066867,120.626408],[14.066874,120.626326],[14.066820,120.626264],[14.066368,120.626268]] },
             { id: "CAS", name: "CAS BUILDING", shortName: "CAS", lat: 14.066022, lng: 120.626146, color: "#FACC15", pinColor: "#FACC15", coords: [[14.065946,120.626305],[14.065973,120.626342],[14.066046,120.626352],[14.066062,120.626082],[14.066139,120.626090],[14.066140,120.625987],[14.065961,120.625980],[14.065946,120.626305]] },
