@@ -34,7 +34,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Update your display name and department"
+                android:text="Update your display name"
                 android:textSize="13sp"
                 android:textColor="@color/on_surface_variant"
                 android:fontFamily="sans-serif"
@@ -46,7 +46,7 @@
                 android:layout_height="wrap_content"
                 android:hint="Full Name"
                 style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
-                android:layout_marginBottom="16dp">
+                android:layout_marginBottom="24dp">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/inputFullName"
                     android:layout_width="match_parent"
@@ -54,23 +54,6 @@
                     android:inputType="textPersonName|textCapWords"
                     android:fontFamily="sans-serif" />
             </com.google.android.material.textfield.TextInputLayout>
-
-            <!-- Department Selection Dropdown / Spinner -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Department / College"
-                android:textSize="12sp"
-                android:textStyle="bold"
-                android:textColor="@color/on_surface"
-                android:layout_marginBottom="6dp" />
-
-            <Spinner
-                android:id="@+id/spinnerDepartment"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/input_height"
-                android:background="@drawable/bg_input_field"
-                android:layout_marginBottom="24dp" />
 
             <Button
                 android:id="@+id/btnSaveProfile"

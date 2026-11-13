@@ -5,483 +5,384 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/surface"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:paddingHorizontal="@dimen/screen_padding_horizontal"
+    android:paddingTop="16dp"
+    android:paddingBottom="16dp">
+
+    <!-- System Banner Card -->
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="@dimen/item_card_corner"
+        app:cardElevation="1dp"
+        app:cardBackgroundColor="@color/surface_container_lowest"
+        android:layout_marginBottom="12dp"/>
+
+    <!-- KPI Section -->
+    <TextView
+        android:id="@+id/txtKpiSectionTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_bold"
+        android:text="Campus Asset Overview"
+        android:textColor="@color/on_surface"
+        android:textSize="@dimen/text_title"
+        android:textStyle="bold"
+        android:layout_marginBottom="8dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/surface_container_lowest"
-        android:elevation="2dp"
-        android:orientation="vertical"
-        android:paddingHorizontal="@dimen/screen_padding_horizontal"
-        android:paddingTop="@dimen/screen_padding_top"
-        android:paddingBottom="14dp">
+        android:orientation="horizontal"
+        android:layout_marginBottom="6dp">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+        <androidx.cardview.widget.CardView
+            android:layout_width="0dp"
+            android:layout_height="@dimen/kpi_card_height"
+            android:layout_weight="1"
+            android:layout_marginEnd="6dp"
+            app:cardCornerRadius="@dimen/item_card_corner"
+            app:cardElevation="1dp"
+            app:cardBackgroundColor="@color/surface_container_lowest">
 
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_centerVertical="true"
-                android:orientation="vertical">
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:padding="@dimen/pill_padding_h">
 
                 <TextView
-                    android:id="@+id/txtGreeting"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/inter_18pt_regular"
-                    android:text="Good morning,"
-                    android:textColor="@color/on_surface_variant"
-                    android:textSize="@dimen/text_body" />
-
-                <TextView
-                    android:id="@+id/txtStudent"
+                    android:id="@+id/txtStatTotalAssets"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/poppins_bold"
-                    android:text="User!"
-                    android:textColor="@color/on_surface"
-                    android:textSize="@dimen/text_display"
+                    android:text="--"
+                    android:textColor="@color/primary"
+                    android:textSize="@dimen/kpi_number_text"
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/txtRoleBadge"
+                    android:id="@+id/lblStatTotalAssets"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp"
-                    android:background="@drawable/bg_badge_institution"
-                    android:fontFamily="@font/inter_18pt_bold"
-                    android:paddingHorizontal="8dp"
-                    android:paddingVertical="2dp"
-                    android:text="Administrator"
-                    android:textColor="@color/primary"
-                    android:textSize="11sp" />
+                    android:fontFamily="@font/inter_18pt_regular"
+                    android:text="Total Assets"
+                    android:textColor="@color/on_surface_variant"
+                    android:textSize="@dimen/kpi_label_text" />
             </LinearLayout>
+        </androidx.cardview.widget.CardView>
 
-        </RelativeLayout>
+        <androidx.cardview.widget.CardView
+            android:layout_width="0dp"
+            android:layout_height="@dimen/kpi_card_height"
+            android:layout_weight="1"
+            android:layout_marginStart="6dp"
+            app:cardCornerRadius="@dimen/item_card_corner"
+            app:cardElevation="1dp"
+            app:cardBackgroundColor="@color/surface_container_lowest">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:padding="@dimen/pill_padding_h">
+
+                <TextView
+                    android:id="@+id/txtStatAvailable"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_bold"
+                    android:text="--"
+                    android:textColor="#2E7D32"
+                    android:textSize="@dimen/kpi_number_text"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/lblStatAvailable"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/inter_18pt_regular"
+                    android:text="Available"
+                    android:textColor="@color/on_surface_variant"
+                    android:textSize="@dimen/kpi_label_text" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
     </LinearLayout>
 
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="true">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="12dp">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="0dp"
+            android:layout_height="@dimen/kpi_card_height"
+            android:layout_weight="1"
+            android:layout_marginEnd="6dp"
+            app:cardCornerRadius="@dimen/item_card_corner"
+            app:cardElevation="1dp"
+            app:cardBackgroundColor="@color/surface_container_lowest">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:padding="@dimen/pill_padding_h">
+
+                <TextView
+                    android:id="@+id/txtStatAttention"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_bold"
+                    android:text="--"
+                    android:textColor="#E65100"
+                    android:textSize="@dimen/kpi_number_text"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/lblStatAttention"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/inter_18pt_regular"
+                    android:text="Attention"
+                    android:textColor="@color/on_surface_variant"
+                    android:textSize="@dimen/kpi_label_text" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="0dp"
+            android:layout_height="@dimen/kpi_card_height"
+            android:layout_weight="1"
+            android:layout_marginStart="6dp"
+            app:cardCornerRadius="@dimen/item_card_corner"
+            app:cardElevation="1dp"
+            app:cardBackgroundColor="@color/surface_container_lowest">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:padding="@dimen/pill_padding_h">
+
+                <TextView
+                    android:id="@+id/txtStatReports"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_bold"
+                    android:text="--"
+                    android:textColor="#C62828"
+                    android:textSize="@dimen/kpi_number_text"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/lblStatReports"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/inter_18pt_regular"
+                    android:text="Incident Reports"
+                    android:textColor="@color/on_surface_variant"
+                    android:textSize="@dimen/kpi_label_text" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+    </LinearLayout>
+
+    <!-- Campus Map Mini Map Card -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_bold"
+        android:text="Campus Facilities Map"
+        android:textColor="@color/on_surface"
+        android:textSize="@dimen/text_title"
+        android:textStyle="bold"
+        android:layout_marginBottom="8dp" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardMiniMap"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        app:cardCornerRadius="@dimen/item_card_corner"
+        app:cardElevation="2dp"
+        app:cardBackgroundColor="@color/surface_container_lowest"
+        android:clickable="true"
+        android:focusable="true"
+        android:layout_marginBottom="12dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <WebView
+                android:id="@+id/miniMapWebView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clickable="false"
+                android:focusable="false" />
+
+            <!-- Transparent touch interceptor overlay -->
+            <View
+                android:id="@+id/mapTouchOverlay"
+                android:layout_width="match_parent"
+                android:layout_height="379dp"
+                android:background="@android:color/transparent"
+                android:clickable="true"
+                android:focusable="true" />
+
+            <!-- Semi-transparent overlay footer banner -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:background="#F2FFFFFF"
+                android:orientation="vertical"
+                android:paddingHorizontal="12dp"
+                android:paddingVertical="8dp"
+                android:clickable="false"
+                android:focusable="false">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/poppins_bold"
+                        android:text="ARASOF Nasugbu Campus Map"
+                        android:textColor="@color/on_surface"
+                        android:textSize="13sp"
+                        android:textStyle="bold" />
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/ic_explore"
+                        app:tint="@color/primary"
+                        android:contentDescription="Open Full Map" />
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/inter_18pt_regular"
+                    android:text="Tap to launch full interactive campus map &amp; navigation"
+                    android:textColor="@color/on_surface_variant"
+                    android:textSize="11sp" />
+            </LinearLayout>
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
+    <!-- Quick Operations Section -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_bold"
+        android:text="Quick Operations"
+        android:textColor="@color/on_surface"
+        android:textSize="@dimen/text_title"
+        android:textStyle="bold"
+        android:layout_marginBottom="8dp" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardQuickInventory"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/quick_action_height"
+        app:cardCornerRadius="@dimen/item_card_corner"
+        app:cardElevation="1dp"
+        app:cardBackgroundColor="@color/surface_container_lowest"
+        android:clickable="true"
+        android:focusable="true"
+        android:layout_marginBottom="6dp">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingHorizontal="@dimen/screen_padding_horizontal"
-            android:paddingVertical="@dimen/card_padding">
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingHorizontal="@dimen/card_padding">
 
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:cardCornerRadius="@dimen/item_card_corner"
-                app:cardElevation="1dp"
-                app:cardBackgroundColor="@color/surface_container_lowest"
-                android:layout_marginBottom="@dimen/section_gap">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
-                    android:padding="@dimen/card_padding">
-
-                    <View
-                        android:layout_width="4dp"
-                        android:layout_height="36dp"
-                        android:background="@color/primary"
-                        android:layout_marginEnd="12dp" />
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/inter_18pt_bold"
-                            android:text="BatStateU ARASOF Campus Asset System"
-                            android:textColor="@color/primary"
-                            android:textSize="@dimen/text_label" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="2dp"
-                            android:fontFamily="@font/inter_18pt_regular"
-                            android:text="Asset Management &amp; Incident Monitoring"
-                            android:textColor="@color/on_surface_variant"
-                            android:textSize="@dimen/text_caption" />
-                    </LinearLayout>
-
-                    <ImageView
-                        android:layout_width="@dimen/input_icon_toggle_size"
-                        android:layout_height="@dimen/input_icon_toggle_size"
-                        android:src="@drawable/ic_check_circle_m3"
-                        app:tint="@color/primary"
-                        android:contentDescription="Status Active" />
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
+            <ImageView
+                android:id="@+id/imgQuickOp1Icon"
+                android:layout_width="@dimen/quick_action_icon_size"
+                android:layout_height="@dimen/quick_action_icon_size"
+                android:src="@drawable/ic_inventory_box"
+                app:tint="@color/primary"
+                android:contentDescription="Asset Inventory" />
 
             <TextView
-                android:id="@+id/txtKpiSectionTitle"
-                android:layout_width="wrap_content"
+                android:id="@+id/txtQuickOp1Title"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/poppins_bold"
-                android:text="Campus Asset Overview"
+                android:layout_weight="1"
+                android:layout_marginStart="14dp"
+                android:fontFamily="@font/inter_18pt_bold"
+                android:text="Manage Asset Inventory"
                 android:textColor="@color/on_surface"
-                android:textSize="@dimen/text_title"
-                android:textStyle="bold"
-                android:layout_marginBottom="10dp" />
+                android:textSize="@dimen/text_body" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="@dimen/item_gap">
-
-                <androidx.cardview.widget.CardView
-                    android:layout_width="0dp"
-                    android:layout_height="@dimen/kpi_card_height"
-                    android:layout_weight="1"
-                    android:layout_marginEnd="6dp"
-                    app:cardCornerRadius="@dimen/item_card_corner"
-                    app:cardElevation="1dp"
-                    app:cardBackgroundColor="@color/surface_container_lowest">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical"
-                        android:gravity="center"
-                        android:padding="@dimen/pill_padding_h">
-
-                        <TextView
-                            android:id="@+id/txtStatTotalAssets"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/poppins_bold"
-                            android:text="--"
-                            android:textColor="@color/primary"
-                            android:textSize="@dimen/kpi_number_text"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:id="@+id/lblStatTotalAssets"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/inter_18pt_regular"
-                            android:text="Total Assets"
-                            android:textColor="@color/on_surface_variant"
-                            android:textSize="@dimen/kpi_label_text" />
-                    </LinearLayout>
-                </androidx.cardview.widget.CardView>
-
-                <androidx.cardview.widget.CardView
-                    android:layout_width="0dp"
-                    android:layout_height="@dimen/kpi_card_height"
-                    android:layout_weight="1"
-                    android:layout_marginStart="6dp"
-                    app:cardCornerRadius="@dimen/item_card_corner"
-                    app:cardElevation="1dp"
-                    app:cardBackgroundColor="@color/surface_container_lowest">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical"
-                        android:gravity="center"
-                        android:padding="@dimen/pill_padding_h">
-
-                        <TextView
-                            android:id="@+id/txtStatAvailable"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/poppins_bold"
-                            android:text="--"
-                            android:textColor="#2E7D32"
-                            android:textSize="@dimen/kpi_number_text"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:id="@+id/lblStatAvailable"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/inter_18pt_regular"
-                            android:text="Available"
-                            android:textColor="@color/on_surface_variant"
-                            android:textSize="@dimen/kpi_label_text" />
-                    </LinearLayout>
-                </androidx.cardview.widget.CardView>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="@dimen/section_gap">
-
-                <androidx.cardview.widget.CardView
-                    android:layout_width="0dp"
-                    android:layout_height="@dimen/kpi_card_height"
-                    android:layout_weight="1"
-                    android:layout_marginEnd="6dp"
-                    app:cardCornerRadius="@dimen/item_card_corner"
-                    app:cardElevation="1dp"
-                    app:cardBackgroundColor="@color/surface_container_lowest">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical"
-                        android:gravity="center"
-                        android:padding="@dimen/pill_padding_h">
-
-                        <TextView
-                            android:id="@+id/txtStatAttention"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/poppins_bold"
-                            android:text="--"
-                            android:textColor="#E65100"
-                            android:textSize="@dimen/kpi_number_text"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:id="@+id/lblStatAttention"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/inter_18pt_regular"
-                            android:text="Attention"
-                            android:textColor="@color/on_surface_variant"
-                            android:textSize="@dimen/kpi_label_text" />
-                    </LinearLayout>
-                </androidx.cardview.widget.CardView>
-
-                <androidx.cardview.widget.CardView
-                    android:layout_width="0dp"
-                    android:layout_height="@dimen/kpi_card_height"
-                    android:layout_weight="1"
-                    android:layout_marginStart="6dp"
-                    app:cardCornerRadius="@dimen/item_card_corner"
-                    app:cardElevation="1dp"
-                    app:cardBackgroundColor="@color/surface_container_lowest">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical"
-                        android:gravity="center"
-                        android:padding="@dimen/pill_padding_h">
-
-                        <TextView
-                            android:id="@+id/txtStatReports"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/poppins_bold"
-                            android:text="--"
-                            android:textColor="#C62828"
-                            android:textSize="@dimen/kpi_number_text"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:id="@+id/lblStatReports"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/inter_18pt_regular"
-                            android:text="Incident Reports"
-                            android:textColor="@color/on_surface_variant"
-                            android:textSize="@dimen/kpi_label_text" />
-                    </LinearLayout>
-                </androidx.cardview.widget.CardView>
-            </LinearLayout>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/poppins_bold"
-                android:text="Campus Facilities Map"
-                android:textColor="@color/on_surface"
-                android:textSize="@dimen/text_title"
-                android:textStyle="bold"
-                android:layout_marginBottom="10dp" />
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cardMiniMap"
-                android:layout_width="match_parent"
-                android:layout_height="140dp"
-                app:cardCornerRadius="@dimen/item_card_corner"
-                app:cardElevation="1dp"
-                app:cardBackgroundColor="@color/surface_container_lowest"
-                android:clickable="true"
-                android:focusable="true"
-                android:layout_marginBottom="@dimen/section_gap">
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/bg_card_outlined"
-                    android:padding="@dimen/card_padding">
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_alignParentStart="true"
-                        android:layout_centerVertical="true">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/bg_badge_institution"
-                            android:fontFamily="@font/inter_18pt_bold"
-                            android:paddingHorizontal="@dimen/pill_padding_h"
-                            android:paddingVertical="@dimen/pill_padding_v"
-                            android:text="LIVE CAMPUS MAP"
-                            android:textColor="@color/primary"
-                            android:textSize="@dimen/text_caption"
-                            android:layout_marginBottom="6dp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/poppins_bold"
-                            android:text="ARASOF Nasugbu Campus"
-                            android:textColor="@color/on_surface"
-                            android:textSize="@dimen/text_title"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="2dp"
-                            android:fontFamily="@font/inter_18pt_regular"
-                            android:text="Tap to view 5 buildings &amp; equipment pins"
-                            android:textColor="@color/on_surface_variant"
-                            android:textSize="@dimen/text_label" />
-                    </LinearLayout>
-
-                    <ImageView
-                        android:layout_width="36dp"
-                        android:layout_height="36dp"
-                        android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true"
-                        android:src="@drawable/ic_explore"
-                        app:tint="@color/primary"
-                        android:contentDescription="Open Campus Map" />
-                </RelativeLayout>
-            </androidx.cardview.widget.CardView>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/poppins_bold"
-                android:text="Quick Operations"
-                android:textColor="@color/on_surface"
-                android:textSize="@dimen/text_title"
-                android:textStyle="bold"
-                android:layout_marginBottom="10dp" />
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cardQuickInventory"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/quick_action_height"
-                app:cardCornerRadius="@dimen/item_card_corner"
-                app:cardElevation="1dp"
-                app:cardBackgroundColor="@color/surface_container_lowest"
-                android:clickable="true"
-                android:focusable="true"
-                android:layout_marginBottom="@dimen/item_gap">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
-                    android:paddingHorizontal="@dimen/card_padding">
-
-                    <ImageView
-                        android:id="@+id/imgQuickOp1Icon"
-                        android:layout_width="@dimen/quick_action_icon_size"
-                        android:layout_height="@dimen/quick_action_icon_size"
-                        android:src="@drawable/ic_inventory_box"
-                        app:tint="@color/primary"
-                        android:contentDescription="Asset Inventory" />
-
-                    <TextView
-                        android:id="@+id/txtQuickOp1Title"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:layout_marginStart="14dp"
-                        android:fontFamily="@font/inter_18pt_bold"
-                        android:text="Manage Asset Inventory"
-                        android:textColor="@color/on_surface"
-                        android:textSize="@dimen/text_body" />
-
-                    <ImageView
-                        android:layout_width="@dimen/input_icon_size"
-                        android:layout_height="@dimen/input_icon_size"
-                        android:src="@drawable/ic_arrow_forward"
-                        app:tint="@color/outline"
-                        android:contentDescription="Forward" />
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cardQuickReport"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/quick_action_height"
-                app:cardCornerRadius="@dimen/item_card_corner"
-                app:cardElevation="1dp"
-                app:cardBackgroundColor="@color/surface_container_lowest"
-                android:clickable="true"
-                android:focusable="true"
-                android:layout_marginBottom="32dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
-                    android:paddingHorizontal="@dimen/card_padding">
-
-                    <ImageView
-                        android:id="@+id/imgQuickOp2Icon"
-                        android:layout_width="@dimen/quick_action_icon_size"
-                        android:layout_height="@dimen/quick_action_icon_size"
-                        android:src="@drawable/ic_warning_shield"
-                        app:tint="#C62828"
-                        android:contentDescription="Maintenance Reports" />
-
-                    <TextView
-                        android:id="@+id/txtQuickOp2Title"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:layout_marginStart="14dp"
-                        android:fontFamily="@font/inter_18pt_bold"
-                        android:text="View Incident &amp; Damage Reports"
-                        android:textColor="@color/on_surface"
-                        android:textSize="@dimen/text_body" />
-
-                    <ImageView
-                        android:layout_width="@dimen/input_icon_size"
-                        android:layout_height="@dimen/input_icon_size"
-                        android:src="@drawable/ic_arrow_forward"
-                        app:tint="@color/outline"
-                        android:contentDescription="Forward" />
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-
+            <ImageView
+                android:layout_width="@dimen/input_icon_size"
+                android:layout_height="@dimen/input_icon_size"
+                android:src="@drawable/ic_arrow_forward"
+                app:tint="@color/outline"
+                android:contentDescription="Forward" />
         </LinearLayout>
-    </ScrollView>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardQuickReport"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/quick_action_height"
+        app:cardCornerRadius="@dimen/item_card_corner"
+        app:cardElevation="1dp"
+        app:cardBackgroundColor="@color/surface_container_lowest"
+        android:clickable="true"
+        android:focusable="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingHorizontal="@dimen/card_padding">
+
+            <ImageView
+                android:id="@+id/imgQuickOp2Icon"
+                android:layout_width="@dimen/quick_action_icon_size"
+                android:layout_height="@dimen/quick_action_icon_size"
+                android:src="@drawable/ic_warning_shield"
+                app:tint="#C62828"
+                android:contentDescription="Maintenance Reports" />
+
+            <TextView
+                android:id="@+id/txtQuickOp2Title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="14dp"
+                android:fontFamily="@font/inter_18pt_bold"
+                android:text="View Incident &amp; Damage Reports"
+                android:textColor="@color/on_surface"
+                android:textSize="@dimen/text_body" />
+
+            <ImageView
+                android:layout_width="@dimen/input_icon_size"
+                android:layout_height="@dimen/input_icon_size"
+                android:src="@drawable/ic_arrow_forward"
+                app:tint="@color/outline"
+                android:contentDescription="Forward" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
 
 </LinearLayout>

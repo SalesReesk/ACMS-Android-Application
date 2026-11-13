@@ -31,30 +31,31 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
+                    android:layout_marginBottom="20dp"
                     android:gravity="center_vertical"
-                    android:layout_marginBottom="20dp">
+                    android:orientation="horizontal">
+
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:fontFamily="sans-serif-medium"
                         android:text="@string/my_profile"
-                        android:textSize="22sp"
-                        android:textStyle="bold"
                         android:textColor="#FFFFFF"
-                        android:fontFamily="sans-serif-medium" />
+                        android:textSize="22sp"
+                        android:textStyle="bold" />
 
                     <ImageView
                         android:id="@+id/btnEditProfile"
                         android:layout_width="36dp"
                         android:layout_height="36dp"
                         android:background="@drawable/bg_circle_white_alpha"
-                        android:src="@drawable/ic_person_m3"
-                        android:padding="8dp"
-                        app:tint="#FFFFFF"
                         android:clickable="true"
+                        android:contentDescription="@string/edit_profile"
                         android:focusable="true"
-                        android:contentDescription="@string/edit_profile" />
+                        android:padding="8dp"
+                        android:src="@drawable/ic_person_m3"
+                        app:tint="#FFFFFF" />
                 </LinearLayout>
 
                 <FrameLayout
@@ -77,21 +78,6 @@
                             android:contentDescription="@string/profile_photo" />
                     </androidx.cardview.widget.CardView>
 
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="28dp"
-                        android:layout_height="28dp"
-                        android:layout_gravity="bottom|end"
-                        app:cardCornerRadius="14dp"
-                        app:cardElevation="3dp"
-                        app:cardBackgroundColor="#FFFFFF">
-                        <ImageView
-                            android:layout_width="16dp"
-                            android:layout_height="16dp"
-                            android:layout_gravity="center"
-                            android:src="@drawable/ic_person_m3"
-                            app:tint="#7C3AED"
-                            android:contentDescription="@string/change_photo" />
-                    </androidx.cardview.widget.CardView>
                 </FrameLayout>
 
             </LinearLayout>
@@ -247,46 +233,6 @@
                     <ImageView
                         android:layout_width="18dp"
                         android:layout_height="18dp"
-                        android:src="@drawable/ic_corporate_fare"
-                        android:contentDescription="@string/department_college"
-                        app:tint="@color/on_surface_variant" />
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical"
-                        android:layout_marginStart="14dp">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/department_college"
-                            android:textSize="11sp"
-                            android:textColor="@color/on_surface_variant"
-                            android:fontFamily="sans-serif" />
-                        <TextView
-                            android:id="@+id/profileDepartment"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="—"
-                            android:textSize="14sp"
-                            android:textColor="@color/on_surface"
-                            android:fontFamily="sans-serif-medium" />
-                    </LinearLayout>
-                </LinearLayout>
-
-                <View android:layout_width="match_parent" android:layout_height="1dp"
-                    android:background="@color/surface_container_high"
-                    android:layout_marginHorizontal="16dp" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="56dp"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
-                    android:paddingHorizontal="16dp">
-                    <ImageView
-                        android:layout_width="18dp"
-                        android:layout_height="18dp"
                         android:src="@drawable/ic_school_cap"
                         android:contentDescription="@string/student_employee_id"
                         app:tint="@color/on_surface_variant" />
@@ -357,43 +303,10 @@
         </androidx.cardview.widget.CardView>
 
         <TextView
-            android:id="@+id/labelAdminActions"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="28dp"
-            android:layout_marginBottom="10dp"
-            android:text="@string/administration"
-            android:textSize="13sp"
-            android:textStyle="bold"
-            android:textColor="@color/on_surface_variant"
-            android:fontFamily="sans-serif-medium"
-            android:letterSpacing="0.08"
-            android:visibility="gone" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnCreateMaintenanceAccount"
-            style="@style/Widget.Material3.Button.OutlinedButton"
-            android:layout_width="match_parent"
-            android:layout_height="52dp"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginBottom="10dp"
-            android:fontFamily="sans-serif-medium"
-            android:text="@string/create_maintenance_account"
-            android:textAllCaps="false"
-            android:textColor="@color/on_surface"
-            android:textSize="14sp"
-            android:visibility="gone"
-            app:icon="@drawable/ic_person_m3"
-            app:iconSize="18dp"
-            app:iconTint="@color/on_surface_variant"
-            app:strokeColor="@color/outline_variant" />
-
-        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="32dp"
             android:gravity="center"
             android:text="@string/app_version_info"
             android:textSize="11sp"

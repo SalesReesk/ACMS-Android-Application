@@ -194,7 +194,8 @@
             android:fontFamily="@font/inter_18pt_bold"
             android:text="Assigned College / Unit"
             android:textColor="@color/on_surface"
-            android:textSize="@dimen/text_label" />
+            android:textSize="@dimen/text_label"
+            android:visibility="gone" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -203,7 +204,8 @@
             android:gravity="center_vertical"
             android:orientation="horizontal"
             android:paddingHorizontal="@dimen/input_padding_horizontal"
-            android:layout_marginBottom="@dimen/item_gap">
+            android:layout_marginBottom="@dimen/item_gap"
+            android:visibility="gone">
 
             <ImageView
                 android:layout_width="@dimen/input_icon_size"
@@ -219,29 +221,6 @@
                 android:layout_marginStart="10dp"
                 android:background="@android:color/transparent" />
         </LinearLayout>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="4dp"
-            android:fontFamily="@font/inter_18pt_bold"
-            android:text="Campus Role"
-            android:textColor="@color/on_surface"
-            android:textSize="@dimen/text_label" />
-
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/input_height"
-            android:background="@drawable/bg_input_field"
-            android:layout_marginBottom="@dimen/item_gap">
-
-            <Spinner
-                android:id="@+id/spinnerRole"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:paddingHorizontal="@dimen/input_padding_horizontal"
-                android:background="@android:color/transparent" />
-        </FrameLayout>
 
         <TextView
             android:layout_width="match_parent"
@@ -396,7 +375,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/inter_18pt_regular"
-            android:text="I agree to the University ICT Acceptable Use Policy &amp; Data Privacy Notice for Asset Audits."
+            android:text="I agree to the University ICT Acceptable Use Policy &amp; Data Privacy Notice for this OOP Semestral Project."
             android:textColor="@color/on_surface"
             android:textSize="@dimen/text_label"
             android:layout_marginBottom="@dimen/section_gap" />
@@ -444,15 +423,6 @@
                 android:textColor="@color/primary"
                 android:textSize="@dimen/text_label" />
         </LinearLayout>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/item_gap"
-            android:fontFamily="@font/inter_18pt_regular"
-            android:text="Authorized ARASOF Accounts Only • ICT Facilities Unit"
-            android:textColor="@color/outline"
-            android:textSize="@dimen/text_caption" />
 
     </LinearLayout>
 </ScrollView>

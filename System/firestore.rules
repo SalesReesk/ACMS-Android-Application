@@ -1,0 +1,50 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Helper Functions
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    function getUserData() {
+      return get(/databases/$(database)/documents/users/$(request.auth.uid)).data;
+    }
+
+    function isAdmin() {
+      return isAuthenticated() && (
+        getUserData().role == 'ADMIN' ||
+        request.auth.token.email.matches('.*admin.*')
+      );
+    }
+
+    function isMaintenance() {
+      return isAuthenticated() && (
+        getUserData().role == 'MAINTENANCE' ||
+        request.auth.token.email.matches('.*maint.*')
+      );
+    }
+
+    // Users Collection
+    match /users/{userId} {
+      allow read: if isAuthenticated();
+      allow create: if isAuthenticated() && request.auth.uid == userId;
+      allow update: if isAuthenticated() && (request.auth.uid == userId || isAdmin());
+      allow delete: if isAdmin();
+    }
+
+    // Assets Collection
+    match /assets/{assetId} {
+      allow read: if isAuthenticated();
+      allow create, update: if isAuthenticated() && (isAdmin() || isMaintenance());
+      allow delete: if isAdmin();
+    }
+
+    // Maintenance Reports Collection
+    match /maintenance_reports/{reportId} {
+      allow read: if isAuthenticated();
+      allow create: if isAuthenticated();
+      allow update, delete: if isAuthenticated() && (isAdmin() || isMaintenance() || resource.data.userId == request.auth.uid);
+    }
+  }
+}

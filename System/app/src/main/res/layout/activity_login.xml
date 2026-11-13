@@ -467,30 +467,5 @@
                 android:textSize="@dimen/text_label" />
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:paddingHorizontal="16dp"
-            android:layout_marginTop="4dp">
-
-            <ImageView
-                android:layout_width="14dp"
-                android:layout_height="14dp"
-                android:src="@drawable/ic_institution"
-                app:tint="@color/outline"
-                android:contentDescription="Security Badge" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="6dp"
-                android:fontFamily="@font/inter_18pt_regular"
-                android:text="Authorized ARASOF accounts only • ICT Facilities"
-                android:textColor="@color/outline"
-                android:textSize="@dimen/text_caption" />
-        </LinearLayout>
-
     </LinearLayout>
 </ScrollView>

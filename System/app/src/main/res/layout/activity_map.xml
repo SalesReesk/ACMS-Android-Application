@@ -98,53 +98,6 @@
     </androidx.cardview.widget.CardView>
 
     <!-- Bottom Floating Status Legend Pill Card -->
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardStatusLegendOverlay"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:layout_toStartOf="@id/fabContainer"
-        android:layout_margin="16dp"
-        app:cardBackgroundColor="#CC0F172A"
-        app:cardCornerRadius="20dp"
-        app:cardElevation="6dp">
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:paddingHorizontal="14dp"
-            android:paddingVertical="8dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/inter_18pt_bold"
-                android:text="● Operational"
-                android:textColor="@color/status_available"
-                android:textSize="10sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:fontFamily="@font/inter_18pt_bold"
-                android:text="● Audit"
-                android:textColor="@color/primary"
-                android:textSize="10sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:fontFamily="@font/inter_18pt_bold"
-                android:text="● Maintenance"
-                android:textColor="@color/status_maintenance"
-                android:textSize="10sp" />
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
 
     <!-- Floating Map Control Buttons (Bottom-Right) -->
     <LinearLayout
