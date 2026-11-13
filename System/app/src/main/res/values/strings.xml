@@ -28,11 +28,10 @@
     <string name="account_details">Account Details</string>
     <string name="institution">Institution</string>
     <string name="campus_name">BatStateU ARASOF-Nasugbu</string>
-    <string name="department_college">Department / College</string>
     <string name="student_employee_id">Student / Employee ID</string>
     <string name="system_access_level">System Access Level</string>
     <string name="read_only">Read Only</string>
     <string name="administration">Administration</string>
     <string name="create_maintenance_account">Create Maintenance Account</string>
-    <string name="app_version_info">ArasPoint v1.0.4 Testing\nSemestral Project for OOP</string>
+    <string name="app_version_info">ArasPoint v1.0.0\nBatStateU ARASOF-Nasugbu\nSemestral Project for OOP</string>
 </resources>

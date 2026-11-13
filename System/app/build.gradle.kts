@@ -14,8 +14,8 @@ android {
         applicationId = "com.example.araspoint_map"
         minSdk = 33
         targetSdk = 37
-        versionCode = 1
-        versionName = "1.0"
+        versionCode = 2
+        versionName = "1.1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
@@ -23,11 +23,24 @@ android {
         buildConfigField("String", "CLOUDINARY_UPLOAD_PRESET", "\"CampusAssets\"")
     }
 
+    signingConfigs {
+        create("release") {
+            storeFile = file(System.getenv("KEYSTORE_PATH") ?: "release.jks")
+            storePassword = System.getenv("KEYSTORE_PASSWORD") ?: "default_store_password"
+            keyAlias = System.getenv("KEY_ALIAS") ?: "default_key_alias"
+            keyPassword = System.getenv("KEY_PASSWORD") ?: "default_key_password"
+        }
+    }
+
     buildTypes {
         release {
-            optimization {
-                enable = false
-            }
+            isMinifyEnabled = true
+            isShrinkResources = true
+            signingConfig = signingConfigs.getByName("debug")
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "src/main/keepRules/rules.keep"
+            )
         }
     }
     compileOptions {

@@ -61,7 +61,7 @@ class AuthViewModelTest {
     @Test
     fun register_success_invokesCallbackWithSuccess() = runTest(testDispatcher) {
         val mockUser = User(userId = "1", name = "User", email = "user@test.com", role = UserRole.STUDENT)
-        coEvery { authRepository.register("User", "user@test.com", "password", UserRole.STUDENT, "", "") } returns Result.success(mockUser)
+        coEvery { authRepository.register("User", "user@test.com", "password", UserRole.STUDENT, "") } returns Result.success(mockUser)
 
         var successCalled = false
         var message: String? = null
