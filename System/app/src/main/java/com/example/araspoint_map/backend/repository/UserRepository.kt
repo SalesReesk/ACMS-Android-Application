@@ -63,8 +63,4 @@ class UserRepository {
             Result.failure(e)
         }
     }
-
-    fun clearUsers() {
-        users.clear()
-    }
 }

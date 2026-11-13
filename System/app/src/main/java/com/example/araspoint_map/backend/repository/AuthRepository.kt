@@ -5,7 +5,6 @@ import com.example.araspoint_map.backend.model.enums.UserRole
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthInvalidUserException
-import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.tasks.await
@@ -22,7 +21,6 @@ class AuthRepository {
         email: String,
         password: String,
         role: UserRole,
-        department: String = "",
         idNumber: String = ""
     ): Result<User> {
 
@@ -50,7 +48,6 @@ class AuthRepository {
                 name = name,
                 email = email,
                 role = role,
-                department = department,
                 idNumber = idNumber.ifBlank { email.substringBefore("@") }
             )
 
@@ -164,10 +161,6 @@ class AuthRepository {
         auth.signOut()
     }
 
-    fun isEmailVerified(): Boolean {
-        return auth.currentUser?.isEmailVerified == true
-    }
-
     suspend fun sendEmailVerification(): Result<Unit>  {
         return try {
             auth.currentUser?.sendEmailVerification()?.await()
@@ -187,10 +180,6 @@ class AuthRepository {
         }
     }
 
-    fun getCurrentUser(): String? {
-        return auth.currentUser?.uid
-    }
-
     suspend fun getUserRole(): UserRole? {
 
         val uid = auth.currentUser?.uid
@@ -204,7 +193,7 @@ class AuthRepository {
         return getUser(uid)
     }
 
-    suspend fun updateUserProfile(name: String, department: String): Result<Unit> {
+    suspend fun updateUserProfile(name: String): Result<Unit> {
         return try {
             val firebaseUser = auth.currentUser ?: return Result.failure(Exception("User not logged in."))
             if (name.isNotBlank()) {
@@ -214,7 +203,7 @@ class AuthRepository {
                 firebaseUser.updateProfile(profileUpdates).await()
             }
             usersCollection.document(firebaseUser.uid)
-                .update(mapOf("name" to name, "department" to department))
+                .update(mapOf("name" to name))
                 .await()
             Result.success(Unit)
         } catch (e: Exception) {
