@@ -4,13 +4,15 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.araspoint_map.backend.model.MaintenanceRecord
 import com.example.araspoint_map.backend.service.MaintenanceService
+import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 class MaintenanceViewModel(
-    private val maintenanceService: MaintenanceService = MaintenanceService()
+    private val maintenanceService: MaintenanceService = MaintenanceService(),
+    enableRealtime: Boolean = true
 ) : ViewModel() {
 
     private val _reports = MutableStateFlow<List<MaintenanceRecord>>(emptyList())
@@ -21,6 +23,24 @@ class MaintenanceViewModel(
 
     private val _operationStatus = MutableStateFlow<Result<Unit>?>(null)
     val operationStatus: StateFlow<Result<Unit>?> = _operationStatus.asStateFlow()
+
+    init {
+        if (enableRealtime) {
+            startRealtimeReportsListener()
+        }
+    }
+
+    private fun startRealtimeReportsListener() {
+        try {
+            FirebaseFirestore.getInstance().collection("maintenance_reports")
+                .addSnapshotListener { snapshot, error ->
+                    if (error == null && snapshot != null) {
+                        val list = snapshot.documents.mapNotNull { it.toObject(MaintenanceRecord::class.java) }
+                        _reports.value = list
+                    }
+                }
+        } catch (_: Exception) {}
+    }
 
     fun loadReports() {
         viewModelScope.launch {

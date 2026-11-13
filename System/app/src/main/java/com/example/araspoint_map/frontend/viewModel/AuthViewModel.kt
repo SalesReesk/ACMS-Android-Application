@@ -15,7 +15,6 @@ class AuthViewModel(
         email: String,
         password: String,
         role: UserRole,
-        department: String = "",
         idNumber: String = "",
         onResult: (Boolean, String?) -> Unit
     ) {
@@ -26,7 +25,6 @@ class AuthViewModel(
                 email = email,
                 password = password,
                 role = role,
-                department = department,
                 idNumber = idNumber
             )
 
@@ -78,9 +76,5 @@ class AuthViewModel(
                 )
             }
         }
-    }
-
-    fun logout() {
-        authRepository.logout()
     }
 }
