@@ -33,10 +33,10 @@
                 android:layout_height="match_parent"
                 android:gravity="center">
                 <ImageView
-                    android:layout_width="64dp"
-                    android:layout_height="64dp"
-                    android:src="@drawable/ic_splash_logo"
-                    android:scaleType="fitCenter"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/app_logo"
+                    android:scaleType="centerInside"
                     android:contentDescription="ArasPoint Logo" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>

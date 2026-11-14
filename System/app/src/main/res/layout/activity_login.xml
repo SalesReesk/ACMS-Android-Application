@@ -56,11 +56,11 @@
                 android:layout_height="match_parent">
 
                 <ImageView
-                    android:layout_width="@dimen/logo_icon_size"
-                    android:layout_height="@dimen/logo_icon_size"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:layout_gravity="center"
-                    android:src="@drawable/map_pin"
-                    app:tint="@color/on_primary"
+                    android:src="@drawable/app_logo"
+                    android:scaleType="centerInside"
                     android:contentDescription="ArasPoint Logo" />
             </FrameLayout>
         </androidx.cardview.widget.CardView>

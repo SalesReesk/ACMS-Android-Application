@@ -18,7 +18,6 @@ class UserAdapter(
 ) : RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
 
     class UserViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val imgAvatar: ImageView = view.findViewById(R.id.imgUserAvatar)
         val txtName: TextView = view.findViewById(R.id.txtUserName)
         val txtEmail: TextView = view.findViewById(R.id.txtUserEmail)
         val txtRole: TextView = view.findViewById(R.id.txtUserRoleBadge)
@@ -39,14 +38,6 @@ class UserAdapter(
         holder.txtRole.text = user.role.name
         holder.txtDept.text = "ID: ${user.idNumber.ifBlank { "—" }}"
 
-        if (user.photo.isNotEmpty()) {
-            Glide.with(holder.itemView.context)
-                .load(user.photo)
-                .placeholder(R.drawable.user_icon)
-                .into(holder.imgAvatar)
-        } else {
-            holder.imgAvatar.setImageResource(R.drawable.user_icon)
-        }
 
         holder.btnChangeRole.setOnClickListener { onEditRoleClick(user) }
         holder.btnDelete.setOnClickListener { onDeleteClick(user) }

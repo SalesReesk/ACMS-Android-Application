@@ -276,7 +276,7 @@ class AddEditAssetActivity : AppCompatActivity() {
 
     private fun uploadImageToCloudinary(imageUri: Uri) {
         binding.txtPhotoStatus.text = "Uploading cropped photo..."
-        Toast.makeText(this, "Uploading photo to Cloudinary...", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, "Uploading photo...", Toast.LENGTH_SHORT).show()
 
         MediaManager.get().upload(imageUri)
             .unsigned(BuildConfig.CLOUDINARY_UPLOAD_PRESET)
@@ -294,7 +294,7 @@ class AddEditAssetActivity : AppCompatActivity() {
                 override fun onError(requestId: String, error: ErrorInfo) {
                     runOnUiThread {
                         binding.txtPhotoStatus.text = "Upload failed"
-                        Toast.makeText(this@AddEditAssetActivity, "Cloudinary upload failed: ${error.description}", Toast.LENGTH_LONG).show()
+                        Toast.makeText(this@AddEditAssetActivity, "Upload failed: ${error.description}", Toast.LENGTH_LONG).show()
                     }
                 }
                 override fun onReschedule(requestId: String, error: ErrorInfo) {}
