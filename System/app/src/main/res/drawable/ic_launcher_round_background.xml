@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- Squircle / Rounded Rectangle shape for non-circular round icon -->
+    <path android:pathData="M18,4 C9,4 4,9 4,18 L4,90 C4,99 9,104 18,104 L90,104 C99,104 104,99 104,90 L104,18 C104,9 99,4 90,4 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:angle="135"
+                android:startX="0"
+                android:startY="0"
+                android:endX="108"
+                android:endY="108"
+                android:type="linear">
+                <item android:color="#990022" android:offset="0.0" />
+                <item android:color="#590013" android:offset="1.0" />
+            </gradient>
+        </aapt:attr>
+    </path>
+    <!-- Subtle gold tech grid lines -->
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M27,10 L27,98"
+        android:strokeWidth="0.8"
+        android:strokeColor="#33D4AF37" />
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M54,10 L54,98"
+        android:strokeWidth="0.8"
+        android:strokeColor="#33D4AF37" />
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M81,10 L81,98"
+        android:strokeWidth="0.8"
+        android:strokeColor="#33D4AF37" />
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M10,27 L98,27"
+        android:strokeWidth="0.8"
+        android:strokeColor="#33D4AF37" />
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M10,54 L98,54"
+        android:strokeWidth="0.8"
+        android:strokeColor="#33D4AF37" />
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M10,81 L98,81"
+        android:strokeWidth="0.8"
+        android:strokeColor="#33D4AF37" />
+</vector>

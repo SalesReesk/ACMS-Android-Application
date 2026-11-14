@@ -2,33 +2,46 @@
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:width="96dp"
     android:height="96dp"
-    android:viewportWidth="96"
-    android:viewportHeight="96">
-    <!-- Outer hexagon glow fill -->
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!-- Outer glow / background circle in gold/red -->
     <path
-        android:fillColor="#33FFFFFF"
-        android:pathData="M48,4 L84,24 L84,72 L48,92 L12,72 L12,24 Z" />
-    <!-- Main hexagon body -->
+        android:fillColor="#22D4AF37"
+        android:pathData="M54,4 C79.4,4 100,24.6 100,50 C100,75.4 79.4,96 54,96 C28.6,96 8,75.4 8,50 C8,24.6 28.6,4 54,4 Z" />
+
+    <!-- Gold Map Pin & Spartan Shield Base -->
     <path
-        android:fillColor="#FFFFFF"
-        android:fillAlpha="0.18"
-        android:pathData="M48,12 L80,30 L80,66 L48,84 L16,66 L16,30 Z" />
-    <!-- Hexagon stroke ring -->
+        android:fillColor="#D4AF37"
+        android:pathData="M54,16 C38.5,16 26,28.5 26,44 C26,63 54,92 54,92 C54,92 82,63 82,44 C82,28.5 69.5,16 54,16 Z" />
+
+    <!-- Spartan Helmet Shape (Dark Red Silhouette inside shield) -->
+    <path
+        android:fillColor="#700018"
+        android:pathData="M54,24 C45,24 40,30 40,40 L40,54 L44,58 L44,68 L54,74 L64,68 L64,58 L68,54 L68,40 C68,30 63,24 54,24 Z" />
+
+    <!-- Spartan Helmet Crest & Details (Gold) -->
+    <path
+        android:fillColor="#D4AF37"
+        android:pathData="M50,20 L58,20 L58,28 L50,28 Z" />
+    <path
+        android:fillColor="#990022"
+        android:pathData="M44,42 L50,46 L46,50 Z M64,42 L58,46 L62,50 Z" />
+    <path
+        android:fillColor="#D4AF37"
+        android:pathData="M52,36 L56,36 L55,56 L53,56 Z" />
+
+    <!-- White curved route lines (Navigation / GPS paths) -->
     <path
         android:fillColor="#00000000"
+        android:pathData="M30,52 C20,52 20,72 44,72 L50,72"
+        android:strokeWidth="3.5"
         android:strokeColor="#FFFFFF"
-        android:strokeWidth="2.5"
-        android:pathData="M48,18 L76,34 L76,62 L48,78 L20,62 L20,34 Z" />
-    <!-- Shield shape -->
+        android:strokeLineCap="round" />
     <path
-        android:fillColor="#FFFFFF"
-        android:pathData="M48,26 L64,35 L64,50 Q64,64 48,70 Q32,64 32,50 L32,35 Z" />
-    <!-- Shield inner tint -->
-    <path
-        android:fillColor="#7C3AED"
-        android:pathData="M48,32 L60,40 L60,50 Q60,60 48,65 Q36,60 36,50 L36,40 Z" />
-    <!-- Plus/cross icon -->
-    <path
-        android:fillColor="#FFFFFF"
-        android:pathData="M45,42 L51,42 L51,47 L56,47 L56,53 L51,53 L51,58 L45,58 L45,53 L40,53 L40,47 L45,47 Z" />
+        android:fillColor="#00000000"
+        android:pathData="M78,36 C88,36 88,56 64,56 L58,56"
+        android:strokeWidth="3.5"
+        android:strokeColor="#FFFFFF"
+        android:strokeLineCap="round" />
 </vector>

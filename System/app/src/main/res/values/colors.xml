@@ -1,39 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="primary">#5421AC</color>
-    <color name="primary_container">#6C3FC5</color>
-    <color name="primary_fixed">#EADDFF</color>
-    <color name="primary_fixed_dim">#D2BCFF</color>
+    <!-- Crimson Red & Gold Palette (Spartan / BatStateU Brand) -->
+    <color name="primary">#990022</color>
+    <color name="primary_container">#C71536</color>
+    <color name="primary_fixed">#FFDAD6</color>
+    <color name="primary_fixed_dim">#F2B8B5</color>
     <color name="on_primary">#FFFFFF</color>
-    <color name="on_primary_container">#DFCEFF</color>
-    <color name="on_primary_fixed">#24005B</color>
+    <color name="on_primary_container">#FFFFFF</color>
+    <color name="on_primary_fixed">#410002</color>
 
-    <color name="secondary">#6E47B8</color>
-    <color name="secondary_container">#B088FE</color>
-    <color name="secondary_fixed">#EBDDFF</color>
-    <color name="on_secondary">#FFFFFF</color>
-    <color name="on_secondary_fixed">#250059</color>
+    <color name="secondary">#D4AF37</color>
+    <color name="secondary_container">#F3E5AB</color>
+    <color name="secondary_fixed">#FEF2C7</color>
+    <color name="on_secondary">#3D2E00</color>
+    <color name="on_secondary_fixed">#261B00</color>
 
-    <color name="tertiary">#474257</color>
-    <color name="tertiary_container">#5F596F</color>
-    <color name="tertiary_fixed">#E7DEF9</color>
+    <color name="tertiary">#6B4E55</color>
+    <color name="tertiary_container">#F3D9E0</color>
+    <color name="tertiary_fixed">#FCDAE3</color>
     <color name="on_tertiary">#FFFFFF</color>
 
-    <color name="surface">#FDF7FF</color>
-    <color name="surface_dim">#DED7E5</color>
-    <color name="surface_bright">#FDF7FF</color>
+    <color name="surface">#FAF3F3</color>
+    <color name="surface_dim">#E8D6D6</color>
+    <color name="surface_bright">#FFF8F8</color>
     <color name="surface_container_lowest">#FFFFFF</color>
-    <color name="surface_container_low">#F8F1FF</color>
-    <color name="surface_container">#F2EBF9</color>
-    <color name="surface_container_high">#EDE5F4</color>
-    <color name="surface_container_highest">#E7E0EE</color>
-    <color name="background">#FDF7FF</color>
+    <color name="surface_container_low">#F4ECEC</color>
+    <color name="surface_container">#EEE6E6</color>
+    <color name="surface_container_high">#E8E0E0</color>
+    <color name="surface_container_highest">#E2DADA</color>
+    <color name="background">#FAF3F3</color>
 
-    <color name="on_surface">#1D1A24</color>
-    <color name="on_surface_variant">#4A4453</color>
-    <color name="on_background">#1D1A24</color>
-    <color name="outline">#7B7485</color>
-    <color name="outline_variant">#CCC3D5</color>
+    <color name="on_surface">#221A1A</color>
+    <color name="on_surface_variant">#534343</color>
+    <color name="on_background">#221A1A</color>
+    <color name="outline">#857373</color>
+    <color name="outline_variant">#D8C2C2</color>
 
     <color name="status_available">#15803D</color>
     <color name="status_available_bg">#DCFCE7</color>
@@ -49,15 +50,16 @@
 
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="grey">#7B7485</color>
-    <color name="neutral">#F8F1FF</color>
+    <color name="grey">#857373</color>
+    <color name="neutral">#F4ECEC</color>
 
-    <color name="purple_primary">#5421AC</color>
-    <color name="purple_secondary">#250059</color>
-    <color name="purple_tertiary">#EADDFF</color>
-    <color name="purple_5th">#24005B</color>
-    <color name="purple_4th">#5421AC</color>
-    <color name="purple_3rd">#6E47B8</color>
-    <color name="purple_2nd">#F2EBF9</color>
-    <color name="purple_1st">#FDF7FF</color>
+    <!-- Legacy / Compatibility color aliases -->
+    <color name="purple_primary">#990022</color>
+    <color name="purple_secondary">#410002</color>
+    <color name="purple_tertiary">#FFDAD6</color>
+    <color name="purple_5th">#410002</color>
+    <color name="purple_4th">#990022</color>
+    <color name="purple_3rd">#D4AF37</color>
+    <color name="purple_2nd">#EEE6E6</color>
+    <color name="purple_1st">#FAF3F3</color>
 </resources>
