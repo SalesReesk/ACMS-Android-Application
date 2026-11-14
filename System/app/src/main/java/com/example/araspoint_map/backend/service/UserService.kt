@@ -1,13 +1,14 @@
 package com.example.araspoint_map.backend.service
 
 import com.example.araspoint_map.backend.model.User
+import com.example.araspoint_map.backend.repository.IUserRepository
 import com.example.araspoint_map.backend.repository.UserRepository
 
 class UserService(
-    private val userRepository: UserRepository = UserRepository()
-) {
+    private val userRepository: IUserRepository = UserRepository()
+) : IUserService {
 
-    suspend fun addUser(user: User) = userRepository.addUser(user)
+    override suspend fun addUser(user: User) = userRepository.addUser(user)
 
-    suspend fun getAllUsers() = userRepository.getAllUsers()
+    override suspend fun getAllUsers() = userRepository.getAllUsers()
 }
