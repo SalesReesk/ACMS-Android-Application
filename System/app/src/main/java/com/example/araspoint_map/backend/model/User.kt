@@ -10,4 +10,7 @@ data class User(
     val idNumber: String = "",
     val campus: String = "BatStateU ARASOF-Nasugbu",
     val photo: String = ""
-)
+) : Mappable {
+    override val identifier: String
+        get() = userId
+}

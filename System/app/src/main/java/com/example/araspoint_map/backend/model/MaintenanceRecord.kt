@@ -17,4 +17,7 @@ data class MaintenanceRecord(
     var reporterEmail: String = "",
     var assignedTo: String = "",
     var photo: String = ""
-)
+) : Mappable {
+    override val identifier: String
+        get() = reportId
+}

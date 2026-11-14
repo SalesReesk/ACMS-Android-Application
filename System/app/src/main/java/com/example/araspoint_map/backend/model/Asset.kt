@@ -13,7 +13,10 @@ data class Asset(
     var condition: AssetCondition = AssetCondition.GOOD,
     var photo: String = "",
     var remarks: String = ""
-) {
+) : Mappable {
+    override val identifier: String
+        get() = assetId
+
     companion object {
         private var nextId = 1
 

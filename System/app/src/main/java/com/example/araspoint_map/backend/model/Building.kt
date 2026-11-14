@@ -11,7 +11,10 @@ data class Building(
     val description: String = "",
     val department: String = "",
     val boundaryPoints: List<Pair<Double, Double>> = emptyList()
-) {
+) : Mappable {
+    override val identifier: String
+        get() = id
+
     fun toGeoNode(): GeoNode {
         return GeoNode(
             id = id,

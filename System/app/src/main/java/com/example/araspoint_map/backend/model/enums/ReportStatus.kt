@@ -1,8 +1,8 @@
 package com.example.araspoint_map.backend.model.enums
 
-enum class ReportStatus {
-    PENDING,
-    IN_PROGRESS,
-    RESOLVED,
-    REJECTED
+enum class ReportStatus(val displayName: String) {
+    PENDING("Pending"),
+    IN_PROGRESS("In Progress"),
+    RESOLVED("Resolved"),
+    REJECTED("Rejected")
 }
