@@ -9,19 +9,19 @@ import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.tasks.await
 
-class AuthRepository {
+class AuthRepository : BaseRepository(), IAuthRepository {
 
     private val auth = FirebaseAuth.getInstance()
     private val firestore = FirebaseFirestore.getInstance()
 
     private val usersCollection = firestore.collection("users")
 
-    suspend fun register(
+    override suspend fun register(
         name: String,
         email: String,
         password: String,
         role: UserRole,
-        idNumber: String = ""
+        idNumber: String
     ): Result<User> {
 
         return try {
@@ -67,7 +67,7 @@ class AuthRepository {
         }
     }
 
-    suspend fun login(
+    override suspend fun login(
         email: String,
         password: String
     ): Result<User> {
@@ -115,7 +115,8 @@ class AuthRepository {
                     name = email.substringBefore("@"),
                     email = email,
                     password = password,
-                    role = fallbackRole
+                    role = fallbackRole,
+                    idNumber = ""
                 )
                 if (registerResult.isSuccess) {
                     registerResult
@@ -157,11 +158,16 @@ class AuthRepository {
         }
     }
 
-    fun logout() {
+    override fun logout() {
         auth.signOut()
     }
 
-    suspend fun sendEmailVerification(): Result<Unit>  {
+    override suspend fun getCurrentUser(): User? {
+        val uid = auth.currentUser?.uid ?: return null
+        return getUser(uid)
+    }
+
+    override suspend fun sendEmailVerification(): Result<Unit>  {
         return try {
             auth.currentUser?.sendEmailVerification()?.await()
                 ?: return Result.failure(Exception("User not logged in."))
@@ -171,7 +177,7 @@ class AuthRepository {
         }
     }
 
-    suspend fun reloadUser(): Boolean {
+    override suspend fun reloadUser(): Boolean {
         return try {
             auth.currentUser?.reload()?.await()
             auth.currentUser?.isEmailVerified == true
@@ -180,7 +186,7 @@ class AuthRepository {
         }
     }
 
-    suspend fun getUserRole(): UserRole? {
+    override suspend fun getUserRole(): UserRole? {
 
         val uid = auth.currentUser?.uid
             ?: return null
@@ -188,12 +194,12 @@ class AuthRepository {
         return getUser(uid)?.role
     }
 
-    suspend fun getFullUser(): User? {
+    override suspend fun getFullUser(): User? {
         val uid = auth.currentUser?.uid?: return null
         return getUser(uid)
     }
 
-    suspend fun updateUserProfile(name: String): Result<Unit> {
+    override suspend fun updateUserProfile(name: String): Result<Unit> {
         return try {
             val firebaseUser = auth.currentUser ?: return Result.failure(Exception("User not logged in."))
             if (name.isNotBlank()) {
@@ -211,7 +217,7 @@ class AuthRepository {
         }
     }
 
-    suspend fun getMaintenanceUsers(): List<User> {
+    override suspend fun getMaintenanceUsers(): List<User> {
         return try {
             val snapshot = usersCollection.whereEqualTo("role", UserRole.MAINTENANCE.name).get().await()
             snapshot.documents.mapNotNull { it.toObject(User::class.java) }
@@ -220,7 +226,7 @@ class AuthRepository {
         }
     }
 
-    suspend fun getAllUsers(): List<User> {
+    override suspend fun getAllUsers(): List<User> {
         return try {
             val snapshot = usersCollection.get().await()
             snapshot.documents.mapNotNull { it.toObject(User::class.java) }
@@ -229,7 +235,7 @@ class AuthRepository {
         }
     }
 
-    suspend fun updateUserRole(userId: String, newRole: UserRole): Result<Unit> {
+    override suspend fun updateUserRole(userId: String, newRole: UserRole): Result<Unit> {
         return try {
             usersCollection.document(userId).update("role", newRole).await()
             Result.success(Unit)
@@ -238,7 +244,7 @@ class AuthRepository {
         }
     }
 
-    suspend fun deleteUser(userId: String): Result<Unit> {
+    override suspend fun deleteUser(userId: String): Result<Unit> {
         return try {
             usersCollection.document(userId).delete().await()
             Result.success(Unit)
@@ -246,8 +252,6 @@ class AuthRepository {
             Result.failure(e)
         }
     }
-
-
 
     private suspend fun getUser(
         uid: String

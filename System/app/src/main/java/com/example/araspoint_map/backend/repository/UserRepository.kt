@@ -2,65 +2,49 @@ package com.example.araspoint_map.backend.repository
 
 import com.example.araspoint_map.backend.model.User
 
-class UserRepository {
+class UserRepository : BaseRepository(), IUserRepository {
 
     private val users = mutableListOf<User>()
 
-    suspend fun addUser(user: User): Result<Unit> {
-        return try {
+    override suspend fun addUser(user: User): Result<Unit> {
+        return safeCall {
             users.add(user)
-            Result.success(Unit)
-        } catch (e: Exception) {
-            Result.failure(e)
         }
     }
 
-    suspend fun removeUser(userId: String): Result<Boolean> {
-        return try {
-            val removed = users.removeIf { it.userId == userId }
-            Result.success(removed)
-        } catch (e: Exception) {
-            Result.failure(e)
+    override suspend fun removeUser(userId: String): Result<Boolean> {
+        return safeCall {
+            users.removeIf { it.userId == userId }
         }
     }
 
-    suspend fun updateUser(updatedUser: User): Result<Boolean> {
-        return try {
+    override suspend fun updateUser(updatedUser: User): Result<Boolean> {
+        return safeCall {
             val index = users.indexOfFirst { it.userId == updatedUser.userId }
             if (index == -1) {
-                Result.success(false)
+                false
             } else {
                 users[index] = updatedUser
-                Result.success(true)
+                true
             }
-        } catch (e: Exception) {
-            Result.failure(e)
         }
     }
 
-    suspend fun findUser(userId: String): Result<User?> {
-        return try {
-            val user = users.find { it.userId == userId }
-            Result.success(user)
-        } catch (e: Exception) {
-            Result.failure(e)
+    override suspend fun findUser(userId: String): Result<User?> {
+        return safeCall {
+            users.find { it.userId == userId }
         }
     }
 
     suspend fun findUserByEmail(email: String): Result<User?> {
-        return try {
-            val user = users.find { it.email == email }
-            Result.success(user)
-        } catch (e: Exception) {
-            Result.failure(e)
+        return safeCall {
+            users.find { it.email == email }
         }
     }
 
-    suspend fun getAllUsers(): Result<List<User>> {
-        return try {
-            Result.success(users.toList())
-        } catch (e: Exception) {
-            Result.failure(e)
+    override suspend fun getAllUsers(): Result<List<User>> {
+        return safeCall {
+            users.toList()
         }
     }
 }

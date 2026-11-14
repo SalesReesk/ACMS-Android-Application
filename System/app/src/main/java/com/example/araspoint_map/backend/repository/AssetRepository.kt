@@ -4,55 +4,40 @@ import com.example.araspoint_map.backend.model.Asset
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.tasks.await
 
-class AssetRepository {
+class AssetRepository : BaseRepository(), IAssetRepository {
 
     private val firestore = FirebaseFirestore.getInstance()
     private val assetsCollection = firestore.collection("assets")
 
-    suspend fun getAssets(): Result<List<Asset>> {
-        return try {
+    override suspend fun getAssets(): Result<List<Asset>> {
+        return safeCall {
             val snapshot = assetsCollection.get().await()
-            val assetsList = snapshot.documents.mapNotNull { it.toObject(Asset::class.java) }
-            Result.success(assetsList)
-        } catch (e: Exception) {
-            Result.failure(e)
+            snapshot.documents.mapNotNull { it.toObject(Asset::class.java) }
         }
     }
 
-    suspend fun findAsset(assetId: String): Result<Asset?> {
-        return try {
+    override suspend fun findAsset(assetId: String): Result<Asset?> {
+        return safeCall {
             val document = assetsCollection.document(assetId).get().await()
-            val asset = document.toObject(Asset::class.java)
-            Result.success(asset)
-        } catch (e: Exception) {
-            Result.failure(e)
+            document.toObject(Asset::class.java)
         }
     }
 
-    suspend fun addAsset(asset: Asset): Result<Unit> {
-        return try {
+    override suspend fun addAsset(asset: Asset): Result<Unit> {
+        return safeCall {
             assetsCollection.document(asset.assetId).set(asset).await()
-            Result.success(Unit)
-        } catch (e: Exception) {
-            Result.failure(e)
         }
     }
 
-    suspend fun updateAsset(asset: Asset): Result<Unit> {
-        return try {
+    override suspend fun updateAsset(asset: Asset): Result<Unit> {
+        return safeCall {
             assetsCollection.document(asset.assetId).set(asset).await()
-            Result.success(Unit)
-        } catch (e: Exception) {
-            Result.failure(e)
         }
     }
 
-    suspend fun removeAsset(assetId: String): Result<Unit> {
-        return try {
+    override suspend fun removeAsset(assetId: String): Result<Unit> {
+        return safeCall {
             assetsCollection.document(assetId).delete().await()
-            Result.success(Unit)
-        } catch (e: Exception) {
-            Result.failure(e)
         }
     }
 }
